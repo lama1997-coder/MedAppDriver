@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_menu_sc5: {
-                startActivity(new Intent(MainActivity.this,NewRequestDetails.class));
+                startActivity(new Intent(MainActivity.this,CartItems.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             }

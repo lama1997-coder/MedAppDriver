@@ -22,13 +22,13 @@ import com.magsood.medappuser.Utils.SqlLiteDataBase;
 import java.util.ArrayList;
 
 
-public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResult.ViewHolder> {
+public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
 
-    ArrayList<ModelSearch> arrayList;
+    ArrayList<ModelCart> arrayList;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Activity activity;
-    public AdapterSearchResult(Activity activity, ArrayList<ModelSearch> arrayList) {
+    public AdapterCart(Activity activity, ArrayList<ModelCart> arrayList) {
         this.mInflater = LayoutInflater.from(activity);
         this.arrayList = arrayList;
         this.activity = activity;
@@ -37,41 +37,32 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.search_results_item, parent, false);
+        View view = mInflater.inflate(R.layout.cart_items, parent, false);
         return new ViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ModelSearch item = arrayList.get(position);
+        final ModelCart item = arrayList.get(position);
 
-//
-
-        holder.textViewAddToCart.setOnClickListener(new View.OnClickListener() {
+        holder.textViewName.setText(item.getName());
+        holder.textViewPrice.setText(item.getPrice());
+        holder.textViewPhName.setText(item.getPharmacyName());
+        holder.textViewAddress.setText(item.getPharmacyAddress());
+        holder.textViewDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ModelCart modelCart = new ModelCart();
-                modelCart.setId(position+"");
-                modelCart.setName("انسولين"+position);
-                modelCart.setPharmacyAddress("بحري المحطة الوسطي"+position);
-                modelCart.setPharmacyName("صيدلية يقين"+position);
-                modelCart.setPrice("200 SDG"+position);
-                modelCart.setPharmacyLat("");
-                modelCart.setPharmacyLong("");
-                if (AddToCart(modelCart)){
-                    Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
+                if (delFromCart(item.getId())){
+                    Toast.makeText(activity, "تم الحذف", Toast.LENGTH_SHORT).show();
+                    arrayList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, arrayList.size());
                 }else{
-                    Toast.makeText(activity, "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "حدث خطأ حاول مرة اخرى", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-//        holder.layDeliev.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showDialog();
-//            }
-//        });
 
 
     }
@@ -96,7 +87,7 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout container,layDeliev;
         AppCompatButton buttonSubscription;
-        TextView textViewAddToCart,textView_type,textView_release_type,textView_release_time;
+        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel;
         ImageView imageView;
 
 
@@ -104,15 +95,15 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
             super(itemView);
 
 
-//            imageView = itemView.findViewById(R.id.img);
-//            container = itemView.findViewById(R.id.container);
-//            buttonSubscription = itemView.findViewById(R.id.btn_sub);
-//            textView_title = itemView.findViewById(R.id.txtPharmachy);
-//            layDeliev = itemView.findViewById(R.id.layDeliev);
+            textViewName = itemView.findViewById(R.id.med_name);
+            textViewPrice = itemView.findViewById(R.id.price);
+            textViewPhName = itemView.findViewById(R.id.ph_name);
+            textViewAddress = itemView.findViewById(R.id.address);
+            textViewDel = itemView.findViewById(R.id.del);
 
 //            textView_type = itemView.findViewById(R.id.news_item_type);
 //            textView_release_type = itemView.findViewById(R.id.news_item_release_type);
-            textViewAddToCart = itemView.findViewById(R.id.txtAddToCart);
+
 
             itemView.setOnClickListener(this);
         }
@@ -140,8 +131,8 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
         deleteDialog.show();
     }
 
-    private boolean AddToCart(ModelCart modelCart){
-        return new SqlLiteDataBase(activity).AddToCart(modelCart);
+    private boolean delFromCart(String id){
+        return new SqlLiteDataBase(activity).deleteRowFromCart(id);
     }
 
 }

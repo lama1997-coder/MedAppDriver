@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.magsood.medappuser.Activity.OnProgressRequest"></activity>
-        <activity android:name="com.magsood.medappuser.Activity.SearchActivity" />
-        <activity android:name="com.magsood.medappuser.Activity.SettingActivity" />
+        <activity android:name=".Activity.CartItems"></activity>
+        <activity android:name=".Activity.OnProgressRequest" />
+        <activity android:name=".Activity.SearchActivity" />
+        <activity android:name=".Activity.SettingActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -21,14 +22,14 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <activity
-            android:name="com.magsood.medappuser.Activity.MapsActivity"
+            android:name=".Activity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name="com.magsood.medappuser.Activity.PinCode" />
-        <activity android:name="com.magsood.medappuser.Activity.NewRequestDetails" />
-        <activity android:name="com.magsood.medappuser.Activity.NewRequest" />
-        <activity android:name="com.magsood.medappuser.Activity.Register" />
-        <activity android:name="com.magsood.medappuser.Activity.Login" />
-        <activity android:name="com.magsood.medappuser.Activity.MainActivity">
+        <activity android:name=".Activity.PinCode" />
+        <activity android:name=".Activity.NewRequestDetails" />
+        <activity android:name=".Activity.NewRequest" />
+        <activity android:name=".Activity.Register" />
+        <activity android:name=".Activity.Login" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
