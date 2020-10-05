@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity"
+    android:background="@drawable/bg_login">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/public_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="Verify your nomber"
+        app:titleTextColor="@android:color/white"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/public_toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_marginTop="@dimen/margin_small_size"
+                        android:id="@+id/ic_person"
+                        android:layout_width="62dp"
+                        android:layout_height="62dp"
+                        android:src="@drawable/ic_user"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_small_size"
+                        android:layout_below="@+id/ic_person"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Enter 4 digit code bellow\n to verify your login"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.50">
+                <LinearLayout
+                    android:layout_marginTop="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <com.goodiebag.pinview.Pinview
+                        android:gravity="center"
+                        android:layoutDirection="ltr"
+                        app:textSize="@dimen/txt_normal_size"
+                        android:id="@+id/pinview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:pinWidth="40dp"
+                        app:pinHeight="40dp"
+                        app:pinLength="4"
+                        app:cursorVisible="true"
+                        app:forceKeyboard="false"
+                        app:inputType="number"
+                        app:password="false"
+                        app:pinBackground="@drawable/pin_bg"
+                        />
+                    <RelativeLayout
+                        android:layoutDirection="rtl"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="180dp"
+                        android:layout_height="45dp"
+                        android:background="@drawable/btn_bg">
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_go"
+                            android:id="@+id/ic_go"
+                            />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Verify"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="If not receive press"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/txt_large_size"
+                        android:layout_margin="@dimen/margin_small_size"/>
+                    <TextView
+                        android:layout_margin="@dimen/margin_small_size"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Resend"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/txt_large_size"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

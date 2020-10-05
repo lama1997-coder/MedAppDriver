@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:layoutDirection="rtl"
+    android:id="@+id/container">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/txt_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_size"
+        app:cardCornerRadius="@dimen/margin_normal_size">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/ic_search"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="2dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_mic"
+                android:layout_centerVertical="true"
+                tools:ignore="RtlHardcoded" />
+
+            <ImageView
+                android:id="@+id/ic_back"
+                android:layout_alignParentRight="true"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="2dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_back_black"
+                android:layout_centerVertical="true"
+                tools:ignore="RtlHardcoded" />
+            <EditText
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:layout_toLeftOf="@+id/ic_back"
+                android:padding="5dp"
+                android:id="@+id/txtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="اكتب للبحث ..."
+                android:background="@android:color/transparent"
+                android:textSize="@dimen/txt_normal_size"
+                android:layout_toRightOf="@+id/ic_search"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/txt_search"
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/search_results_item"
+        />
+
+
+</RelativeLayout>

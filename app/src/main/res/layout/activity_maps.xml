@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="rtl">
+    <include layout="@layout/public_toolbar"
+        android:id="@+id/toolbar"/>
+    <fragment
+        android:layout_below="@+id/toolbar"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Activity.MapsActivity" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn"
+        android:layout_marginTop="@dimen/margin_normal_size"
+        android:textColor="@android:color/white"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:text="استلام"
+        android:textSize="@dimen/txt_large_size"
+        android:background="@drawable/btn_bg_blue"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_normal_size"/>
+    <androidx.cardview.widget.CardView
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/margin_large_size"
+        android:layout_marginRight="@dimen/margin_large_size"
+        android:layout_marginLeft="@dimen/margin_large_size"
+        app:cardBackgroundColor="@color/cardColor">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_place_map"
+                android:layout_margin="@dimen/margin_normal_size"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_large_size"
+                android:text="صيدلية مكة"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+
