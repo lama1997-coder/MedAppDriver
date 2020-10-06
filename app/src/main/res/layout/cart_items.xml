@@ -28,7 +28,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/ic_place_808080"/>
                 <TextView
-                    android:id="@+id/txtAddToCart"
+                    android:id="@+id/txtShowMap"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textStyle="bold"

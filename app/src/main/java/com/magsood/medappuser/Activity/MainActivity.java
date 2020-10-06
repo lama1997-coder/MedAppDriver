@@ -112,6 +112,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             }
+            case R.id.nav_menu_sc7: {
+                startActivity(new Intent(MainActivity.this,PaymentsActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            }
         }
         return true;
     }

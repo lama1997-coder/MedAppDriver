@@ -13,7 +13,7 @@
             android:id="@+id/second_menu_group">
             <item
                 android:id="@+id/nav_menu_my_order"
-                android:title="طلباتي"
+                android:title="طلبات سابقة"
                 />
         </group>
         <group android:checkableBehavior="none"
@@ -48,6 +48,10 @@
             <item
                 android:id="@+id/nav_menu_sc6"
                 android:title="شاشة عرض الخرائط"
+                />
+            <item
+                android:id="@+id/nav_menu_sc7"
+                android:title="شاشة الدفع الالكتروني"
                 />
         </group>
     </group>

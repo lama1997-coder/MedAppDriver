@@ -3,6 +3,7 @@ package com.magsood.medappuser.Activity;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,8 @@ public class MapsActivity extends ToolbarClass implements OnMapReadyCallback {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog();
+//                showDialog();
+                startActivity(new Intent(MapsActivity.this,SendRequest.class));
             }
         });
     }

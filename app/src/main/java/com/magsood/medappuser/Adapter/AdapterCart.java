@@ -2,6 +2,7 @@ package com.magsood.medappuser.Adapter;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.magsood.medappuser.Activity.MapsActivity;
 import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.Model.ModelSearch;
 import com.magsood.medappuser.R;
@@ -65,6 +67,14 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         });
 
 
+        holder.txtShowMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.startActivity(new Intent(activity, MapsActivity.class));
+            }
+        });
+
+
     }
 
 
@@ -87,7 +97,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout container,layDeliev;
         AppCompatButton buttonSubscription;
-        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel;
+        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel,txtShowMap;
         ImageView imageView;
 
 
@@ -101,7 +111,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
             textViewAddress = itemView.findViewById(R.id.address);
             textViewDel = itemView.findViewById(R.id.del);
 
-//            textView_type = itemView.findViewById(R.id.news_item_type);
+            txtShowMap = itemView.findViewById(R.id.txtShowMap);
 //            textView_release_type = itemView.findViewById(R.id.news_item_release_type);
 
 

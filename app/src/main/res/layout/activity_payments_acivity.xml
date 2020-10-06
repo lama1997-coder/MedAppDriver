@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.magsood.medappuser.Activity.SendRequest"
+    android:layoutDirection="rtl">
+
+    <include layout="@layout/public_toolbar"
+        android:id="@+id/toolbar"/>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_normal_size">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:cardBackgroundColor="@color/cardColor"
+                app:cardCornerRadius="@dimen/margin_normal_size">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/txt_large_size"
+                    android:text="طلب رقم 12345"/>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:background="@drawable/txt_bg_pay"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:text="رقم البطاقة المرسل منها"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_normal_size"
+                />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_marginTop="@dimen/margin_small_size"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/margin_small_size"
+                    android:paddingLeft="@dimen/margin_small_size"
+                    android:text="123456785412586"
+                    android:hint="رقم البطاقة المرسل منها"
+                    android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:background="@drawable/txt_bg_pay"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_normal_size"
+                android:gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:text="تاريخ انتهاء البطاقة"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_normal_size"
+                />
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_marginTop="@dimen/margin_small_size">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="right">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="@dimen/txt_normal_size"
+                        android:layout_gravity="center_vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/ic_drop"
+                                android:layout_centerVertical="true"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentLeft="true"
+                                android:src="@drawable/ic_drop_down"/>
+                            <Spinner
+                                android:id="@+id/spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:layout_toRightOf="@+id/ic_drop"/>
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="left">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="@dimen/txt_normal_size"
+                        android:layout_gravity="center_vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:id="@+id/ic_drop2"
+                                android:layout_centerVertical="true"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentLeft="true"
+                                android:src="@drawable/ic_drop_down"/>
+                            <Spinner
+                                android:id="@+id/spinner2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@android:color/transparent"
+                                android:layout_toRightOf="@+id/ic_drop2"/>
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:background="@drawable/txt_bg_pay"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_normal_size"
+                android:gravity="center"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:text="رقم الانترنت السري"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/txt_normal_size"
+                />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginTop="@dimen/margin_small_size"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:paddingRight="@dimen/margin_small_size"
+                android:paddingLeft="@dimen/margin_small_size"
+                android:text="123456785412586"
+                android:hint="ادخل رقم الانترنت السري"
+                android:inputType="textPassword"
+                android:textColor="@color/colorPrimary"/>
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:textSize="@dimen/txt_large_size"
+                android:text="ارسال"
+                android:textColor="@android:color/white"
+                android:background="@color/colorPrimary"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>
