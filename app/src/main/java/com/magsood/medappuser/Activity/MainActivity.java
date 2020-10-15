@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_menu_my_order: {
-                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(MainActivity.this,PinCode.class));
+//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,MyOrder.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             }

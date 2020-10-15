@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.PaymentsActivity"></activity>
+        <activity android:name=".Activity.PaymentsActivity"/>
+        <activity android:name=".Activity.MyOrder" />
         <activity android:name=".Activity.SendRequest" />
         <activity android:name=".Activity.CartItems" />
         <activity android:name=".Activity.OnProgressRequest" />

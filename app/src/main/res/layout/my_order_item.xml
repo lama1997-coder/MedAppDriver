@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/margin_normal_size"
+    android:layout_margin="@dimen/margin_small_size">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layoutDirection="ltr">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <ImageView
+                android:src="@drawable/ic_request_done"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/request_state_icon"
+                android:layout_alignParentStart="true" />
+            <ImageView
+                android:src="@drawable/ic_req_point"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/request_state_icon2"/>
+            <TextView
+                android:id="@+id/txtPharmachy"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/request_state_icon"
+                android:text="طلب رقم 12345"
+                android:gravity="center_vertical"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/txt_normal_size"
+                android:layout_toLeftOf="@+id/request_state_icon2"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:background="@drawable/rec_new_item_bg"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginRight="@dimen/margin_normal_size"
+            android:layout_marginLeft="@dimen/margin_normal_size">
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:src="@drawable/ic_money"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true" />
+            <TableLayout
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow
+                    android:weightSum="1">
+                    <LinearLayout android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="قيمة الدواء"
+                            android:textSize="10sp"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="6.000 SDG"
+                            android:textSize="@dimen/txt_normal_size14"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimary"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="التوصيل"
+                            android:textSize="10sp"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100 SDG"
+                            android:textSize="@dimen/txt_normal_size14"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimary"/>
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layoutDirection="rtl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_normal_size"
+            android:layout_marginRight="@dimen/margin_normal_size">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="13-10-2020"
+                android:textSize="@dimen/txt_normal_size14"
+                android:drawableLeft="@drawable/ic_calendar"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:drawablePadding="@dimen/margin_small_size"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
