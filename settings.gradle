@@ -1,2 +1,4 @@
+include ':ion-2.1.6'
+include ':ion-2.1.6'
 include ':app'
 rootProject.name = "MedAppDriver"
