@@ -43,11 +43,12 @@
                 android:layout_centerVertical="true"
                 tools:ignore="RtlHardcoded" />
             <EditText
+
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:layout_toLeftOf="@+id/ic_back"
                 android:padding="5dp"
-                android:id="@+id/txtSearch"
+                android:id="@+id/editsearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="اكتب للبحث ..."

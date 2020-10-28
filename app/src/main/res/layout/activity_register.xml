@@ -138,7 +138,7 @@
                         android:drawableLeft="@drawable/ic_pass"
                         android:drawablePadding="10dp"
                         android:drawableStart="@drawable/ic_pass"
-                        android:inputType="textPassword"/>
+                        android:inputType="text"/>
 
 
                     <RelativeLayout

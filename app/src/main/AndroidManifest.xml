@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.magsood.medappuser">
 
 
@@ -15,7 +16,8 @@
         android:supportsRtl="true"
         android:largeHeap="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:targetApi="m">
         <activity android:name=".Activity.PaymentsActivity"/>
         <activity android:name=".Activity.MyOrder" />
         <activity android:name=".Activity.SendRequest" />

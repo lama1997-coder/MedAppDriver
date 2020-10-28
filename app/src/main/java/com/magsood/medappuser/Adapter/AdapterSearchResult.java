@@ -48,19 +48,26 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ModelSearch item = arrayList.get(position);
 
+        holder.location.setText(item.getLocation());
+        holder.pharmacyName.setText(item.getCompnayName());
+        holder.price.setText(item.getPrice());
+        holder.description.setText(item.getDescription());
+
+
+
 //
 
         holder.textViewAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ModelCart modelCart = new ModelCart();
-                modelCart.setId(position+"");
-                modelCart.setName("انسولين"+position);
-                modelCart.setPharmacyAddress("بحري المحطة الوسطي"+position);
-                modelCart.setPharmacyName("صيدلية يقين"+position);
-                modelCart.setPrice("200 SDG"+position);
-                modelCart.setPharmacyLat("");
-                modelCart.setPharmacyLong("");
+                modelCart.setId(item.getId());
+                modelCart.setName(item.getTradeName());
+                modelCart.setPharmacyAddress(item.getLocation());
+                modelCart.setPharmacyName(item.getCompnayName());
+                modelCart.setPrice(item.getPrice());
+                modelCart.setPharmacyLat(item.getLat());
+                modelCart.setPharmacyLong(item.getLng());
                 if (AddToCart(modelCart)){
                     Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
                 }else{
@@ -98,12 +105,17 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout container,layDeliev;
         AppCompatButton buttonSubscription;
-        TextView textViewAddToCart,txtShowMap,textView_release_type,textView_release_time;
+        TextView textViewAddToCart,txtShowMap,price, pharmacyName, description,location;
         ImageView imageView;
 
 
         ViewHolder(View itemView) {
             super(itemView);
+
+            price = itemView.findViewById(R.id.price);
+            pharmacyName = itemView.findViewById(R.id.txtPharmachy);
+            description = itemView.findViewById(R.id.desc);
+            location = itemView.findViewById(R.id.location);
 
 
 //            imageView = itemView.findViewById(R.id.img);

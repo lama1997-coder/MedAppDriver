@@ -9,7 +9,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     private GoogleMap mMap;
@@ -48,6 +51,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this,SearchActivity.class));
             }
         });
+
+
+        UserPreferences userPreferences= new UserPreferences(this);
+
+        if(userPreferences.getUserId().equals("")){
+
+           hideItem();
+
+        }
+        else {
+            hideItemReg();
+        }
         toolbar = findViewById(R.id.public_toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.n_drawer);
@@ -59,6 +74,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    private void hideItemReg() {
+
+
+        navigationView = (NavigationView) findViewById(R.id.n_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_menu_sc1).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_sc2).setVisible(false);
     }
 
     @Override
@@ -130,5 +154,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
+    private void hideItem()
+    {
+        navigationView = (NavigationView) findViewById(R.id.n_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_menu_setting).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_balance).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_sc4).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_sc5).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_sc7).setVisible(false);
+
+    }
 
 }

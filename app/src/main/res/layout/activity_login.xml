@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity"
+    tools:context=".Activity.Login"
     android:background="@drawable/bg_login">
 
     <androidx.appcompat.widget.Toolbar
@@ -37,6 +37,7 @@
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
             <RelativeLayout
+
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -48,6 +49,7 @@
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
                     <EditText
+                        android:id="@+id/phoneNumber"
                         android:paddingRight="5dp"
                         android:paddingLeft="5dp"
                         android:background="@drawable/edt_bg"
@@ -59,7 +61,21 @@
                         android:drawablePadding="10dp"
                         android:drawableStart="@drawable/ic_phone"
                         android:inputType="phone"/>
+                    <EditText
+                        android:id="@+id/password"
+                        android:paddingRight="5dp"
+                        android:paddingLeft="5dp"
+                        android:background="@drawable/edt_bg"
+                        android:layout_width="260dp"
+                        android:layout_height="45dp"
+                        android:hint="password"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/ic_phone"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@drawable/ic_phone"
+                        android:inputType="textPassword"/>
                     <RelativeLayout
+                        android:onClick="login"
                         android:layoutDirection="rtl"
                         android:layout_marginTop="20dp"
                         android:layout_width="180dp"
