@@ -7,8 +7,62 @@
     android:background="@color/colorPrimary"
     android:layoutDirection="rtl"
     android:id="@+id/container">
-
+<RelativeLayout
+    android:layout_marginTop="@dimen/margin_normal_size"
+    android:id="@+id/r1"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+    <LinearLayout
+        android:background="@drawable/shape_back_circle"
+        android:layout_marginLeft="@dimen/margin_small_size"
+        android:layout_marginRight="@dimen/margin_small_size"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_arrow_back"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_small_size"
+        android:layout_marginRight="@dimen/margin_small_size"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"
+            android:layout_marginRight="@dimen/margin_small_size"
+            android:layout_marginLeft="@dimen/margin_small_size"/>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/white"
+            android:layout_marginRight="@dimen/margin_small_size"
+            android:layout_marginLeft="@dimen/margin_small_size"/>
+        <View
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_width="15dp"
+            android:layout_height="1dp"
+            android:background="@android:color/white"
+            android:layout_marginRight="@dimen/margin_small_size"
+            android:layout_marginLeft="@dimen/margin_small_size"/>
+    </LinearLayout>
+</RelativeLayout>
     <androidx.cardview.widget.CardView
+        android:layout_below="@+id/r1"
         android:id="@+id/txt_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

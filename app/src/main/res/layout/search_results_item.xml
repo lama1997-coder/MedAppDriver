@@ -68,7 +68,10 @@
                             android:text="الخرطوم - شارع الستين - محطة الفردوس"
                             android:gravity="center_vertical"
                             android:layout_marginRight="@dimen/margin_normal_size"
-                            android:layout_marginLeft="@dimen/margin_normal_size"/>
+                            android:layout_marginLeft="@dimen/margin_normal_size"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            />
 
                     </LinearLayout>
                 </LinearLayout>

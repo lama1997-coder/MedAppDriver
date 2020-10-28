@@ -4,15 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
     android:layoutDirection="rtl"
     android:id="@+id/container">
 
-    <include layout="@layout/public_toolbar"
-        android:id="@+id/toolbar"/>
+
+    <RelativeLayout
+        android:background="@color/colorPrimary"
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <LinearLayout
+            android:background="@drawable/shape_back_circle"
+            android:layout_marginLeft="@dimen/margin_small_size"
+            android:layout_marginRight="@dimen/margin_small_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_arrow_back"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="@dimen/margin_small_size"
+            android:layout_marginRight="@dimen/margin_small_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/white"
+                android:layout_marginRight="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_small_size"/>
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/white"
+                android:layout_marginRight="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_small_size"/>
+            <View
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp"
+                android:layout_width="15dp"
+                android:layout_height="1dp"
+                android:background="@android:color/white"
+                android:layout_marginRight="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_small_size"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/r2"
+        android:layout_below="@+id/r1"
+        android:background="@drawable/bg_new_reg_top">
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ســلة"
+                android:textSize="41sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="طلبات الادوية"
+                android:textSize="40sp"/>
+        </LinearLayout>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/r2"
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +104,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:visibility="gone"
         android:id="@+id/btn"
         android:layout_marginTop="@dimen/margin_normal_size"
         android:textColor="@android:color/white"

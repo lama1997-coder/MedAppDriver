@@ -95,9 +95,9 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        LinearLayout container,layDeliev;
+        LinearLayout textViewDel;
         AppCompatButton buttonSubscription;
-        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel,txtShowMap;
+        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,txtShowMap;
         ImageView imageView;
 
 
