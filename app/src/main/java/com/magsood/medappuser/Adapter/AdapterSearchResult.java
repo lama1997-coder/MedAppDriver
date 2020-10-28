@@ -96,9 +96,9 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        LinearLayout container,layDeliev;
+        LinearLayout textViewAddToCart,layDeliev;
         AppCompatButton buttonSubscription;
-        TextView textViewAddToCart,txtShowMap,textView_release_type,textView_release_time;
+        TextView txtShowMap,textView_release_type,textView_release_time;
         ImageView imageView;
 
 

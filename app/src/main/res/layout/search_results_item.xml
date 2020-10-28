@@ -8,7 +8,6 @@
     android:layout_marginRight="@dimen/margin_large_size"
     android:layout_marginTop="@dimen/margin_small_size"
     app:cardCornerRadius="@dimen/margin_normal_size">
-
     <RelativeLayout
         android:id="@+id/c1"
         android:layout_width="match_parent"
@@ -42,7 +41,6 @@
                             android:layout_height="12dp"
                             android:src="@drawable/ic_place_808080"/>
                         <TextView
-                            android:id="@+id/txtAddToCart"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="@android:color/white"
@@ -126,6 +124,7 @@
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
     <LinearLayout
+        android:id="@+id/txtAddToCart"
         android:layout_alignParentLeft="true"
         android:layout_width="30dp"
         android:layout_height="30dp"
