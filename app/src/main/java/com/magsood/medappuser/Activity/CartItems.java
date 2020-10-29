@@ -1,11 +1,14 @@
 package com.magsood.medappuser.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.magsood.medappuser.Adapter.AdapterCart;
 import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.R;
@@ -14,15 +17,19 @@ import com.magsood.medappuser.Utils.ToolbarClass;
 
 import java.util.ArrayList;
 
-public class CartItems extends ToolbarClass {
+public class CartItems extends AppCompatActivity {
     RecyclerView recyclerView;
     AdapterCart adapterCart;
     ArrayList<ModelCart> arrayList;
 
-    protected final void onCreate(Bundle savedInstanceState) {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(R.layout.activity_cart_items, "سلة طلبيات الادوية");
+        setContentView(R.layout.activity_cart_items);
         init();
+
     }
 
     private void init() {

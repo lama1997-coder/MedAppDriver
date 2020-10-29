@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#226499</color>
-    <color name="colorPrimaryDark">#275578</color>
+    <color name="colorPrimary">#2DBB54</color>
+    <color name="colorPrimaryDark">#2DBB54</color>
     <color name="colorAccent">#F3951E</color>
     <color name="colorPrimaryLight">#63a4ff</color>
     <color name="backgroundColor">#F5F5F5</color>
+
+
+    <color name="txtSearch">#303030</color>
+
 
 
     <color name="bg_rec_new">#33808080</color>

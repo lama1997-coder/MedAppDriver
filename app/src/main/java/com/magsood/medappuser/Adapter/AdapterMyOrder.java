@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.magsood.medappuser.Model.ModelMyOrder;
 import com.magsood.medappuser.R;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 
 public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.ViewHolder> {
+
 
     ArrayList<ModelMyOrder> newsPaperArrayList;
     private LayoutInflater mInflater;
