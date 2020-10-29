@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    android:id="@+id/container">
+    android:id="@+id/container"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
 
 
@@ -122,7 +124,8 @@
                 android:text="ارسال الطلب"
                 android:textSize="@dimen/txt_large_size"
                 android:background="@color/colorPrimary"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/margin_normal_size"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
