@@ -2,14 +2,22 @@ package com.magsood.medappuser.Activity;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Utils.ToolbarClass;
 
-public class PinCode extends ToolbarClass {
+public class PinCode extends AppCompatActivity {
 
 
-    protected final void onCreate(Bundle savedInstanceState) {
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(R.layout.activity_pin_code, "تاكيد رقم الهاتف");
+        setContentView(R.layout.activity_pin_code);
+
     }
+
 }

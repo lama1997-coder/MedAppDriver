@@ -365,6 +365,56 @@
 
 
 
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="@dimen/margin_large_size"
+                android:layout_marginRight="@dimen/margin_large_size"
+                android:layout_marginTop="@dimen/margin_small_size"
+                android:layout_marginBottom="@dimen/margin_small_size"
+                android:layout_gravity="left">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/btn_bg_10_radius"
+                    android:layout_margin="@dimen/margin_small_size">
+                    <TextView
+                        android:layout_marginLeft="@dimen/margin_normal_size"
+                        android:layout_marginRight="@dimen/margin_normal_size"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="تسجيل"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/txt_normal_size"
+                        android:textColor="@android:color/white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/shape_circle_green"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:padding="@dimen/margin_small_size">
+                    <LinearLayout
+                        android:background="@drawable/shape_back_circle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
+                        <ImageView
+                            android:scaleType="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_arrow_back"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -410,6 +460,8 @@
 
 
             </LinearLayout>
+
+
             <LinearLayout
                 android:background="@drawable/bg_new_reg"
                 android:layout_width="60dp"

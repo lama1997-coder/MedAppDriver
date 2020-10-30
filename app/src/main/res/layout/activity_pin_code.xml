@@ -1,148 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity"
-    android:background="@drawable/bg_login">
+    tools:context="com.magsood.medappuser.Activity.SendRequest"
+    android:layoutDirection="rtl">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/public_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="Verify your nomber"
-        app:titleTextColor="@android:color/white"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/public_toolbar">
-        <LinearLayout
+        android:layout_height="300dp"
+        android:background="@android:color/transparent">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:background="@drawable/top_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <RelativeLayout
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2">
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_marginTop="@dimen/margin_small_size"
-                        android:id="@+id/ic_person"
-                        android:layout_width="62dp"
-                        android:layout_height="62dp"
-                        android:src="@drawable/ic_user"
-                        android:layout_centerHorizontal="true"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_small_size"
-                        android:layout_below="@+id/ic_person"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Enter 4 digit code bellow\n to verify your login"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp"/>
-                </LinearLayout>
-
-
-            </RelativeLayout>
-            <RelativeLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.50">
-                <LinearLayout
-                    android:layout_marginTop="40dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-                    <com.goodiebag.pinview.Pinview
-                        android:gravity="center"
-                        android:layoutDirection="ltr"
-                        app:textSize="@dimen/txt_normal_size"
-                        android:id="@+id/pinview"
-                        android:layout_width="match_parent"
+                    android:id="@+id/r2">
+                    <LinearLayout
+                        android:layout_marginRight="@dimen/margin_large_size"
+                        android:layout_marginLeft="@dimen/margin_large_size"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:pinWidth="40dp"
-                        app:pinHeight="40dp"
-                        app:pinLength="4"
-                        app:cursorVisible="true"
-                        app:forceKeyboard="false"
-                        app:inputType="number"
-                        app:password="false"
-                        app:pinBackground="@drawable/pin_bg"
-                        />
-                    <RelativeLayout
-                        android:layoutDirection="rtl"
-                        android:layout_marginTop="20dp"
-                        android:layout_width="180dp"
-                        android:layout_height="45dp"
-                        android:background="@drawable/btn_bg">
+                        android:orientation="vertical">
+                        <TextView
+                            android:textColor="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ارسال"
+                            android:textSize="35sp"/>
+                        <TextView
+                            android:textColor="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="طلب"
+                            android:textSize="41sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                >
+                <RelativeLayout
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/r1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:background="@drawable/shape_back_circle"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        >
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_go"
-                            android:id="@+id/ic_go"
-                            />
-                        <TextView
+                            android:src="@drawable/ic_arrow_back"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="Verify"
-                            android:textColor="@android:color/white"
-                            android:textSize="16sp"/>
+                            android:layout_height="1dp"
+                            android:background="@android:color/white"
+                            android:layout_marginRight="@dimen/margin_small_size"
+                            android:layout_marginLeft="@dimen/margin_small_size"/>
+                        <View
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@android:color/white"
+                            android:layout_marginRight="@dimen/margin_small_size"
+                            android:layout_marginLeft="@dimen/margin_small_size"/>
+                        <View
+                            android:layout_gravity="right"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:background="@android:color/white"
+                            android:layout_marginRight="@dimen/margin_small_size"
+                            android:layout_marginLeft="@dimen/margin_small_size"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
 
-                    </RelativeLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
-                </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_normal_size"
+            android:padding="@dimen/margin_large_size"
+            >
 
-                <LinearLayout
-                    android:layout_alignParentBottom="true"
+
+            <TextView
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="التحقق من الهاتف"
+                android:textSize="@dimen/txt_small_size"
+                android:textColor="@color/colorPrimary"
+                />
+            <TextView
+                android:layout_margin="@dimen/margin_normal_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="أدخل 4 أرقام في الأسفل للتأکد من دخول"
+                android:textSize="@dimen/txt_large_size"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="@dimen/margin_normal_size"
+                app:cardCornerRadius="@dimen/margin_normal_size">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="If not receive press"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/txt_large_size"
-                        android:layout_margin="@dimen/margin_small_size"/>
-                    <TextView
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img"
+                        android:background="@drawable/shape_circle"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_margin="@dimen/margin_small_size"
-                        android:textStyle="bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Resend"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/txt_large_size"/>
-                </LinearLayout>
+                        android:src="@drawable/ic_baseline_arrow_left"
+                        android:scaleType="center"/>
 
-            </RelativeLayout>
+
+                    <EditText
+                        android:layout_toRightOf="@+id/img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:text="1234"
+                        android:gravity="center_vertical"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
-    </RelativeLayout>
-
-
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
