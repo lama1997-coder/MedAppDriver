@@ -15,19 +15,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Utils.ToolbarClass;
 
-public class SendRequest extends ToolbarClass {
+public class SendRequest extends AppCompatActivity {
 
     AppCompatButton btn;
-    protected final void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.onCreate(R.layout.activity_send_request, "ارسال طلب");
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_send_request);
         init();
-        initSpinner();
+//        initSpinner();
+
     }
+
 
     private void init() {
         btn = findViewById(R.id.btn);
