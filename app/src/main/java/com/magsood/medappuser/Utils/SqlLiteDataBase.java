@@ -36,6 +36,9 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
                 ",pharmacyAddress VARCHAR(255)" +
                 ",pharmacyLat VARCHAR(255)" +
                 ",pharmacyLong VARCHAR(255)" +
+                ",pharmacyID VARCHAR(255)" +
+                ",medicineID VARCHAR(255)" +
+                ",amount INTEGER " +
                 ",created_at timestamp ,updated_at timestamp)");
 
     }
@@ -60,14 +63,26 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
         contentValues.put("pharmacyAddress", modelCart.getPharmacyAddress());
         contentValues.put("pharmacyLat", modelCart.getPharmacyLat());
         contentValues.put("pharmacyLong", modelCart.getPharmacyLong());
+        contentValues.put("pharmacyID", modelCart.getPharmacyID());
+        contentValues.put("medicineID", modelCart.getMedicineID());
+
+//        modelCart.setAmount(1);
+
 
         String query = "SELECT * FROM "+TABLE_CART+" where id=='"+modelCart.getId()+"'";
         SQLiteDatabase database = getReadableDatabase();
         Cursor c = database.rawQuery(query, null);
         c.moveToFirst();
         if (!c.isAfterLast()) {
+            ContentValues values = new ContentValues();
+            values.put("amount", Integer.parseInt(c.getString(c.getColumnIndex("amount")))+1);
+
+            database.update(TABLE_CART, values, "id = ?", new String[] {String.valueOf(modelCart.getId())} );
+
+            database.close();
             return false;
         }else{
+            contentValues.put("amount", 1);
             long result1 = db.insert(TABLE_CART, null, contentValues);
             if (result1 == -1) {
                 return false;
@@ -96,6 +111,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
                 cardModel.setPharmacyAddress(c.getString(c.getColumnIndex("pharmacyAddress")));
                 cardModel.setPharmacyLat(c.getString(c.getColumnIndex("pharmacyLat")));
                 cardModel.setPharmacyLong(c.getString(c.getColumnIndex("pharmacyLat")));
+                cardModel.setAmount(Integer.parseInt(c.getString(c.getColumnIndex("amount"))));
 
                 cardModels.add(cardModel);
             }

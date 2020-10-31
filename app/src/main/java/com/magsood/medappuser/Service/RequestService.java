@@ -2,15 +2,10 @@ package com.magsood.medappuser.Service;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-
 import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
@@ -22,12 +17,10 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.magsood.medappuser.Activity.Login;
+import com.magsood.medappuser.Activity.MainActivity;
 import com.magsood.medappuser.Constants;
-import com.magsood.medappuser.R;
-
+import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,73 +28,31 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
-import es.dmoral.toasty.Toasty;
+public class RequestService {
 
-public class RegisterService {
-    String fullName, email, location, phoneNumber, gender, password, confPassword;
-String TAG = "RESPONSE";
-String message;
-    public void sendDate(Activity activity) {
 
-        fullName = ((EditText) activity.findViewById(R.id.fullName)).getText().toString();
-        email = ((EditText) activity.findViewById(R.id.email)).getText().toString();
-        location = ((EditText) activity.findViewById(R.id.location)).getText().toString();
-        phoneNumber = ((EditText) activity.findViewById(R.id.phoneNumber)).getText().toString();
-        gender = ((EditText) activity.findViewById(R.id.gender)).getText().toString();
-        password = ((EditText) activity.findViewById(R.id.password)).getText().toString();
-        confPassword = ((EditText) activity.findViewById(R.id.confirm_pass)).getText().toString();
 
-        if (TextUtils.isEmpty(fullName)) {
-           ((EditText) activity.findViewById(R.id.fullName)).setError("Please enter username");
-            ((EditText) activity.findViewById(R.id.fullName)).requestFocus();
-            return;
-        }
 
-        if (TextUtils.isEmpty(email)) {
-            ((EditText) activity.findViewById(R.id.email)).setError("Please enter your email");
-            ((EditText) activity.findViewById(R.id.email)).requestFocus();
-            return;
-        }
+    UserPreferences userPreferences;
+    String TAG = "RESPONSE";
+    String message;
 
-//        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            ((EditText) activity.findViewById(R.id.email)).setError("Enter a valid email");
-//            ((EditText) activity.findViewById(R.id.email)).requestFocus();
-//            return;
-//        }
+    public void sendRequest(Activity activity,String medicineID,String amount ,String lang ,String lat) {
 
-        if (TextUtils.isEmpty(password)) {
-            ((EditText) activity.findViewById(R.id.password)).setError("Enter a password");
-            ((EditText) activity.findViewById(R.id.password)).requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(location)) {
-            ((EditText) activity.findViewById(R.id.location)).setError("Enter a Location");
-            ((EditText) activity.findViewById(R.id.location)).requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(phoneNumber)) {
-            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("Enter a phone number");
-            ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(gender)) {
-            ((EditText) activity.findViewById(R.id.gender)).setError("Enter a gender");
-            ((EditText) activity.findViewById(R.id.gender)).requestFocus();
-            return;
-        }
+
+
+        userPreferences = new UserPreferences(activity);
+
+
 
 
 
         Map<String, String> params = new HashMap<>();
-        params.put("fullName", fullName);
-        params.put("email", email);
-        params.put("password", password);
-        params.put("gender", gender);
-        params.put("location",location);
-        params.put("phoneNumber",phoneNumber);
-        Log.e("response", String.valueOf(params));
+        params.put("amount", amount);
+        params.put("medicineID", medicineID);
+        params.put("dropLng", lang);
+        params.put("dropLat", lat);
         final KProgressHUD progressDialog;// Validation
         progressDialog = KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -110,17 +61,17 @@ String message;
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f)
                 .show();
+
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                Constants.REGISTRATION_URL, new JSONObject(params),
+                Constants.SEND_REQUEST_URL+"?token="+userPreferences.getToken(), new JSONObject(params),
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
                         Log.d(TAG, response.toString());
-                        Toast.makeText(activity,"Register Complete  ",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity, Login.class);
-                        activity.startActivity(intent);
+                        userPreferences.removeSharedPrefrenceData();
+                        Log.e("response", String.valueOf(response));
 
 
                     }
@@ -138,6 +89,7 @@ String message;
                         // Now you can use any deserializer to make sense of data
                         JSONObject obj = new JSONObject(res);
                         Log.e("responseError",obj.toString());
+                        Log.e("response",userPreferences.getToken());
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string
                         e1.printStackTrace();
@@ -160,7 +112,6 @@ String message;
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
-
             }
         }) {
 
@@ -181,9 +132,6 @@ String message;
         VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
 
     }
-    }
 
 
-
-
-
+}

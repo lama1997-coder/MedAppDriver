@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.magsood.medappuser.R;
+import com.magsood.medappuser.Service.RequestService;
 import com.magsood.medappuser.Utils.ToolbarClass;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,10 +38,26 @@ public class MapsActivity extends ToolbarClass implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
 //                showDialog();
-                startActivity(new Intent(MapsActivity.this,SendRequest.class));
+             //   startActivity(new Intent(MapsActivity.this,SendRequest.class));
+             sendReq();
+
+
             }
         });
     }
+
+    private void sendReq() {
+
+
+        Bundle bundle = getIntent().getExtras();
+        String medicineID = bundle.getString("medicineID");
+        String amount = bundle.getString("amount");
+        String lang = bundle.getString("dropLng");
+        String lat = bundle.getString("dropLat");
+        RequestService requestService = new RequestService();
+        requestService.sendRequest(this,medicineID,amount,lang,lat);
+    }
+
 
 
     @Override

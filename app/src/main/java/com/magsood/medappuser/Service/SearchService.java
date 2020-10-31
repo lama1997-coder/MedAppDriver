@@ -4,17 +4,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.magsood.medappuser.Activity.MainActivity;
 import com.magsood.medappuser.Adapter.AdapterSearchResult;
 import com.magsood.medappuser.Constants;
@@ -36,6 +42,7 @@ public class SearchService {
     RecyclerView recyclerView;
     ArrayList<ModelSearch> modelSearchArrayList;
     AdapterSearchResult adapterSearchResult;
+    String message;
 
 
 
@@ -55,13 +62,21 @@ public class SearchService {
         Map<String, String> params = new HashMap<>();
         params.put("searchString", searchString);
 
-
+        final KProgressHUD progressDialog;// Validation
+        progressDialog = KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("الرجاء الانتظار")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 Constants.SEARCH_URL+"?token="+userPreferences.getToken(), new JSONObject(params),
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        progressDialog.dismiss();
 
 
                         try {
@@ -102,6 +117,7 @@ public class SearchService {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 // As of f605da3 the following should work
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
@@ -120,8 +136,23 @@ public class SearchService {
                         e2.printStackTrace();
                     }
                 }
-
+                if (error instanceof NetworkError) {
+                    message="Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Phone number or password wrong";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
             }
+
+
         }) {
 
 

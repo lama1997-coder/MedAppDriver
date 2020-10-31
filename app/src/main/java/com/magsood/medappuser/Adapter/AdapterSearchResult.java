@@ -24,7 +24,7 @@ import com.magsood.medappuser.Utils.SqlLiteDataBase;
 import java.util.ArrayList;
 
 
-public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResult.ViewHolder> {
+public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResult.ViewHolder> {
 
     ArrayList<ModelSearch> arrayList;
     private LayoutInflater mInflater;
@@ -65,6 +65,8 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
                 modelCart.setName(item.getTradeName());
                 modelCart.setPharmacyAddress(item.getLocation());
                 modelCart.setPharmacyName(item.getCompnayName());
+                modelCart.setPharmacyID(item.getPharmacyID());
+                modelCart.setMedicineID(item.getMedicineID());
                 modelCart.setPrice(item.getPrice());
                 modelCart.setPharmacyLat(item.getLat());
                 modelCart.setPharmacyLong(item.getLng());
@@ -78,7 +80,14 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
         holder.txtShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.startActivity(new Intent(activity, MapsActivity.class));
+                Intent intent = new Intent(activity, MapsActivity.class);
+
+                intent.putExtra("amount","1");
+                intent.putExtra("medicineID",item.getMedicineID());
+                intent.putExtra("dropLng",item.getLng());
+                intent.putExtra("dropLat",item.getLat());
+
+                activity.startActivity(intent);
             }
         });
 

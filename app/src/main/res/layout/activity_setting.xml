@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/txt_small_size"
-                        android:text="0925510574"/>
+                        android:text="رقم الهاتف"/>
                 </LinearLayout>
                 <ImageView
                     android:layout_width="25dp"

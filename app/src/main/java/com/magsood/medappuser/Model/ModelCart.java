@@ -1,8 +1,37 @@
 package com.magsood.medappuser.Model;
 
 public class ModelCart {
+
+    String pharmacyID;
+    String medicineID;
     private String id;
     private String name;
+    int amount;
+
+    public String getPharmacyID() {
+        return pharmacyID;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setPharmacyID(String pharmacyID) {
+        this.pharmacyID = pharmacyID;
+    }
+
+    public String getMedicineID() {
+        return medicineID;
+    }
+
+    public void setMedicineID(String medicineID) {
+        this.medicineID = medicineID;
+    }
+
     private String price;
     private String pharmacyName;
     private String pharmacyAddress;

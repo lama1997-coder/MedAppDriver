@@ -4,15 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.magsood.medappuser.Activity.MainActivity;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.R;
@@ -28,6 +34,7 @@ import java.util.Map;
 public class Logout {
     UserPreferences userPreferences;
     String TAG = "RESPONSE";
+    String message;
 
     public void logOut(Activity activity) {
 
@@ -40,7 +47,14 @@ public class Logout {
 
 
 
-
+        final KProgressHUD progressDialog;// Validation
+        progressDialog = KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("جاري تسجيل الخروج")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
                 Constants.LOGOUT_URL+"?token="+userPreferences.getToken(), null,
@@ -48,6 +62,7 @@ public class Logout {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        progressDialog.dismiss();
                         Log.d(TAG, response.toString());
                         userPreferences.removeSharedPrefrenceData();
                         Log.e("response", String.valueOf(response));
@@ -59,6 +74,7 @@ public class Logout {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 // As of f605da3 the following should work
                 NetworkResponse response = error.networkResponse;
                 if (error instanceof ServerError && response != null) {
@@ -77,6 +93,20 @@ public class Logout {
                         e2.printStackTrace();
                     }
                 }
+                if (error instanceof NetworkError) {
+                    message="Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof ServerError) {
+                    message = "The server could not be found. Please try again after some time!!";
+                } else if (error instanceof AuthFailureError) {
+                    message = "Phone number or password wrong";
+                } else if (error instanceof ParseError) {
+                    message = "Parsing error! Please try again after some time!!";
+                } else if (error instanceof NoConnectionError) {
+                    message = "Cannot connect to Internet...Please check your connection!";
+                } else if (error instanceof TimeoutError) {
+                    message = "Connection TimeOut! Please check your internet connection.";
+                }
+                Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
 
             }
         }) {

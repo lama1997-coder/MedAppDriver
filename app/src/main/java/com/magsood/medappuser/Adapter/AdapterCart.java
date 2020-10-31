@@ -3,6 +3,7 @@ package com.magsood.medappuser.Adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,15 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         holder.txtShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activity.startActivity(new Intent(activity, MapsActivity.class));
+                Intent intent = new Intent(activity, MapsActivity.class);
+                Log.e("responseAmount", String.valueOf(item.getAmount()));
+
+                intent.putExtra("amount",item.getAmount());
+                intent.putExtra("medicineID",item.getId());
+                intent.putExtra("dropLng",item.getPharmacyLat());
+                intent.putExtra("dropLat",item.getPharmacyLong());
+
+                activity.startActivity(intent);
             }
         });
 
@@ -95,9 +104,9 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        LinearLayout container,layDeliev;
+        LinearLayout textViewDel,txtShowMap;
         AppCompatButton buttonSubscription;
-        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel,txtShowMap;
+        TextView textViewName,textViewPrice,textViewPhName,textViewAddress;
         ImageView imageView;
 
 
@@ -112,8 +121,6 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
             textViewDel = itemView.findViewById(R.id.del);
 
             txtShowMap = itemView.findViewById(R.id.txtShowMap);
-//            textView_release_type = itemView.findViewById(R.id.news_item_release_type);
-
 
             itemView.setOnClickListener(this);
         }
@@ -136,7 +143,6 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
                 deleteDialog.dismiss();
             }
         });
-
 
         deleteDialog.show();
     }
