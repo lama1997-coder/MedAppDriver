@@ -2,13 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="none"
         android:id="@+id/hall_menu_group">
-        <group android:checkableBehavior="none"
-            android:id="@+id/first_menu_group">
-            <item
-                android:id="@+id/nav_menu_balance"
-                android:title="رصيد الحساب"
-                />
-        </group>
+
         <group android:checkableBehavior="none"
             android:id="@+id/second_menu_group">
             <item

@@ -65,12 +65,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             //nav_btn
-            case R.id.nav_menu_balance: {
-                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(MainActivity.this,NewRequestDetails.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
+//            case R.id.nav_menu_balance: {
+//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+////                startActivity(new Intent(MainActivity.this,NewRequestDetails.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
             case R.id.nav_menu_my_order: {
 //                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this,MyOrder.class));

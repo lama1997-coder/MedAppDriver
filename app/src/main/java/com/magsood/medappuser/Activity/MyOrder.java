@@ -2,6 +2,7 @@ package com.magsood.medappuser.Activity;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -12,18 +13,20 @@ import com.magsood.medappuser.Utils.ToolbarClass;
 
 import java.util.ArrayList;
 
-public class MyOrder extends ToolbarClass {
+public class MyOrder extends AppCompatActivity {
 
     RecyclerView recycler;
     ArrayList<ModelMyOrder> arrayList;
     AdapterMyOrder adapterMyOrder;
 
 
-    protected final void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.onCreate(R.layout.activity_my_order, "طلباتي");
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.my_order_activity);
         init();
+
     }
 
     private void init() {
