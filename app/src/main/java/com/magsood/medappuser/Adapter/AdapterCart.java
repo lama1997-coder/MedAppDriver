@@ -53,6 +53,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         holder.textViewPrice.setText(item.getPrice());
         holder.textViewPhName.setText(item.getPharmacyName());
         holder.textViewAddress.setText(item.getPharmacyAddress());
+        holder.amount.setText(item.getAmount());
         holder.textViewDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,7 +107,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout textViewDel,txtShowMap;
         AppCompatButton buttonSubscription;
-        TextView textViewName,textViewPrice,textViewPhName,textViewAddress;
+        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,amount;
         ImageView imageView;
 
 
@@ -119,6 +120,7 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
             textViewPhName = itemView.findViewById(R.id.ph_name);
             textViewAddress = itemView.findViewById(R.id.address);
             textViewDel = itemView.findViewById(R.id.del);
+            amount = itemView.findViewById(R.id.txtAmount);
 
             txtShowMap = itemView.findViewById(R.id.txtShowMap);
 

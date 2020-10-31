@@ -94,17 +94,17 @@ public class Logout {
                     }
                 }
                 if (error instanceof NetworkError) {
-                    message="Cannot connect to Internet...Please check your connection!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ServerError) {
-                    message = "The server could not be found. Please try again after some time!!";
+                    message = "الخادم غير موجود";
                 } else if (error instanceof AuthFailureError) {
-                    message = "Phone number or password wrong";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ParseError) {
-                    message = "Parsing error! Please try again after some time!!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof NoConnectionError) {
-                    message = "Cannot connect to Internet...Please check your connection!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof TimeoutError) {
-                    message = "Connection TimeOut! Please check your internet connection.";
+                    message="الرجاء التاكد من الانترنت";
                 }
                 Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
 

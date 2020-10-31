@@ -10,4 +10,6 @@ public class Constants {
     public static  String SEARCH_URL ="https://www.maqsood.com.sd/api/v1/user/search";
     public static  String SEND_REQUEST_URL ="https://www.maqsood.com.sd/api/v1/user/order";
 
+    public static String GET_MEDICINE = "https://www.maqsood.com.sd/api/v1/user/medicines";
+
 }

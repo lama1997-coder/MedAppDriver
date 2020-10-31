@@ -97,10 +97,10 @@
                 android:src="@drawable/ic_back_black"
                 android:layout_centerVertical="true"
                 tools:ignore="RtlHardcoded" />
-            <EditText
+            <AutoCompleteTextView
 
                 android:imeOptions="actionSearch"
-                android:inputType="text"
+                android:inputType="textAutoComplete|textAutoCorrect"
                 android:layout_toLeftOf="@+id/ic_back"
                 android:padding="5dp"
                 android:id="@+id/editsearch"

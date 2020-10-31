@@ -68,6 +68,7 @@
         android:layout_height="match_parent"
         tools:context=".Activity.MapsActivity" />
     <androidx.appcompat.widget.AppCompatButton
+        android:visibility="invisible"
         android:id="@+id/btn"
         android:layout_margin="@dimen/margin_large_size"
         android:textColor="@android:color/white"

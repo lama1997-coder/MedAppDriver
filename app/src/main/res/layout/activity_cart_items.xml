@@ -115,7 +115,7 @@
                 tools:itemCount="5"
                 />
             <androidx.appcompat.widget.AppCompatButton
-                android:visibility="visible"
+                android:visibility="gone"
                 android:id="@+id/btn"
                 android:layout_marginTop="@dimen/margin_normal_size"
                 android:textColor="@android:color/white"

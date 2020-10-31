@@ -70,11 +70,11 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
                 modelCart.setPrice(item.getPrice());
                 modelCart.setPharmacyLat(item.getLat());
                 modelCart.setPharmacyLong(item.getLng());
-                if (AddToCart(modelCart)){
-                    Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(activity, "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
-                }
+//                if (AddToCart(modelCart)){
+//                    Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    Toast.makeText(activity, "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
         holder.txtShowMap.setOnClickListener(new View.OnClickListener() {

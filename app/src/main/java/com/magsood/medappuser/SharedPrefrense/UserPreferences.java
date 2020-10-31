@@ -49,10 +49,12 @@ public class UserPreferences {
     public  void removeSharedPrefrenceData(){
         try {
 
+
             SharedPreferences.Editor prefEditor = sharedpreferences.edit();
             prefEditor.remove("data");
             prefEditor.apply();
             prefEditor.clear();
+            prefEditor.apply();
         } catch (Exception e) {
             Log.i("", "Exception : " + e.toString());
         }

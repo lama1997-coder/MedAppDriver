@@ -40,57 +40,53 @@ import java.util.Objects;
 import es.dmoral.toasty.Toasty;
 
 public class RegisterService {
-    String fullName, email, location, phoneNumber, gender, password, confPassword;
+    String fullName, email, location, phoneNumber, password, confPassword;
 String TAG = "RESPONSE";
 String message;
-    public void sendDate(Activity activity) {
+    public void sendDate(Activity activity,String gender) {
 
         fullName = ((EditText) activity.findViewById(R.id.fullName)).getText().toString();
         email = ((EditText) activity.findViewById(R.id.email)).getText().toString();
         location = ((EditText) activity.findViewById(R.id.location)).getText().toString();
         phoneNumber = ((EditText) activity.findViewById(R.id.phoneNumber)).getText().toString();
-        gender = ((EditText) activity.findViewById(R.id.gender)).getText().toString();
+        gender = gender;
         password = ((EditText) activity.findViewById(R.id.password)).getText().toString();
         confPassword = ((EditText) activity.findViewById(R.id.confirm_pass)).getText().toString();
 
         if (TextUtils.isEmpty(fullName)) {
-           ((EditText) activity.findViewById(R.id.fullName)).setError("Please enter username");
+           ((EditText) activity.findViewById(R.id.fullName)).setError("ادخل الاسم");
             ((EditText) activity.findViewById(R.id.fullName)).requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(email)) {
-            ((EditText) activity.findViewById(R.id.email)).setError("Please enter your email");
+            ((EditText) activity.findViewById(R.id.email)).setError("ادخل الايميل");
             ((EditText) activity.findViewById(R.id.email)).requestFocus();
             return;
         }
 
-//        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            ((EditText) activity.findViewById(R.id.email)).setError("Enter a valid email");
-//            ((EditText) activity.findViewById(R.id.email)).requestFocus();
-//            return;
-//        }
+        if (!password.equals(confPassword)) {
+            ((EditText) activity.findViewById(R.id.password)).setError("كلمة السر غير متطابقة");
+            ((EditText) activity.findViewById(R.id.password)).requestFocus();
+            return;
+        }
 
         if (TextUtils.isEmpty(password)) {
-            ((EditText) activity.findViewById(R.id.password)).setError("Enter a password");
+            ((EditText) activity.findViewById(R.id.password)).setError("ادخل كلمة السر");
             ((EditText) activity.findViewById(R.id.password)).requestFocus();
             return;
         }
         if (TextUtils.isEmpty(location)) {
-            ((EditText) activity.findViewById(R.id.location)).setError("Enter a Location");
+            ((EditText) activity.findViewById(R.id.location)).setError("ادخل الموقع");
             ((EditText) activity.findViewById(R.id.location)).requestFocus();
             return;
         }
         if (TextUtils.isEmpty(phoneNumber)) {
-            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("Enter a phone number");
+            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("ادخل رقم الهاتف");
             ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(gender)) {
-            ((EditText) activity.findViewById(R.id.gender)).setError("Enter a gender");
-            ((EditText) activity.findViewById(R.id.gender)).requestFocus();
-            return;
-        }
+
 
 
 
@@ -137,6 +133,7 @@ String message;
                                 HttpHeaderParser.parseCharset(response.headers, "utf-8"));
                         // Now you can use any deserializer to make sense of data
                         JSONObject obj = new JSONObject(res);
+
                         Log.e("responseError",obj.toString());
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string
@@ -147,17 +144,17 @@ String message;
                     }
                 }
                 if (error instanceof NetworkError) {
-                    message="Cannot connect to Internet...Please check your connection!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ServerError) {
-                    message = "The server could not be found. Please try again after some time!!";
+                    message = "الخادم غير موجود";
                 } else if (error instanceof AuthFailureError) {
-                    message = "Phone number or password wrong";
+                    message = "رقم الهاتف موجود مسبقا ";
                 } else if (error instanceof ParseError) {
-                    message = "Parsing error! Please try again after some time!!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof NoConnectionError) {
-                    message = "Cannot connect to Internet...Please check your connection!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof TimeoutError) {
-                    message = "Connection TimeOut! Please check your internet connection.";
+                    message="الرجاء التاكد من الانترنت";
                 }
                 Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
 

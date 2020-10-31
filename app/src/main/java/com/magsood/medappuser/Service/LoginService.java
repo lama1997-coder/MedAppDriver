@@ -55,13 +55,13 @@ public class LoginService {
 
 
         if (TextUtils.isEmpty(password)) {
-            ((EditText) activity.findViewById(R.id.password)).setError("Enter a password");
+            ((EditText) activity.findViewById(R.id.password)).setError("ادخل كلمة السر");
             ((EditText) activity.findViewById(R.id.password)).requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(phoneNumber)) {
-            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("Enter a phone number");
+            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("ادخل رقم الهاتف");
             ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
             return;
         }
@@ -70,8 +70,13 @@ public class LoginService {
 
 
         Map<String, String> params = new HashMap<>();
+if('0' == phoneNumber.charAt(0)){
 
-        params.put("phoneNumber",phoneNumber);
+
+        params.put("phoneNumber",phoneNumber);}
+if(phoneNumber.charAt(0)!='0')
+    params.put("phoneNumber","0"+phoneNumber);
+
         params.put("password", password);
 
         Log.e("response", String.valueOf(params));
@@ -125,7 +130,7 @@ public class LoginService {
                         // Now you can use any deserializer to make sense of data
                         JSONObject obj = new JSONObject(res);
                         Log.e("responseError",obj.toString());
-                        message = "Phone number or password wrong";
+                        message = "كلمة السر او رقم الهاتف غير صحيحين";
                        // Toast.makeText(activity,"Phone number or password wrong",Toast.LENGTH_SHORT).show();
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string
@@ -136,17 +141,17 @@ public class LoginService {
                     }
                 }
                 if (error instanceof NetworkError) {
-                    message="Cannot connect to Internet...Please check your connection!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ServerError) {
-                    message = "The server could not be found. Please try again after some time!!";
+                    message = "المستخدم غير موجود";
                 } else if (error instanceof AuthFailureError) {
-                    message = "Phone number or password wrong";
+                    message = "رقم الهاتف او كلمة السر غير صحيحين";
                 } else if (error instanceof ParseError) {
-                    message = "Parsing error! Please try again after some time!!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof NoConnectionError) {
-                    message = "Cannot connect to Internet...Please check your connection!";
+                    message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof TimeoutError) {
-                    message = "Connection TimeOut! Please check your internet connection.";
+                    message="الرجاء التاكد من الانترنت";
                 }
                 Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
             }

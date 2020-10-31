@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity"
+    tools:context=".Activity.Register"
     android:layoutDirection="rtl">
 
     <androidx.appcompat.widget.Toolbar
@@ -263,6 +263,8 @@
                       android:layout_height="25dp"
                       android:src="@drawable/ic_phone"/>
                   <EditText
+                      android:id="@+id/phoneNumber"
+                      android:singleLine="true"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:hint="رقم الهاتف"
@@ -270,6 +272,7 @@
                       android:background="@android:color/transparent"
                       android:layout_marginRight="@dimen/margin_small_size"
                       android:layout_marginLeft="@dimen/margin_small_size"
+                      android:inputType="number"
                       android:gravity="center_vertical"
                       />
               </RelativeLayout>
@@ -290,7 +293,7 @@
                       android:layout_centerVertical="true"
                       android:layout_width="25dp"
                       android:layout_height="25dp"
-                      android:src="@drawable/ic_person"/>
+                      android:src="@drawable/ic_email"/>
                   <EditText
                       android:id="@+id/email"
                       android:layout_width="match_parent"
@@ -298,8 +301,10 @@
                       android:hint="الايميل"
                       android:layout_toLeftOf="@+id/img10"
                       android:background="@android:color/transparent"
+                      android:singleLine="true"
                       android:layout_marginRight="@dimen/margin_small_size"
                       android:layout_marginLeft="@dimen/margin_small_size"
+                      android:inputType="textEmailAddress"
                       android:gravity="center_vertical"
                       />
               </RelativeLayout>
@@ -320,8 +325,9 @@
                         android:layout_centerVertical="true"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_person"/>
+                        android:src="@drawable/ic_blace"/>
                     <EditText
+                        android:singleLine="true"
                         android:id="@+id/location"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -351,11 +357,12 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:src="@drawable/ic_person"/>
-                    <EditText
+                    <Spinner
                         android:id="@+id/gender"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="النوع"
+                        android:singleLine="true"
                         android:layout_toLeftOf="@+id/img25"
                         android:background="@android:color/transparent"
                         android:layout_marginRight="@dimen/margin_small_size"
@@ -385,6 +392,7 @@
                         android:id="@+id/fullName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:singleLine="true"
                         android:hint="الاسم"
                         android:layout_toLeftOf="@+id/img2"
                         android:background="@android:color/transparent"
@@ -412,9 +420,11 @@
                       android:layout_height="25dp"
                       android:src="@drawable/ic_pass"/>
                   <EditText
+                      android:id="@+id/password"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:hint="كلمة المرور"
+                      android:singleLine="true"
                       android:layout_toLeftOf="@+id/img3"
                       android:background="@android:color/transparent"
                       android:layout_marginRight="@dimen/margin_small_size"
@@ -445,6 +455,7 @@
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:hint="كلمة المرور"
+                      android:singleLine="true"
                       android:layout_toLeftOf="@+id/img4"
                       android:background="@android:color/transparent"
                       android:layout_marginRight="@dimen/margin_small_size"
@@ -458,6 +469,7 @@
 
 
             <RelativeLayout
+                android:onClick="register"
                 android:layout_width="120dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="@dimen/margin_large_size"
@@ -509,9 +521,11 @@
 
         </LinearLayout>
         <LinearLayout
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             android:layout_alignParentBottom="true">
             <TextView
                 android:layout_margin="@dimen/margin_normal_size"

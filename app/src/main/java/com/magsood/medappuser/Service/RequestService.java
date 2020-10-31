@@ -70,7 +70,7 @@ public class RequestService {
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
                         Log.d(TAG, response.toString());
-                        userPreferences.removeSharedPrefrenceData();
+                       // userPreferences.removeSharedPrefrenceData();
                         Log.e("response", String.valueOf(response));
 
 
