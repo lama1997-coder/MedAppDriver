@@ -238,6 +238,7 @@
                     android:layout_toRightOf="@+id/txtKeySudan"
                     android:background="#808080"/>
                 <EditText
+                    android:id="@+id/phoneNumber"
                     android:textColor="@color/cardColor"
                     android:layout_marginRight="@dimen/margin_normal_size"
                     android:layout_marginLeft="@dimen/margin_normal_size"
@@ -245,9 +246,29 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:layout_toRightOf="@+id/v1"
+                    android:inputType="number"
                     android:background="@android:color/transparent"
                     android:text="0925510574"/>
+
             </RelativeLayout>
+            <TextView
+                android:textColor="@color/cardColor"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="كلمة السر"
+                android:textSize="@dimen/txt_normal_size"/>
+            <EditText
+                android:id="@+id/password"
+                android:textColor="@color/cardColor"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:inputType="textPassword"
+                android:background="@android:color/transparent"
+                android:text="0925510574"/>
 
 
             <RelativeLayout

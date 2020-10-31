@@ -286,16 +286,17 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
                   <ImageView
-                      android:id="@+id/img2"
+                      android:id="@+id/img10"
                       android:layout_centerVertical="true"
                       android:layout_width="25dp"
                       android:layout_height="25dp"
                       android:src="@drawable/ic_person"/>
                   <EditText
+                      android:id="@+id/email"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
-                      android:hint="الاسم"
-                      android:layout_toLeftOf="@+id/img2"
+                      android:hint="الايميل"
+                      android:layout_toLeftOf="@+id/img10"
                       android:background="@android:color/transparent"
                       android:layout_marginRight="@dimen/margin_small_size"
                       android:layout_marginLeft="@dimen/margin_small_size"
@@ -303,6 +304,96 @@
                       />
               </RelativeLayout>
           </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:cardCornerRadius="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_large_size"
+                android:layout_marginRight="@dimen/margin_large_size"
+                android:layout_marginTop="@dimen/margin_small_size"
+                android:layout_marginBottom="@dimen/margin_small_size">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img21"
+                        android:layout_centerVertical="true"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_person"/>
+                    <EditText
+                        android:id="@+id/location"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="العنوان"
+                        android:layout_toLeftOf="@+id/img21"
+                        android:background="@android:color/transparent"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:gravity="center_vertical"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:cardCornerRadius="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_large_size"
+                android:layout_marginRight="@dimen/margin_large_size"
+                android:layout_marginTop="@dimen/margin_small_size"
+                android:layout_marginBottom="@dimen/margin_small_size">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img25"
+                        android:layout_centerVertical="true"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_person"/>
+                    <EditText
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="النوع"
+                        android:layout_toLeftOf="@+id/img25"
+                        android:background="@android:color/transparent"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:gravity="center_vertical"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:cardCornerRadius="@dimen/margin_small_size"
+                android:layout_marginLeft="@dimen/margin_large_size"
+                android:layout_marginRight="@dimen/margin_large_size"
+                android:layout_marginTop="@dimen/margin_small_size"
+                android:layout_marginBottom="@dimen/margin_small_size">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/img2"
+                        android:layout_centerVertical="true"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_person"/>
+                    <EditText
+                        android:id="@+id/fullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="الاسم"
+                        android:layout_toLeftOf="@+id/img2"
+                        android:background="@android:color/transparent"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:gravity="center_vertical"
+                        />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
           <androidx.cardview.widget.CardView
               android:layout_width="match_parent"
               android:layout_height="40dp"
@@ -350,6 +441,7 @@
                       android:layout_height="25dp"
                       android:src="@drawable/ic_pass"/>
                   <EditText
+                      android:id="@+id/confirm_pass"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:hint="كلمة المرور"
