@@ -67,6 +67,12 @@ Log.e("logOut",userPreferences.getUserId());
         }
         toolbar = findViewById(R.id.public_toolbar);
         setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ;
         drawerLayout = findViewById(R.id.n_drawer);
         navigationView = findViewById(R.id.n_view);
         navigationView.setItemIconTintList(null);
@@ -91,12 +97,12 @@ Log.e("logOut",userPreferences.getUserId());
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             //nav_btn
-            case R.id.nav_menu_balance: {
-                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(MainActivity.this,NewRequestDetails.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
+//            case R.id.nav_menu_balance: {
+//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+////                startActivity(new Intent(MainActivity.this,NewRequestDetails.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
             case R.id.nav_menu_my_order: {
 //                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this,MyOrder.class));

@@ -10,6 +10,7 @@
     android:focusable="true">
 
 
+
     <RelativeLayout
         android:background="@color/colorPrimary"
         android:id="@+id/r1"
@@ -90,41 +91,29 @@
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ســلة"
-                        android:textSize="41sp"
-                        android:textStyle="bold"/>
+                        android:text="طلبات"
+                        android:textSize="40sp"/>
                     <TextView
                         android:textColor="@android:color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="طلبات الادوية"
-                        android:textSize="40sp"/>
+                        android:text="سابقة"
+                        android:textSize="41sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/r2"
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listitem="@layout/cart_items"
-                android:layout_above="@+id/btn"
-                tools:itemCount="5"
-                />
-            <androidx.appcompat.widget.AppCompatButton
-                android:visibility="gone"
-                android:id="@+id/btn"
-                android:layout_marginTop="@dimen/margin_normal_size"
-                android:textColor="@android:color/white"
-                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="ارسال الطلب"
-                android:textSize="@dimen/txt_large_size"
-                android:background="@color/colorPrimary"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_normal_size"/>
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="1"
+                tools:itemCount="50"
+                android:visibility="visible"
+                tools:listitem="@layout/my_order_item"
+                />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -15,9 +15,12 @@
         app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-
-        app:title="برنامج الكابتن"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"
+        app:title=""/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"/>-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
 
     <RelativeLayout
@@ -35,14 +38,11 @@
             android:layout_height="match_parent"
             tools:context=".Activity.MapsActivity" />
 
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/top_bg">
             <LinearLayout
-                android:gravity="center"
                 android:layout_margin="@dimen/margin_large_size"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -73,8 +73,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="يمكنك البحث عن دوائك الان!"
-                    android:textSize="28sp"
-                    android:textStyle="bold"/>
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"/>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardSearch"
                     app:cardCornerRadius="7dp"
