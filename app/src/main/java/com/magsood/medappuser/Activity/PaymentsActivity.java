@@ -15,16 +15,19 @@ import android.widget.Spinner;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Utils.ToolbarClass;
 
-public class PaymentsActivity extends ToolbarClass {
+public class PaymentsActivity extends AppCompatActivity {
 
 
-    protected final void onCreate(Bundle savedInstanceState) {
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(R.layout.activity_payments_acivity, "دفع رسوم الطلب");
-
+        setContentView(R.layout.payments_acivity);
         init();
         initSpinner();
     }
+
 
     private void init() {
 

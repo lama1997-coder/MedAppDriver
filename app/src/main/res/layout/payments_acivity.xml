@@ -38,13 +38,7 @@
                             android:layout_height="wrap_content"
                             android:text="ارسال"
                             android:textSize="35sp"/>
-                        <TextView
-                            android:textColor="@android:color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="طلب"
-                            android:textSize="41sp"
-                            android:textStyle="bold"/>
+
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -115,7 +109,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
-    
+
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -133,7 +127,8 @@
                 android:layout_marginTop="@dimen/margin_large_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_small_size">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -161,27 +156,28 @@
 
             <LinearLayout
                 android:layout_marginTop="@dimen/margin_large_size"
-                android:layout_width="300dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:gravity="center">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="طلب رقم"
+                    android:text="رقم البطاقة المرسل منها"
                     android:textSize="@dimen/txt_large_size"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     />
                 <EditText
-                    android:background="@drawable/btn_bg_rounded_green"
+                    android:background="@drawable/btn_bg_10_radius"
                     android:layout_marginTop="@dimen/margin_small_size"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="بحري المحطة الوسطى"
-                    android:textColor="@color/colorPrimary"
+                    android:text="12345678910254"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/txt_normal_size"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingRight="@dimen/margin_small_size"
                     android:paddingLeft="@dimen/margin_small_size"/>
 
@@ -190,60 +186,102 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="هاتف التسليم"
+                    android:text="تاريخ انتهاء البطاقة"
+                    android:textSize="@dimen/txt_large_size"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    android:layout_marginTop="@dimen/margin_small_size">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="center_vertical">
+                            <RelativeLayout
+                                android:background="@drawable/btn_bg_rounded_green"
+                                android:layout_width="130dp"
+                                android:layout_height="40dp">
+                                <ImageView
+                                    android:id="@+id/ic_drop"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/ic_drop_down"/>
+                                <Spinner
+                                    android:id="@+id/spinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent"
+                                    android:layout_toRightOf="@+id/ic_drop"/>
+
+                            </RelativeLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="center_vertical">
+                            <RelativeLayout
+                                android:background="@drawable/btn_bg_rounded_green"
+                                android:layout_width="130dp"
+                                android:layout_height="40dp">
+                                <ImageView
+                                    android:id="@+id/ic_drop2"
+                                    android:layout_centerVertical="true"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:src="@drawable/ic_drop_down"/>
+                                <Spinner
+                                    android:id="@+id/spinner2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/transparent"
+                                    android:layout_toRightOf="@+id/ic_drop2"/>
+
+                            </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_normal_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="رقم الانترنت السري"
                     android:textSize="@dimen/txt_large_size"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     />
                 <EditText
-                    android:background="@drawable/btn_bg_rounded_green"
+                    android:background="@drawable/btn_bg_10_radius"
                     android:layout_marginTop="@dimen/margin_small_size"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="40dp"
-                    android:text="0925510574"
-                    android:textColor="@color/colorPrimary"
+                    android:text="8910254"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/txt_normal_size"
-                    android:gravity="center_vertical"
-                    android:paddingRight="@dimen/margin_small_size"
-                    android:paddingLeft="@dimen/margin_small_size"/>
-
-                <TextView
-                    android:layout_marginTop="25dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="طريقة الدفع"
-                    android:textSize="@dimen/txt_large_size"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    />
+                    android:paddingRight="@dimen/margin_small_size"
+                    android:paddingLeft="@dimen/margin_small_size"
+                    android:inputType="textPassword"/>
 
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:text="دفع عند التسليم"
-                        android:textSize="@dimen/txt_small_size"/>
-                    <RadioButton
 
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:text="دفع من التطبيق"
-                        android:textSize="@dimen/txt_small_size"/>
-                </RadioGroup>
 
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn"
-                android:layout_margin="@dimen/margin_large_size"
+                android:layout_margin="30dp"
                 android:textColor="@android:color/white"
                 android:layout_width="100dp"
                 android:layout_height="40dp"

@@ -39,9 +39,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="@drawable/bg_new_reg_top">
+            android:layout_height="200dp"
+            android:background="@drawable/top_bg">
             <LinearLayout
+                android:gravity="center"
                 android:layout_margin="@dimen/margin_large_size"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
