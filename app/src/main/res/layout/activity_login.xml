@@ -327,8 +327,10 @@
                     android:layout_height="35dp"
                     android:layout_margin="@dimen/margin_normal_size">
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"/>
+                        android:layout_gravity="center"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_face"/>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     app:cardBackgroundColor="#D44638"
@@ -337,8 +339,10 @@
                     android:layout_height="35dp"
                     android:layout_margin="@dimen/margin_normal_size">
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"/>
+                        android:layout_gravity="center"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_g"/>
                 </androidx.cardview.widget.CardView>
 
             </LinearLayout>
