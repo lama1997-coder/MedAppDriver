@@ -5,6 +5,7 @@
     <color name="colorAccent">#F3951E</color>
     <color name="colorPrimaryLight">#63a4ff</color>
     <color name="backgroundColor">#F5F5F5</color>
+    <color name="txtColor">#303030</color>
 
 
     <color name="txtSearch">#303030</color>

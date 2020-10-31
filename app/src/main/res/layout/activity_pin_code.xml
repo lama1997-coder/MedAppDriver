@@ -191,6 +191,46 @@
 
 
 
+            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="إعادة إرسال الرقم خلال 10 ثواني"
+                android:textSize="@dimen/txt_small_size"
+                android:textColor="@color/txtColor"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_small_size">
+                <TextView
+                    android:layout_marginRight="@dimen/margin_normal_size"
+                    android:layout_marginLeft="@dimen/margin_normal_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="إن لمن يتم الإرسال إضغط"
+                    android:textSize="@dimen/txt_normal_size"
+                    android:textColor="@color/txtColor"
+                    />
+                <TextView
+                    android:layout_marginLeft="@dimen/margin_small_size"
+                    android:layout_marginRight="@dimen/margin_small_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="إعادة إرسال"
+                    android:textSize="@dimen/txt_normal_size"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
