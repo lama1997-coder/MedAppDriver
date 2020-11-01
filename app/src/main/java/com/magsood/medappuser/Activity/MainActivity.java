@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         toolbar = findViewById(R.id.public_toolbar);
         setSupportActionBar(toolbar);
+        try {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ;
         drawerLayout = findViewById(R.id.n_drawer);
         navigationView = findViewById(R.id.n_view);
         navigationView.setItemIconTintList(null);

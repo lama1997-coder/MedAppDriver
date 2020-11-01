@@ -10,7 +10,6 @@
     android:focusable="true">
 
 
-
     <RelativeLayout
         android:background="@color/colorPrimary"
         android:id="@+id/r1"
