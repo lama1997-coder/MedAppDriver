@@ -80,7 +80,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
             database.update(TABLE_CART, values, "id = ?", new String[] {String.valueOf(modelCart.getId())} );
 
             database.close();
-            return false;
+            return true;
         }else{
             contentValues.put("amount", 1);
             long result1 = db.insert(TABLE_CART, null, contentValues);

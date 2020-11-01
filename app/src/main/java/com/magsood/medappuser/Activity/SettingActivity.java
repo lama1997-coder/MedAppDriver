@@ -19,10 +19,10 @@ public class SettingActivity extends ToolbarClass {
         settingService = new SettingService();
         settingService.getDate(this);
     }
-
-    public void logout(View view) {
-        Logout logout = new Logout();
-        logout.logOut(this);
-
-    }
+//
+//    public void logout(View view) {
+//        Logout logout = new Logout();
+//        logout.logOut(this);
+//
+//    }
 }

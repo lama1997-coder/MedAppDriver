@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.magsood.medappuser.Activity.Login;
 import com.magsood.medappuser.Activity.MainActivity;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.R;
@@ -66,7 +67,7 @@ public class Logout {
                         Log.d(TAG, response.toString());
                         userPreferences.removeSharedPrefrenceData();
                         Log.e("response", String.valueOf(response));
-                        Intent intent  = new Intent(activity, MainActivity.class);
+                        Intent intent  = new Intent(activity, Login.class);
                         activity.startActivity(intent);
 
                     }

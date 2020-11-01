@@ -34,8 +34,18 @@ public class UserPreferences {
         editor.putString("userId",id);
         editor.apply();
     }
+    public void setUserName(String id){
 
 
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("fullName",id);
+        editor.apply();
+    }
+    public String  getUserName(){
+        return sharedpreferences.getString("fullName","");
+
+
+    }
     public String  getToken(){
         return sharedpreferences.getString("token","");
 

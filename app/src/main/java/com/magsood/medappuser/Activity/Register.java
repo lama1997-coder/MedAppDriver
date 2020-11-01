@@ -29,6 +29,7 @@ public class Register extends ToolbarClass implements AdapterView.OnItemSelected
 
         // Spinner Drop down elements
         List<String> gender = new ArrayList<String>();
+        gender.add(0,"اختر النــــوع");
         gender.add("ذكر");
         gender.add("انثى");
 
@@ -43,10 +44,13 @@ public class Register extends ToolbarClass implements AdapterView.OnItemSelected
     }
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
+
+
+            String item = parent.getItemAtPosition(position).toString();
+            gender = item;
 
         // Showing selected spinner item
-        gender = item;
+
     }
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub

@@ -182,8 +182,11 @@
                         android:textStyle="bold"
                         android:layout_marginRight="@dimen/margin_small_size"
                         android:layout_marginLeft="@dimen/margin_small_size"
-                        android:text="1234"
-                        android:gravity="center_vertical"/>
+                       android:hint="1234"
+
+                        android:inputType="number"
+                        android:maxLength="4"
+                       android:gravity="center"/>
 
                 </RelativeLayout>
 

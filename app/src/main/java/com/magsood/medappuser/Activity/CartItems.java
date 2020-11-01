@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.SupportMapFragment;
@@ -40,6 +41,7 @@ public class CartItems extends AppCompatActivity {
             recyclerView.setAdapter(adapterCart);
         }
         else {
+            findViewById(R.id.empty).setVisibility(View.VISIBLE);
             Toast.makeText(this, "لاتوجد عناصر", Toast.LENGTH_SHORT).show();
         }
     }

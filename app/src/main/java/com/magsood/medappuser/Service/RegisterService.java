@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -49,7 +51,7 @@ String message;
         email = ((EditText) activity.findViewById(R.id.email)).getText().toString();
         location = ((EditText) activity.findViewById(R.id.location)).getText().toString();
         phoneNumber = ((EditText) activity.findViewById(R.id.phoneNumber)).getText().toString();
-        gender = gender;
+
         password = ((EditText) activity.findViewById(R.id.password)).getText().toString();
         confPassword = ((EditText) activity.findViewById(R.id.confirm_pass)).getText().toString();
 
@@ -64,6 +66,32 @@ String message;
             ((EditText) activity.findViewById(R.id.email)).requestFocus();
             return;
         }
+        if(!isValidEmail(email))
+        {
+
+            ((EditText) activity.findViewById(R.id.email)).setError("ادخل الايميل بصورة صحيحة");
+            ((EditText) activity.findViewById(R.id.email)).requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(phoneNumber)) {
+            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("ادخل رقم الهاتف");
+            ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
+            return;
+        }
+        if (phoneNumber.length() != 10) {
+            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("رقم الهاتف يجب ان يكون 10 ارقام");
+            ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(location)) {
+            ((EditText) activity.findViewById(R.id.location)).setError("ادخل الموقع");
+            ((EditText) activity.findViewById(R.id.location)).requestFocus();
+            return;
+        }
+        if(gender.equals("اختر النــــوع")){
+            Toast.makeText(activity,"اختر النـــوع",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (!password.equals(confPassword)) {
             ((EditText) activity.findViewById(R.id.password)).setError("كلمة السر غير متطابقة");
@@ -76,16 +104,13 @@ String message;
             ((EditText) activity.findViewById(R.id.password)).requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(location)) {
-            ((EditText) activity.findViewById(R.id.location)).setError("ادخل الموقع");
-            ((EditText) activity.findViewById(R.id.location)).requestFocus();
-            return;
-        }
-        if (TextUtils.isEmpty(phoneNumber)) {
-            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("ادخل رقم الهاتف");
-            ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
-            return;
-        }
+
+
+
+
+
+
+
 
 
 
@@ -177,6 +202,10 @@ String message;
 //
         VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
 
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
     }
 

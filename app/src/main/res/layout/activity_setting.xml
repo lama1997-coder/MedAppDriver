@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:cardCornerRadius="0dp"
-            app:cardBackgroundColor="@color/colorPrimaryLight">
+            app:cardBackgroundColor="@color/cardColor">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -83,22 +83,22 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#000"/>
-        <LinearLayout
-            android:onClick="logout"
-            android:layout_marginTop="@dimen/margin_normal_size"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/txt_large_size"
-                android:text="تسجيل خروج"
-                android:gravity="center_vertical"
-                android:layout_marginRight="@dimen/margin_normal_size"
-                android:layout_marginLeft="@dimen/margin_normal_size"/>
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:onClick="logout"-->
+<!--            android:layout_marginTop="@dimen/margin_normal_size"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp">-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/colorPrimary"-->
+<!--                android:textSize="@dimen/txt_large_size"-->
+<!--                android:text="تسجيل خروج"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:layout_marginRight="@dimen/margin_normal_size"-->
+<!--                android:layout_marginLeft="@dimen/margin_normal_size"/>-->
+<!--        </LinearLayout>-->
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"

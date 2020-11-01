@@ -49,9 +49,11 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
         final ModelSearch item = arrayList.get(position);
 
         holder.location.setText(item.getLocation());
-        holder.pharmacyName.setText(item.getCompnayName());
+        holder.medicineName.setText(item.getPublicName());
         holder.price.setText(item.getPrice());
         holder.description.setText(item.getDescription());
+        holder.companyName.setText(item.getCompnayName());
+        holder.pharmcyName.setText(item.getPharmacyName());
 
 
 
@@ -70,6 +72,10 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
                 modelCart.setPrice(item.getPrice());
                 modelCart.setPharmacyLat(item.getLat());
                 modelCart.setPharmacyLong(item.getLng());
+                Toast.makeText(activity,"قـــــريــــبـــا", Toast.LENGTH_SHORT).show();
+
+
+                //add to cart code
 //                if (AddToCart(modelCart)){
 //                    Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
 //                }else{
@@ -114,7 +120,7 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout container,layDeliev;
         AppCompatButton buttonSubscription;
-        TextView textViewAddToCart,txtShowMap,price, pharmacyName, description,location;
+        TextView textViewAddToCart,txtShowMap,price, medicineName, description,location ,companyName,pharmcyName;
         ImageView imageView;
 
 
@@ -122,9 +128,11 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
             super(itemView);
 
             price = itemView.findViewById(R.id.price);
-            pharmacyName = itemView.findViewById(R.id.txtPharmachy);
+            medicineName = itemView.findViewById(R.id.txtPharmachy);
             description = itemView.findViewById(R.id.desc);
             location = itemView.findViewById(R.id.location);
+            companyName= itemView.findViewById(R.id.companyName);
+            pharmcyName = itemView.findViewById(R.id.pharmcyName);
 
 
 //            imageView = itemView.findViewById(R.id.img);

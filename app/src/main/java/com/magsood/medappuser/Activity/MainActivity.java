@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.magsood.medappuser.R;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
+import com.magsood.medappuser.Service.Logout;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -63,6 +65,7 @@ Log.e("logOut",userPreferences.getUserId());
 
         }
         else {
+            ((TextView)findViewById(R.id.fullName)).setText(userPreferences.getUserName());
             hideItemReg();
         }
         toolbar = findViewById(R.id.public_toolbar);
@@ -103,11 +106,16 @@ Log.e("logOut",userPreferences.getUserId());
 //                drawerLayout.closeDrawer(GravityCompat.START);
 //                break;
 //            }
-            case R.id.nav_menu_my_order: {
-//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this,MyOrder.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
+//            case R.id.nav_menu_my_order: {
+////                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(MainActivity.this,MyOrder.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
+            case R.id.nav_menu_logout:{
+
+                Logout logout = new Logout();
+                logout.logOut(MainActivity.this);
             }
             case R.id.nav_menu_setting: {
                 startActivity(new Intent(MainActivity.this,SettingActivity.class));
@@ -167,8 +175,8 @@ Log.e("logOut",userPreferences.getUserId());
         navigationView = (NavigationView) findViewById(R.id.n_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_menu_setting).setVisible(false);
-        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
-        nav_Menu.findItem(R.id.nav_menu_balance).setVisible(false);
+//        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_logout).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_sc4).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_sc5).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_sc7).setVisible(false);

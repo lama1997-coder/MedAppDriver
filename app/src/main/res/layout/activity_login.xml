@@ -239,7 +239,7 @@
                     android:background="#808080"/>
                 <EditText
                     android:id="@+id/phoneNumber"
-                    android:textColor="@color/cardColor"
+
                     android:layout_marginRight="@dimen/margin_normal_size"
                     android:layout_marginLeft="@dimen/margin_normal_size"
                     android:layout_width="match_parent"
@@ -267,7 +267,7 @@
 
                 <EditText
                     android:id="@+id/password"
-                    android:textColor="@color/cardColor"
+
                     android:layout_marginRight="@dimen/margin_normal_size"
                     android:layout_marginLeft="@dimen/margin_normal_size"
                     android:layout_width="match_parent"

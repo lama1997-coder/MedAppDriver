@@ -103,6 +103,7 @@ if(phoneNumber.charAt(0)!='0')
                             JSONObject userInfo = response.getJSONObject("userInfo");
                             userPreferences.setUserId(userInfo.getString("userID"));
                             userPreferences.setToken(response.getString("token"));
+                            userPreferences.setUserName(userInfo.getString("fullName"));
                             Toast.makeText(activity,"Login Success",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(activity, MainActivity.class);
                             activity.startActivity(intent);
