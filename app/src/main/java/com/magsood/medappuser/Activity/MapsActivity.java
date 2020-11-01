@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.Projection;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Service.RequestService;
 import com.magsood.medappuser.Utils.ToolbarClass;
@@ -69,11 +72,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Bundle bundle = getIntent().getExtras();
 
+        String lang = bundle.getString("dropLng");
+        String lat = bundle.getString("dropLat");
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        LatLng sydney = new LatLng(Double.parseDouble(lang), Double.parseDouble(lat));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+//        int zoom = (int)mMap.getCameraPosition().zoom;
+//        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new
+//                LatLng(15.597544 + (double)90/Math.pow(2, zoom),
+//                arg0.getPosition().longitude), zoom);
+//        mMap.animateCamera(cu,500,null);
+
+
     }
 
 
