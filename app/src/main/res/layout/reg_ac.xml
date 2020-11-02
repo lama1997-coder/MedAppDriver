@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,249 +8,145 @@
     tools:context=".Activity.Register"
     android:layoutDirection="rtl">
 
-    <androidx.appcompat.widget.Toolbar
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/public_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="Register"
-        app:titleTextColor="@android:color/white"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-    <RelativeLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/public_toolbar">
-        <LinearLayout
+        android:layout_height="300dp"
+        android:background="@android:color/transparent">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:background="@drawable/top_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1">
-            <RelativeLayout
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1">
-                <ImageView
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
-                    android:src="@drawable/ic_user"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-            <RelativeLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.8">
-                <LinearLayout
-                    android:layout_marginTop="40dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:background="@drawable/edt_bg"
-                        android:layout_width="260dp"
-                        android:layout_height="45dp"
-                        android:hint="phone"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_phone"
-                        android:drawablePadding="10dp"
-                        android:drawableStart="@drawable/ic_phone"
-                        android:inputType="phone"/>
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:background="@drawable/edt_bg"
-                        android:layout_width="260dp"
-                        android:layout_height="45dp"
-                        android:hint="name"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_reg_user"
-                        android:drawablePadding="10dp"
-                        android:drawableStart="@drawable/ic_reg_user"
-                        android:inputType="phone"/>
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:background="@drawable/edt_bg"
-                        android:layout_width="260dp"
-                        android:layout_height="45dp"
-                        android:hint="password"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_pass"
-                        android:drawablePadding="10dp"
-                        android:drawableStart="@drawable/ic_pass"
-                        android:inputType="phone"/>
-                    <EditText
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:background="@drawable/edt_bg"
-                        android:layout_width="260dp"
-                        android:layout_height="45dp"
-                        android:hint="confirm password"
-                        android:layout_marginTop="10dp"
-                        android:drawableLeft="@drawable/ic_pass"
-                        android:drawablePadding="10dp"
-                        android:drawableStart="@drawable/ic_pass"
-                        android:inputType="phone"/>
-                    <RelativeLayout
-                        android:layoutDirection="rtl"
-                        android:layout_marginTop="20dp"
-                        android:layout_width="180dp"
-                        android:layout_height="45dp"
-                        android:background="@drawable/btn_bg">
+                    android:id="@+id/r2">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="65dp"
+                        android:src="@drawable/ic_google"/>
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textColor="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="تسجيل"
+                            android:textSize="25sp"/>
+                        <TextView
+                            android:textColor="@android:color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="دخـــــول"
+                            android:textSize="25sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="@color/colorPrimary"
+                app:layout_collapseMode="pin">
+
+                <RelativeLayout
+                    android:id="@+id/r1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+
+                    <LinearLayout
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:background="@drawable/shape_back_circle"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ic_go"
-                            android:id="@+id/ic_go"
-                            />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="Sign Up"
-                            android:textColor="@android:color/white"
-                            android:textSize="16sp"/>
-
-                    </RelativeLayout>
-
+                            android:src="@drawable/ic_arrow_back" />
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:layout_alignParentBottom="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:layout_width="37dp"
+                        android:layout_height="37dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin_small_size"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_marginTop="@dimen/margin_small_size"
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Or Login with"
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp"/>
-                        <LinearLayout
-                            android:layout_marginTop="20dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:src="@drawable/ic_google"
-                                />
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:src="@drawable/ic_facebook"
-                                />
-                        </LinearLayout>
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/margin_small_size"
+                            android:layout_marginRight="@dimen/margin_small_size"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/margin_small_size"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="@dimen/margin_small_size"
+                            android:background="@android:color/white" />
+
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="1dp"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="@dimen/margin_small_size"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="@dimen/margin_small_size"
+                            android:background="@android:color/white" />
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layoutDirection="ltr"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.1">
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/txtLogin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Login"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/txt_large_size"
-                    android:layout_marginLeft="10dp"/>
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/txtLogin"
-                    android:layout_width="31dp"
-                    android:layout_height="31dp"
-                    android:src="@drawable/ic_loginbtn" />
-            </RelativeLayout>
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/g1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3"/>
-
-    <RelativeLayout
-        android:id="@+id/r1"
-        android:background="@drawable/top_bg"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/g1">
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/margin_large_size"
-            android:src="@drawable/ic_google"/>
-        <LinearLayout
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:textColor="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="تسجيل"
-                android:textSize="25sp"/>
-            <TextView
-                android:textColor="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="دخـــــول"
-                android:textSize="25sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-    </RelativeLayout>
     <androidx.core.widget.NestedScrollView
-        app:layout_constraintTop_toBottomOf="@+id/g1"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
             <LinearLayout
-                android:id="@+id/lay1"
-                android:layout_marginTop="@dimen/margin_large_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="@dimen/margin_large_size">
+                android:layout_margin="@dimen/margin_normal_size"
+                android:gravity="center">
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -563,38 +460,23 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:gravity="bottom"
-                    android:layout_marginTop="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-
-                    >
-
-
-
-                    <LinearLayout
-                        android:background="@drawable/bg_new_reg"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:orientation="horizontal"
-                        android:layout_gravity="right"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_marginLeft="@dimen/margin_small_size"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_arrow_right48"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
-
-
+            </LinearLayout>
+            <LinearLayout
+                android:background="@drawable/bg_new_reg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:layout_gravity="right"
+                android:gravity="center">
+                <ImageView
+                    android:layout_marginLeft="@dimen/margin_small_size"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_arrow_right48"
+                    />
             </LinearLayout>
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
