@@ -4,9 +4,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.SupportMapFragment;
@@ -30,6 +32,13 @@ public class CartItems extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_items);
         init();
+        ( (LinearLayout)(findViewById(R.id.ic_back))).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -42,6 +51,7 @@ public class CartItems extends AppCompatActivity {
         }
         else {
             findViewById(R.id.empty).setVisibility(View.VISIBLE);
+            findViewById(R.id.empty_text).setVisibility(View.VISIBLE);
             Toast.makeText(this, "لاتوجد عناصر", Toast.LENGTH_SHORT).show();
         }
     }

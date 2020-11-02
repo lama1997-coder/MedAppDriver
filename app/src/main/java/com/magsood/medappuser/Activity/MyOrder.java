@@ -1,6 +1,9 @@
 package com.magsood.medappuser.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +29,13 @@ public class MyOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_order_activity);
         init();
+        ( (LinearLayout)(findViewById(R.id.ic_back))).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

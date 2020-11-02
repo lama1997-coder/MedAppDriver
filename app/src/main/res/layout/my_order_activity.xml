@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <LinearLayout
+            android:id="@+id/ic_back"
             android:background="@drawable/shape_back_circle"
             android:layout_marginLeft="@dimen/margin_small_size"
             android:layout_marginRight="@dimen/margin_small_size"

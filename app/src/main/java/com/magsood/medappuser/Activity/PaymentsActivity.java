@@ -3,6 +3,7 @@ package com.magsood.medappuser.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.magsood.medappuser.R;
@@ -26,6 +28,14 @@ public class PaymentsActivity extends AppCompatActivity {
         setContentView(R.layout.payments_acivity);
         init();
         initSpinner();
+
+        ( (LinearLayout)(findViewById(R.id.ic_back))).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

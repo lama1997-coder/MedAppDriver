@@ -430,6 +430,7 @@
                       android:background="@android:color/transparent"
                       android:layout_marginRight="@dimen/margin_small_size"
                       android:layout_marginLeft="@dimen/margin_small_size"
+                      android:inputType="textPassword"
                       android:gravity="center_vertical"
                       />
               </RelativeLayout>
@@ -461,6 +462,7 @@
                       android:background="@android:color/transparent"
                       android:layout_marginRight="@dimen/margin_small_size"
                       android:layout_marginLeft="@dimen/margin_small_size"
+                      android:inputType="textPassword"
                       android:gravity="center_vertical"
                       />
               </RelativeLayout>

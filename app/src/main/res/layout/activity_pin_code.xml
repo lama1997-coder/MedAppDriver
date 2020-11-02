@@ -42,7 +42,7 @@
                             android:textColor="@android:color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="طلب"
+                            android:text="كود التاكيد"
                             android:textSize="41sp"
                             android:textStyle="bold"/>
                     </LinearLayout>
@@ -62,6 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <LinearLayout
+                        android:id="@+id/ic_back"
                         android:background="@drawable/shape_back_circle"
                         android:layout_marginLeft="@dimen/margin_small_size"
                         android:layout_marginRight="@dimen/margin_small_size"
@@ -174,12 +175,15 @@
 
 
                     <EditText
+                        android:fontFamily="@font/tajawalmedium"
+
                         android:layout_toRightOf="@+id/img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:textSize="25sp"
-                        android:textStyle="bold"
+
+                       android:textColor="#991B1414"
                         android:layout_marginRight="@dimen/margin_small_size"
                         android:layout_marginLeft="@dimen/margin_small_size"
                        android:hint="1234"

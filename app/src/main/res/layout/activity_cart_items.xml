@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <LinearLayout
+            android:id="@+id/ic_back"
             android:background="@drawable/shape_back_circle"
             android:layout_marginLeft="@dimen/margin_small_size"
             android:layout_marginRight="@dimen/margin_small_size"
@@ -103,11 +104,22 @@
             </RelativeLayout>
 <ImageView
     android:id="@+id/empty"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
     android:src="@drawable/ic_snooze"
     android:layout_gravity="center"
-    android:visibility="gone"/>
+    android:visibility="gone"
+   />
+            <TextView
+                android:id="@+id/empty_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="لا توجد منتجات"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:fontFamily="@font/tajawalmedium"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@+id/r2"
                 android:id="@+id/recycler"

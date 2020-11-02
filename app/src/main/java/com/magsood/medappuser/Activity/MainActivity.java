@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    TextView name;
 
     CardView cardSearch;
     @Override
@@ -65,7 +66,16 @@ Log.e("logOut",userPreferences.getUserId());
 
         }
         else {
+
             ((TextView)findViewById(R.id.fullName)).setText(userPreferences.getUserName());
+
+
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.n_view);
+            View headerView = navigationView.getHeaderView(0);
+            TextView navUsername = (TextView) headerView.findViewById(R.id.name);
+            navUsername.setText(userPreferences.getUserName());
+
             hideItemReg();
         }
         toolbar = findViewById(R.id.public_toolbar);
@@ -88,7 +98,6 @@ Log.e("logOut",userPreferences.getUserId());
     }
 
     private void hideItemReg() {
-
 
         navigationView = (NavigationView) findViewById(R.id.n_view);
         Menu nav_Menu = navigationView.getMenu();

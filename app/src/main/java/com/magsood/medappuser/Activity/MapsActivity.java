@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.Projection;
@@ -39,6 +40,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        ( (LinearLayout)(findViewById(R.id.ic_back))).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void init() {
@@ -73,14 +83,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Bundle bundle = getIntent().getExtras();
+if(bundle!=null) {
+    String lang = bundle.getString("dropLng");
+    String lat = bundle.getString("dropLat");
+    // Add a marker in Sydney and move the camera
+    LatLng sydney = new LatLng(Double.parseDouble(lang), Double.parseDouble(lat));
+    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
+    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
+}
+else{
+    LatLng sydney = new LatLng(100f, 100f);
+    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
+    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
 
-        String lang = bundle.getString("dropLng");
-        String lat = bundle.getString("dropLat");
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(Double.parseDouble(lang), Double.parseDouble(lat));
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
+}
 
 //        int zoom = (int)mMap.getCameraPosition().zoom;
 //        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new
