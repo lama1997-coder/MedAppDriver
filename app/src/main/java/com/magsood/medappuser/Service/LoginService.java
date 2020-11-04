@@ -69,14 +69,19 @@ public class LoginService {
 
 
 
+
         Map<String, String> params = new HashMap<>();
 if('0' == phoneNumber.charAt(0)){
-
-
-        params.put("phoneNumber",phoneNumber);}
+}
 if(phoneNumber.charAt(0)!='0')
-    params.put("phoneNumber","0"+phoneNumber);
+   phoneNumber="0"+phoneNumber;
+if (phoneNumber.length() != 10) {
+            ((EditText) activity.findViewById(R.id.phoneNumber)).setError("رقم الهاتف يجب ان يكون 10 ارقام");
+            ((EditText) activity.findViewById(R.id.phoneNumber)).requestFocus();
+            return;
+        }
 
+        params.put("phoneNumber",phoneNumber);
         params.put("password", password);
 
         Log.e("response", String.valueOf(params));
@@ -104,7 +109,7 @@ if(phoneNumber.charAt(0)!='0')
                             userPreferences.setUserId(userInfo.getString("userID"));
                             userPreferences.setToken(response.getString("token"));
                             userPreferences.setUserName(userInfo.getString("fullName"));
-                            Toast.makeText(activity,"Login Success",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity,"Login Success",Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(activity, MainActivity.class);
                             activity.startActivity(intent);
 

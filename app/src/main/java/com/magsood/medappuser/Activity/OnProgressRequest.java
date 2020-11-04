@@ -3,6 +3,7 @@ package com.magsood.medappuser.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +21,13 @@ public class OnProgressRequest extends AppCompatActivity {
         setContentView(R.layout.activity_on_progress_request);
 
         init();
-
+        ( (LinearLayout)(findViewById(R.id.ic_back))).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext() ,MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void init() {

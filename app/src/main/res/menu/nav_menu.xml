@@ -21,31 +21,31 @@
             android:id="@+id/fourth_menu_group">
             <item
                 android:id="@+id/nav_menu_sc1"
-                android:title="شاشة تسجيل الدخول"
+                android:title=" تسجيل الدخول"
                 />
             <item
                 android:id="@+id/nav_menu_sc2"
-                android:title="شاشة تسجيل جديد"
+                android:title=" تسجيل جديد"
                 />
             <item
                 android:id="@+id/nav_menu_sc3"
-                android:title="شاشة كود التاكيد"
+                android:title=" كود التاكيد"
                 />
             <item
                 android:id="@+id/nav_menu_sc4"
-                android:title="شاشة طلب حالي"
+                android:title=" طلب حالي"
                 />
             <item
                 android:id="@+id/nav_menu_sc5"
-                android:title="شاشة السلة"
+                android:title=" السلة"
                 />
             <item
                 android:id="@+id/nav_menu_sc6"
-                android:title="شاشة عرض الخرائط"
+                android:title=" عرض الخرائط"
                 />
             <item
                 android:id="@+id/nav_menu_sc7"
-                android:title="شاشة الدفع الالكتروني"
+                android:title=" الدفع الالكتروني"
                 />
         </group>
         <group>

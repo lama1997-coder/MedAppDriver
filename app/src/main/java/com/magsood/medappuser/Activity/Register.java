@@ -1,5 +1,6 @@
 package com.magsood.medappuser.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -86,5 +87,11 @@ public class Register extends ToolbarClass implements AdapterView.OnItemSelected
         RegisterService registerService = new RegisterService();
 
         registerService.sendDate(this,gender);
+    }
+
+    public void toLogin(View view) {
+
+        Intent intent = new Intent(getApplicationContext(),Login.class);
+        startActivity(intent);
     }
 }

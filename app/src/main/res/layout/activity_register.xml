@@ -206,6 +206,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/g1">
         <ImageView
+            android:visibility="gone"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
@@ -519,6 +520,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <TextView
+                    android:visibility="gone"
                     android:layout_margin="@dimen/margin_normal_size"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/cardColor"
@@ -530,6 +532,7 @@
                     android:textSize="@dimen/txt_large_size"/>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -575,6 +578,7 @@
 
 
                     <LinearLayout
+                        android:onClick="toLogin"
                         android:background="@drawable/bg_new_reg"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
