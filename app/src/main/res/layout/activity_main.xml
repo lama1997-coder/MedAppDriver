@@ -112,5 +112,24 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/fab_layout"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:gravity="center_horizontal">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:elevation="6dp"
+            android:src="@drawable/ic_gps"
+            android:visibility="visible"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
 
 </RelativeLayout>
