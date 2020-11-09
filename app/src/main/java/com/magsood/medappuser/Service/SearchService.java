@@ -178,8 +178,6 @@ public class SearchService {
 
 
         ArrayList<String> medicine = new ArrayList<>();
-        medicine.add("lama");
-        medicine.add("ahmed");
 
 
         final KProgressHUD progressDialog;// Validation
@@ -232,6 +230,7 @@ public class SearchService {
                         // Now you can use any deserializer to make sense of data
                         JSONObject obj = new JSONObject(res);
                         Log.e("responseError",obj.toString());
+
                         Log.e("response",userPreferences.getToken());
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string

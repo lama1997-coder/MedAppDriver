@@ -30,6 +30,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.DirectionsApi;
+import com.google.maps.GeoApiContext;
+import com.google.maps.android.PolyUtil;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.TravelMode;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Service.RequestService;
 import com.magsood.medappuser.Utils.ToolbarClass;
@@ -39,6 +46,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import org.joda.time.DateTime;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static androidx.constraintlayout.motion.widget.Debug.getLocation;
 
@@ -126,6 +139,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
+            direction();
         } else {
 //            LatLng sydney = new LatLng(100f, 100f);
 //            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
@@ -321,7 +335,61 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+//code for directions
+private GeoApiContext getGeoContext() {
+    GeoApiContext geoApiContext = new GeoApiContext();
+    return geoApiContext.setQueryRateLimit(3)
+            .setApiKey(getString(R.string.google_maps_key))
+            .setConnectTimeout(1, TimeUnit.SECONDS)
+            .setReadTimeout(1, TimeUnit.SECONDS)
+            .setWriteTimeout(1, TimeUnit.SECONDS);
+}
+public void direction(){
+
+    Bundle bundle = getIntent().getExtras();
+    if (bundle != null) {
+        String lang = bundle.getString("dropLng");
+        String lat = bundle.getString("dropLat");
 
 
+        LatLng origin = new LatLng(longitude, latitude);
+        LatLng destination = new LatLng(Double.parseDouble(lang), Double.parseDouble(lat));
+        DateTime now = new DateTime();
+        try {
+            DirectionsResult result = DirectionsApi.newRequest(getGeoContext())
+                    .mode(TravelMode.DRIVING).origin(String.valueOf(origin))
+                    .destination(String.valueOf(destination)).departureTime(now)
+                    .await();
+            addPolyline(result, mMap);
+            addMarkersToMap(result, mMap);
+        } catch (ApiException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+}
+
+    private void addMarkersToMap(DirectionsResult results, GoogleMap mMap) {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String lang = bundle.getString("dropLng");
+            String lat = bundle.getString("dropLat");
+
+            LatLng origin = new LatLng(longitude, latitude);
+            LatLng destination = new LatLng(Double.parseDouble(lang), Double.parseDouble(lat));
+
+            mMap.addMarker(new MarkerOptions().position(origin).title(results.routes[0].legs[0].startAddress));
+            mMap.addMarker(new MarkerOptions().position(destination).title(results.routes[0].legs[0].startAddress).snippet(getEndLocationTitle(results)));
+        }
+    }
+
+    private String getEndLocationTitle(DirectionsResult results){        return  "Time :"+ results.routes[0].legs[0].duration.humanReadable + " Distance :" + results.routes[0].legs[0].distance.humanReadable;    }
+
+    private void addPolyline(DirectionsResult results, GoogleMap mMap) { List<LatLng> decodedPath = PolyUtil.decode(results.routes[0].overviewPolyline.getEncodedPath());
+        mMap.addPolyline(new PolylineOptions().addAll(decodedPath));
+    }
 }
