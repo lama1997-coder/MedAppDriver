@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_margin="17.5dp">
         <TextView
+            android:id="@+id/status"
             android:background="@drawable/btn_bg_blue"
             android:paddingRight="@dimen/margin_normal_size"
             android:paddingLeft="@dimen/margin_normal_size"
@@ -21,7 +22,42 @@
             android:layout_marginRight="@dimen/margin_normal_size"
             android:layout_marginLeft="@dimen/margin_normal_size"
             android:textColor="@android:color/white"/>
+
+
+        <LinearLayout
+            android:layout_width="212dp"
+
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="100dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tajawalmedium"
+                android:textSize="@dimen/txt_normal_size14"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="ewewvvv" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/status"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="ewew" />-->
+
+
+        </LinearLayout>
+
         <TextView
+            android:id="@+id/price"
             android:layout_alignParentLeft="true"
             android:background="@drawable/shape_bg_2radius"
             android:paddingRight="@dimen/margin_normal_size"

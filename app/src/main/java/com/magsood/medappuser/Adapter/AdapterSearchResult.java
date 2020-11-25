@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.magsood.medappuser.Activity.MapsActivity;
+import com.magsood.medappuser.Activity.TestMapActvity;
 import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.Model.ModelSearch;
 import com.magsood.medappuser.R;
@@ -72,21 +73,21 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
                 modelCart.setPrice(item.getPrice());
                 modelCart.setPharmacyLat(item.getLat());
                 modelCart.setPharmacyLong(item.getLng());
-                Toast.makeText(activity,"قـــــريــــبـــا", Toast.LENGTH_SHORT).show();
+             //   Toast.makeText(activity,"قـــــريــــبـــا", Toast.LENGTH_SHORT).show();
 
 
                 //add to cart code
-//                if (AddToCart(modelCart)){
-//                    Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    Toast.makeText(activity, "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
-//                }
+                if (AddToCart(modelCart)){
+                   Toast.makeText(activity, "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
+               }else{
+                   Toast.makeText(activity, "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         holder.txtShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, MapsActivity.class);
+                Intent intent = new Intent(activity, TestMapActvity.class);
 
                 intent.putExtra("amount","1");
                 intent.putExtra("medicineID",item.getMedicineID());

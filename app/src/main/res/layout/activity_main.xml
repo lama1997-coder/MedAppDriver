@@ -56,7 +56,7 @@
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="صباح الخير ،"
+                    android:text="مرحبا "
                     android:textSize="15sp"/>
                 <TextView
                     android:id="@+id/fullName"
@@ -78,35 +78,87 @@
                     android:textStyle="bold"
                     android:layout_gravity="right"/>
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardSearch"
-                    app:cardCornerRadius="7dp"
+                    android:layout_below="@+id/r1"
+                    android:id="@+id/txt_search"
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_margin="@dimen/margin_normal_size">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_large_size"
+                    app:cardCornerRadius="@dimen/margin_normal_size">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="?attr/actionBarSize">
                         <ImageView
-                            android:src="@drawable/ic_search"
-                            android:id="@+id/ic_search"
-                            android:layout_centerVertical="true"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
                             android:layout_alignParentLeft="true"
-                            android:layout_margin="@dimen/margin_small_size"/>
-                        <TextView
-                            android:clickable="false"
-                            android:gravity="center_vertical"
+                            android:id="@+id/ic_search"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:padding="2dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_mic"
+                            android:layout_centerVertical="true"
+                            tools:ignore="RtlHardcoded" />
+
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/ic_back"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="30dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:padding="2dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_back_black"
+                            android:layout_centerVertical="true"
+                            tools:ignore="RtlHardcoded" />
+                        <AutoCompleteTextView
+
+                            android:imeOptions="actionSearch"
+                            android:inputType="textAutoComplete|textAutoCorrect"
+                            android:layout_toLeftOf="@+id/ic_back"
+                            android:padding="5dp"
+                            android:id="@+id/editsearch"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_toRightOf="@+id/ic_search"
-                            android:text="ابحث عن دواء"
+                            android:hint="اكتب للبحث ..."
                             android:background="@android:color/transparent"
-                            android:paddingRight="@dimen/margin_small_size"
-                            android:paddingLeft="@dimen/margin_small_size"
+                            android:textSize="@dimen/txt_normal_size"
+                            android:layout_toRightOf="@+id/ic_search"
                             />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:id="@+id/cardSearch"-->
+<!--                    app:cardCornerRadius="7dp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="44dp"-->
+<!--                    android:layout_margin="@dimen/margin_normal_size">-->
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent">-->
+<!--                        <ImageView-->
+<!--                            android:src="@drawable/ic_search"-->
+<!--                            android:id="@+id/ic_search"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:layout_width="25dp"-->
+<!--                            android:layout_height="25dp"-->
+<!--                            android:layout_alignParentLeft="true"-->
+<!--                            android:layout_margin="@dimen/margin_small_size"/>-->
+<!--                        <TextView-->
+<!--                            android:clickable="false"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:layout_toRightOf="@+id/ic_search"-->
+<!--                            android:text="ابحث عن دواء"-->
+<!--                            android:background="@android:color/transparent"-->
+<!--                            android:paddingRight="@dimen/margin_small_size"-->
+<!--                            android:paddingLeft="@dimen/margin_small_size"-->
+<!--                            />-->
+<!--                    </RelativeLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
 
             </LinearLayout>
         </RelativeLayout>

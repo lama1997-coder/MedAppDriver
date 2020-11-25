@@ -69,7 +69,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
 //        modelCart.setAmount(1);
 
 
-        String query = "SELECT * FROM "+TABLE_CART+" where id=='"+modelCart.getId()+"'";
+        String query = "SELECT * FROM "+TABLE_CART+" where medicineID=='"+modelCart.getMedicineID()+"'";
         SQLiteDatabase database = getReadableDatabase();
         Cursor c = database.rawQuery(query, null);
         c.moveToFirst();
@@ -77,7 +77,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put("amount", Integer.parseInt(c.getString(c.getColumnIndex("amount")))+1);
 
-            database.update(TABLE_CART, values, "id = ?", new String[] {String.valueOf(modelCart.getId())} );
+            database.update(TABLE_CART, values, "medicineID = ?", new String[] {String.valueOf(modelCart.getMedicineID())} );
 
             database.close();
             return true;
@@ -112,6 +112,7 @@ public class SqlLiteDataBase extends SQLiteOpenHelper {
                 cardModel.setPharmacyLat(c.getString(c.getColumnIndex("pharmacyLat")));
                 cardModel.setPharmacyLong(c.getString(c.getColumnIndex("pharmacyLat")));
                 cardModel.setAmount(Integer.parseInt(c.getString(c.getColumnIndex("amount"))));
+                cardModel.setMedicineID(c.getString(c.getColumnIndex("medicineID")));
 
                 cardModels.add(cardModel);
             }

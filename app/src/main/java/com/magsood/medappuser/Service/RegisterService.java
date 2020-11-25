@@ -27,8 +27,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.magsood.medappuser.Activity.Login;
+import com.magsood.medappuser.Activity.PinCode;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.R;
+import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
 
 import org.json.JSONException;
@@ -45,7 +47,9 @@ public class RegisterService {
     String fullName, email, location, phoneNumber, password, confPassword;
 String TAG = "RESPONSE";
 String message;
+UserPreferences userPreferences;
     public void sendDate(Activity activity,String gender) {
+        userPreferences = new UserPreferences(activity);
 
         fullName = ((EditText) activity.findViewById(R.id.fullName)).getText().toString();
         email = ((EditText) activity.findViewById(R.id.email)).getText().toString();
@@ -139,9 +143,26 @@ String message;
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
                         Log.d(TAG, response.toString());
-                        Toast.makeText(activity,"Register Complete  ",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(activity, Login.class);
-                        activity.startActivity(intent);
+                        try {
+                            if(response.getString("success").equals("false")){
+                                Toast.makeText(activity,response.getString("error"),Toast.LENGTH_SHORT).show();
+
+                            }
+
+
+                            else{
+
+
+                                Toast.makeText(activity,"تم التسجيل بنجاح  ",Toast.LENGTH_SHORT).show();
+                                userPreferences.setPhoneNumber(phoneNumber);
+                                VerificationNumber verificationNumber = new VerificationNumber();
+                                verificationNumber.verificationNumber(activity);
+                                Intent intent = new Intent(activity, PinCode.class);
+                                activity.startActivity(intent);}
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
 
 
                     }
@@ -171,7 +192,7 @@ String message;
                 if (error instanceof NetworkError) {
                     message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ServerError) {
-                    message = "الخادم غير موجود";
+                    message = "رقم الهاتف موجود مسبقا";
                 } else if (error instanceof AuthFailureError) {
                     message = "رقم الهاتف موجود مسبقا ";
                 } else if (error instanceof ParseError) {
@@ -207,6 +228,24 @@ String message;
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

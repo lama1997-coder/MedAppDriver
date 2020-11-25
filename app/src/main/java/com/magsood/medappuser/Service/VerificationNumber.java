@@ -1,10 +1,10 @@
 package com.magsood.medappuser.Service;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -19,201 +19,63 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.magsood.medappuser.Adapter.AdapterSearchResult;
+import com.magsood.medappuser.Activity.Login;
+import com.magsood.medappuser.Activity.PinCode;
 import com.magsood.medappuser.Constants;
-import com.magsood.medappuser.Model.ModelSearch;
-import com.magsood.medappuser.R;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchService {
+public class VerificationNumber {
+
+
     UserPreferences userPreferences;
-    RecyclerView recyclerView;
-    ArrayList<ModelSearch> modelSearchArrayList;
-    AdapterSearchResult adapterSearchResult;
-    String message;
-
-
-
     String TAG = "RESPONSE";
+    String message;
+    public void verificationNumber(Activity activity) {
 
-    public void search(Activity activity, String searchString) {
 
 
-
-        userPreferences = new UserPreferences(activity );
-
-        recyclerView = activity.findViewById(R.id.recycler);
+        userPreferences = new UserPreferences(activity);
 
 
 
 
-        Map<String, String> params = new HashMap<>();
-        params.put("searchString", searchString);
-
-        final KProgressHUD progressDialog;// Validation
-        progressDialog = KProgressHUD.create(activity)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("الرجاء الانتظار")
-                .setCancellable(false)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f)
-                .show();
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                Constants.SEARCH_URL+"?token="+userPreferences.getToken(), new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        progressDialog.dismiss();
-
-
-                        try {
-                            Log.e("response",response.get("data").toString());
-                            JSONArray jsonArray = response.getJSONArray("data");
-
-                            Log.e("response",jsonArray.toString());
-
-                        modelSearchArrayList = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject data = jsonArray.getJSONObject(i);
-                            ModelSearch modelSearch = new ModelSearch();
-                            modelSearch.setId(data.getString("id"));
-                            modelSearch.setPharmacyID(data.getString("pharmacyID"));
-                            modelSearch.setMedicineID(data.getString("medicineID"));
-                            modelSearch.setTradeName(data.getString("tradeName"));
-                            modelSearch.setPublicName(data.getString("publicName"));
-                            modelSearch.setPrice(data.getString("price"));
-                            modelSearch.setPharmacyName(data.getString("name"));
-                            modelSearch.setDescription(data.getString("description"));
-                            modelSearch.setCompnayName(data.getString("compnayName"));
-                            modelSearch.setPhoneNumber(data.getString("phoneNumber"));
-                            modelSearch.setLocation(data.getString("location"));
-                            modelSearch.setLng(data.getString("lng"));
-                            modelSearch.setLat(data.getString("lat"));
-                            modelSearch.setState(data.getString("state"));
-
-
-                            modelSearchArrayList.add(modelSearch);
-                        }
-                        adapterSearchResult = new AdapterSearchResult(activity,modelSearchArrayList);
-                        recyclerView.setAdapter(adapterSearchResult);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                // As of f605da3 the following should work
-                NetworkResponse response = error.networkResponse;
-                if (error instanceof ServerError && response != null) {
-                    try {
-                        String res = new String(response.data,
-                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
-                        // Now you can use any deserializer to make sense of data
-                        JSONObject obj = new JSONObject(res);
-                        Log.e("responseError",obj.toString());
-                        Log.e("response",userPreferences.getToken());
-                        message = "المنتج غير موجود";
-                    } catch (UnsupportedEncodingException e1) {
-                        // Couldn't properly decode data to string
-                        e1.printStackTrace();
-                    } catch (JSONException e2) {
-                        // returned data is not JSONObject?
-                        e2.printStackTrace();
-                    }
-                }
-                if (error instanceof NetworkError) {
-                    message="الرجاء التاكد من الانترنت";
-                } else if (error instanceof AuthFailureError) {
-                    message = "غير موجود";
-                } else if (error instanceof ParseError) {
-                    message="الرجاء التاكد من الانترنت";
-                } else if (error instanceof NoConnectionError) {
-                    message="الرجاء التاكد من الانترنت";
-                } else if (error instanceof TimeoutError) {
-                    message="الرجاء التاكد من الانترنت";
-                }
-                Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
-            }
-
-
-        }) {
-
-
-
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                // Removed this line if you dont need it or Use application/json
-                params.put("Content-Type", "application/json");
-                return params;
-            }
-
-
-        };
-//
-        VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
-
-    }
-
-    public ArrayList<String> getMedicine(Activity activity) {
-
-        userPreferences = new UserPreferences(activity );
-
-        recyclerView = activity.findViewById(R.id.recycler);
-
-
-        ArrayList<String> medicine = new ArrayList<>();
 
 
         final KProgressHUD progressDialog;// Validation
         progressDialog = KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("الرجاء الانتظار")
+                .setLabel("سيتم ارسال كود التاكيد")
                 .setCancellable(false)
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f)
                 .show();
+
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Constants.GET_MEDICINE+"?token="+userPreferences.getToken(), null,
+                Constants.VerificationNumber+"/"+userPreferences.getPhoneNumber(), null,
                 new Response.Listener<JSONObject>() {
+
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        progressDialog.dismiss();
-                        Log.e("response",response.toString());
+                        Log.e("response", String.valueOf(response));
 
                         try {
+                            if(response.getString("success").equals("true")){
 
-
-                            JSONArray data = response.getJSONArray("data");
-
-                            for (int i = 0 ;i<data.length();i++){
-                                JSONObject jsonObject = data.optJSONObject(i);
-                                medicine.add(jsonObject.getString("tradeName"));
-                                medicine.add(jsonObject.getString("publicName"));
-
-
+                                Toast.makeText(activity,response.getString("message"),Toast.LENGTH_SHORT).show();
 
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        progressDialog.dismiss();
 
 
                     }
@@ -231,7 +93,6 @@ public class SearchService {
                         // Now you can use any deserializer to make sense of data
                         JSONObject obj = new JSONObject(res);
                         Log.e("responseError",obj.toString());
-
                         Log.e("response",userPreferences.getToken());
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string
@@ -246,18 +107,28 @@ public class SearchService {
                 } else if (error instanceof ServerError) {
                     message = "الخادم غير موجود";
                 } else if (error instanceof AuthFailureError) {
-                    message = "الرجاء تسجيل الدخول";
+
+
+                    NetworkResponse responseFailr = error.networkResponse;
+                    String res = null;
+                    try {
+                        res = new String(responseFailr.data,
+                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        JSONObject obj = new JSONObject(res);
+                        Log.e("responseError",obj.toString());
+                        message = obj.getString("error");
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // Now you can use any deserializer to make sense of data
                 } else if (error instanceof ParseError) {
-                    message="الرجاء التاكد من الانترنت";
-                } else if (error instanceof NoConnectionError) {
                     message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof TimeoutError) {
                     message="الرجاء التاكد من الانترنت";
                 }
                 Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
+
             }
-
-
         }) {
 
 
@@ -276,7 +147,149 @@ public class SearchService {
 //
         VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
 
-        return medicine;
     }
+
+    public void sendCode(Activity activity ,String code) {
+
+        userPreferences = new UserPreferences(activity);
+
+
+
+
+
+
+        final KProgressHUD progressDialog;// Validation
+        progressDialog = KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("جاري الارسال")
+                .setCancellable(false)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+        Map<String, String> params = new HashMap<>();
+        params.put("phoneNumber",userPreferences.getPhoneNumber());
+        params.put("code",code);
+        Log.e("response", String.valueOf(params));
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                Constants.SendVerificationNumber, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("response", String.valueOf(response));
+
+                        if (response.toString().contains("error")){
+                            try {
+                                Toast.makeText(activity,response.getString("error"),Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            progressDialog.dismiss();}
+
+                        else {
+                        Toast.makeText(activity,"الرجاء تسجيل الدخول",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(activity, Login.class);
+
+
+                        activity.startActivity(intent);}
+
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                // As of f605da3 the following should work
+                NetworkResponse response = error.networkResponse;
+                if (error instanceof ServerError && response != null) {
+                    try {
+                        String res = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        // Now you can use any deserializer to make sense of data
+                        JSONObject obj = new JSONObject(res);
+                        Log.e("responseError",obj.toString());
+                        Log.e("response",userPreferences.getToken());
+                    } catch (UnsupportedEncodingException e1) {
+                        // Couldn't properly decode data to string
+                        e1.printStackTrace();
+                    } catch (JSONException e2) {
+                        // returned data is not JSONObject?
+                        e2.printStackTrace();
+                    }
+                }
+                if (error instanceof NetworkError) {
+                    message="الرجاء التاكد من الانترنت";
+                } else if (error instanceof ServerError) {
+                    message = "الخادم غير موجود";
+                } else if (error instanceof AuthFailureError) {
+                    NetworkResponse responseFailr = error.networkResponse;
+                    String res = null;
+                    try {
+                        res = new String(responseFailr.data,
+                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        JSONObject obj = new JSONObject(res);
+                        Log.e("responseError",obj.toString());
+                        message = obj.getString("error");
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // Now you can use any deserializer to make sense of data
+
+                } else if (error instanceof ParseError) {
+                    message="الرجاء التاكد من الانترنت";
+                } else if (error instanceof NoConnectionError) {
+                    message="الرجاء التاكد من الانترنت";
+                } else if (error instanceof TimeoutError) {
+                    message="الرجاء التاكد من الانترنت";
+                }
+                Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+
+
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                // Removed this line if you dont need it or Use application/json
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+
+
+        };
+//
+        VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
 
 }

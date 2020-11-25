@@ -2,6 +2,7 @@ package com.magsood.medappuser.Adapter;
 
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.magsood.medappuser.Activity.CartItems;
 import com.magsood.medappuser.Activity.MapsActivity;
 import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.Model.ModelSearch;
@@ -50,21 +52,19 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         final ModelCart item = arrayList.get(position);
 
         holder.textViewName.setText(item.getName());
-        holder.textViewPrice.setText(item.getPrice());
+        holder.textViewPrice.setText( String.valueOf(Double.parseDouble(item.getPrice())*item.getAmount()));
         holder.textViewPhName.setText(item.getPharmacyName());
         holder.textViewAddress.setText(item.getPharmacyAddress());
-        holder.amount.setText(item.getAmount());
+        holder.amount.setText(String.valueOf(item.getAmount()));
         holder.textViewDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (delFromCart(item.getId())){
-                    Toast.makeText(activity, "تم الحذف", Toast.LENGTH_SHORT).show();
-                    arrayList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, arrayList.size());
-                }else{
-                    Toast.makeText(activity, "حدث خطأ حاول مرة اخرى", Toast.LENGTH_SHORT).show();
-                }
+
+
+                AlertDialog diaBox = AskOption(item , position);
+                diaBox.show();
+
+
             }
         });
 
@@ -104,6 +104,52 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         void onItemClick(View view, int position);
     }
 
+    private AlertDialog AskOption(ModelCart item ,int position)
+    {
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(activity)
+                // set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+                .setIcon(R.drawable.delete)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+
+
+                        if (delFromCart(item.getId())){
+                            Toast.makeText(activity, "تم الحذف", Toast.LENGTH_SHORT).show();
+                            arrayList.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, arrayList.size());
+                            if(arrayList.size()==0){
+
+                                activity.   findViewById(R.id.empty).setVisibility(View.VISIBLE);
+                                activity. findViewById(R.id.empty_text).setVisibility(View.VISIBLE);
+                                Toast.makeText(activity, "لاتوجد عناصر", Toast.LENGTH_SHORT).show();
+                                activity. findViewById(R.id.btnOrder).setVisibility(View.GONE);
+                            }
+                        }else{
+                            Toast.makeText(activity, "حدث خطأ حاول مرة اخرى", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                        dialog.dismiss();
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+
+        return myQuittingDialogBox;
+    }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         LinearLayout textViewDel,txtShowMap;
         AppCompatButton buttonSubscription;

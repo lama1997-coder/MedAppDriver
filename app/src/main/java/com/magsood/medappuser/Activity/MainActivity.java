@@ -22,11 +22,17 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.speech.RecognizerIntent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +50,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.magsood.medappuser.Service.Logout;
+import com.magsood.medappuser.Service.SearchService;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     private GoogleMap mMap;
@@ -52,19 +61,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     TextView name;
+    AutoCompleteTextView search ;
+    SearchService searchService;
+    ImageView recordIcon;
+    private static final int REQUEST_CODE = 1234;
 
     CardView cardSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.nav_drawer);
         init();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
+
+
+
+        searchService = new SearchService();
+        ArrayList<String> medicine = searchService.getMedicine(this);
+        // Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, medicine);
+        search.setAdapter(adapter);
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    // Your piece of code on keyboard search click
+                    searchFun();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+    }
+    private void searchFun() {
+        Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+        intent.putExtra("searchStr",search.getText().toString());
+        startActivity(intent);
+//        searchService = new SearchService();
+//        searchService.search(this,search.getText().toString());
+    }
     private void init() {
+        recordIcon= findViewById(R.id.ic_search);
+        search = findViewById(R.id.editsearch);
+
         floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +118,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getMyLocation();
             }
         });
-        cardSearch = findViewById(R.id.cardSearch);
-        cardSearch.setOnClickListener(new View.OnClickListener() {
+//        cardSearch = findViewById(R.id.cardSearch);
+//        cardSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(MainActivity.this,SearchActivity.class));
+//            }
+//        });
+
+        recordIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,SearchActivity.class));
+                startVoiceRecognition();
             }
         });
-
-
         UserPreferences userPreferences= new UserPreferences(this);
 Log.e("logOut",userPreferences.getUserId());
         if(userPreferences.getUserId().equals("")){
@@ -139,12 +190,12 @@ Log.e("logOut",userPreferences.getUserId());
 //                drawerLayout.closeDrawer(GravityCompat.START);
 //                break;
 //            }
-//            case R.id.nav_menu_my_order: {
-////                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(MainActivity.this,MyOrder.class));
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//                break;
-//            }
+            case R.id.nav_menu_my_order: {
+//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,MyOrder.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            }
             case R.id.nav_menu_logout:{
 
                 Logout logout = new Logout();
@@ -165,31 +216,31 @@ Log.e("logOut",userPreferences.getUserId());
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             }
-            case R.id.nav_menu_sc3: {
-                startActivity(new Intent(MainActivity.this,PinCode.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
-            case R.id.nav_menu_sc4: {
-                startActivity(new Intent(MainActivity.this,OnProgressRequest.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
+//            case R.id.nav_menu_sc3: {
+//                startActivity(new Intent(MainActivity.this,PinCode.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
+//            case R.id.nav_menu_sc4: {
+//                startActivity(new Intent(MainActivity.this,OnProgressRequest.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
             case R.id.nav_menu_sc5: {
                 startActivity(new Intent(MainActivity.this,CartItems.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             }
-            case R.id.nav_menu_sc6: {
-                startActivity(new Intent(MainActivity.this,MapsActivity.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
-            case R.id.nav_menu_sc7: {
-                startActivity(new Intent(MainActivity.this,PaymentsActivity.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
+//            case R.id.nav_menu_sc6: {
+//                startActivity(new Intent(MainActivity.this,MapsActivity.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
+//            case R.id.nav_menu_sc7: {
+//                startActivity(new Intent(MainActivity.this,PaymentsActivity.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
         }
         return true;
     }
@@ -322,18 +373,47 @@ Log.e("logOut",userPreferences.getUserId());
         });
     }
 
+    public void startVoiceRecognition() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Voice searching...");
+        intent.putExtra("android.speech.extra.DICTATION_MODE", true);
+        intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, false);
 
+
+        startActivityForResult(intent, REQUEST_CODE);
+
+
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            // Populate the wordsList with the String values the recognition engine thought it heard
+            final ArrayList< String > matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (!matches.isEmpty())
+            {
+                String Query = matches.get(0);
+                search.setText(Query + matches);
+
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     private void hideItem()
     {
         navigationView = (NavigationView) findViewById(R.id.n_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_menu_setting).setVisible(false);
-//        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_logout).setVisible(false);
-        nav_Menu.findItem(R.id.nav_menu_sc4).setVisible(false);
+//        nav_Menu.findItem(R.id.nav_menu_sc4).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_sc5).setVisible(false);
-        nav_Menu.findItem(R.id.nav_menu_sc7).setVisible(false);
+//        nav_Menu.findItem(R.id.nav_menu_sc7).setVisible(false);
 
     }
 

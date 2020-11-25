@@ -26,11 +26,12 @@
                     android:layout_height="match_parent"
                     android:id="@+id/r2">
                     <ImageView
+
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="65dp"
-                        android:src="@drawable/ic_google"/>
+                        android:src="@drawable/icon_app"/>
                     <LinearLayout
                         android:gravity="center"
                         android:layout_margin="10dp"
@@ -58,6 +59,7 @@
 
 
             <androidx.appcompat.widget.Toolbar
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:background="@color/colorPrimary"
@@ -238,6 +240,7 @@
                             android:layout_marginRight="@dimen/margin_small_size"
                             android:layout_marginLeft="@dimen/margin_small_size"
                             android:inputType="number"
+                            android:maxLength="10"
                             android:gravity="center_vertical"
                             />
                     </RelativeLayout>
@@ -327,6 +330,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="كلمة المرور"
+                            android:inputType="textPassword"
                             android:singleLine="true"
                             android:layout_toLeftOf="@+id/img3"
                             android:background="@android:color/transparent"
@@ -354,6 +358,7 @@
                             android:layout_height="25dp"
                             android:src="@drawable/ic_pass"/>
                         <EditText
+                            android:inputType="textPassword"
                             android:id="@+id/confirm_pass"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -416,6 +421,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <TextView
+                    android:visibility="gone"
                     android:layout_margin="@dimen/margin_normal_size"
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/cardColor"
@@ -427,6 +433,7 @@
                     android:textSize="@dimen/txt_large_size"/>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -439,6 +446,7 @@
                         android:layout_height="35dp"
                         android:layout_margin="@dimen/margin_normal_size">
                         <ImageView
+                            android:visibility="gone"
                             android:layout_gravity="center"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
@@ -451,6 +459,7 @@
                         android:layout_height="35dp"
                         android:layout_margin="@dimen/margin_normal_size">
                         <ImageView
+                            android:visibility="gone"
                             android:layout_gravity="center"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
@@ -462,6 +471,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:onClick="toLogin"
                 android:background="@drawable/bg_new_reg"
                 android:layout_width="60dp"
                 android:layout_height="60dp"

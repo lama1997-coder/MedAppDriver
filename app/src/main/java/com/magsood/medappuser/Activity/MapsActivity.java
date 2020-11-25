@@ -9,14 +9,12 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
-import android.location.Location;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +25,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
@@ -37,23 +34,24 @@ import com.google.maps.android.PolyUtil;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.TravelMode;
+import com.magsood.medappuser.GMapV2Direction;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Service.RequestService;
-import com.magsood.medappuser.Utils.ToolbarClass;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.okhttp.internal.framed.FrameReader;
 
 import org.joda.time.DateTime;
+import org.w3c.dom.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static androidx.constraintlayout.motion.widget.Debug.getLocation;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback ,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -68,6 +66,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private double latitude;
     private static final String TAG = "MapsActivity";
     private FusedLocationProviderClient fusedLocationClient;
+    AppCompatButton btnDir;
+    Marker currLocationMarker;
 
 
 
@@ -98,6 +98,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
             }
         });
+
+
     }
 
     private void init() {
@@ -107,24 +109,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
 //                showDialog();
                 //   startActivity(new Intent(MapsActivity.this,SendRequest.class));
-                sendReq();
+                direction();
 
 
             }
         });
+
+
     }
 
-    private void sendReq() {
-
-
-        Bundle bundle = getIntent().getExtras();
-        String medicineID = bundle.getString("medicineID");
-        String amount = bundle.getString("amount");
-        String lang = bundle.getString("dropLng");
-        String lat = bundle.getString("dropLat");
-        RequestService requestService = new RequestService();
-        requestService.sendRequest(this, medicineID, amount, lang, lat);
-    }
+//    private void sendReq() {
+//
+//
+//        Bundle bundle = getIntent().getExtras();
+//        String medicineID = bundle.getString("medicineID");
+//        String amount = bundle.getString("amount");
+//        String lang = bundle.getString("dropLng");
+//        String lat = bundle.getString("dropLat");
+//        RequestService requestService = new RequestService();
+//        requestService.sendRequest(this, medicineID, amount, lang, lat);
+//    }
 
 
     @Override
@@ -136,10 +140,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             String lat = bundle.getString("dropLat");
             // Add a marker in Sydney and move the camera
             LatLng sydney = new LatLng(Double.parseDouble(lang), Double.parseDouble(lat));
-            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
+            currLocationMarker=mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
-            direction();
         } else {
 //            LatLng sydney = new LatLng(100f, 100f);
 //            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
@@ -163,29 +166,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void getCurrentLocation() {
         mMap.clear();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            if ( Build.VERSION.SDK_INT >= 23){
-//                if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-//                        PackageManager.PERMISSION_GRANTED  ){
-//                    requestPermissions(new String[]{
-//                                    android.Manifest.permission.ACCESS_FINE_LOCATION},
-//                            REQUEST_CODE_ASK_PERMISSIONS);
-//                    return ;
-//                }
-//            }
-
                 requestPermissions(new String[]{
                                 android.Manifest.permission.ACCESS_FINE_LOCATION},
                         REQUEST_CODE_ASK_PERMISSIONS);
-
-
-
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             Log.e(TAG,"i stopp in premission");
             return;
         }
@@ -204,18 +187,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
 
 
-                //Log.e(TAG,location.toString());
-                // Handle null case or Request periodic location update https://developer.android.com/training/location/receive-location-updates
+
             }
         });
-//        if (location != null) {
-//            //Getting longitude and latitude
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
 //
-//            //moving the map to location
-//            moveMap();
-//        }
     }
     private void moveMap() {
         /**
@@ -224,10 +199,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
          * move the camera with animation
          */
         LatLng latLng = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions()
+        currLocationMarker=    mMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .draggable(true)
-                .title("Marker in India"));
+                .title("Marker in your location"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -278,7 +253,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapLongClick(LatLng latLng) {
         // mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(latLng).draggable(true));
+        currLocationMarker=    mMap.addMarker(new MarkerOptions().position(latLng).draggable(true));
     }
 
     @Override
@@ -344,6 +319,9 @@ private GeoApiContext getGeoContext() {
             .setReadTimeout(1, TimeUnit.SECONDS)
             .setWriteTimeout(1, TimeUnit.SECONDS);
 }
+
+
+
 public void direction(){
 
     Bundle bundle = getIntent().getExtras();
@@ -360,8 +338,10 @@ public void direction(){
                     .mode(TravelMode.DRIVING).origin(String.valueOf(origin))
                     .destination(String.valueOf(destination)).departureTime(now)
                     .await();
-            addPolyline(result, mMap);
+            Log.e("responseMap",result.toString());
             addMarkersToMap(result, mMap);
+            addPolyline(result, mMap);
+
         } catch (ApiException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -373,7 +353,27 @@ public void direction(){
 
 }
 
+
+//    protected void route(LatLng sourcePosition, LatLng destPosition, String mode) {
+//        GMapV2Direction md = new GMapV2Direction();
+//        Document doc = md.getDocument(sourcePosition, destPosition,
+//                GMapV2Direction.MODE_DRIVING);
+//
+//        ArrayList<LatLng> directionPoint = md.getDirection(doc);
+//        PolylineOptions rectLine = new PolylineOptions().width(3).color(
+//                Color.RED);
+//
+//        for (int i = 0; i < directionPoint.size(); i++) {
+//            rectLine.add(directionPoint.get(i));
+//        }
+//        Polyline polylin = mMap.addPolyline(rectLine);
+//    }
+
     private void addMarkersToMap(DirectionsResult results, GoogleMap mMap) {
+
+        if (currLocationMarker != null) {
+            currLocationMarker.remove();
+        }
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             String lang = bundle.getString("dropLng");
@@ -392,4 +392,6 @@ public void direction(){
     private void addPolyline(DirectionsResult results, GoogleMap mMap) { List<LatLng> decodedPath = PolyUtil.decode(results.routes[0].overviewPolyline.getEncodedPath());
         mMap.addPolyline(new PolylineOptions().addAll(decodedPath));
     }
+
+
 }

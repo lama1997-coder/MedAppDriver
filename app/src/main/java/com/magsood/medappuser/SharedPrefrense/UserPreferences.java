@@ -27,6 +27,20 @@ public class UserPreferences {
         editor.apply();
     }
 
+    public void setPhoneNumber(String token){
+
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("phoneNumber",token);
+        editor.apply();
+    }
+
+    public String  getPhoneNumber(){
+        return sharedpreferences.getString("phoneNumber","");
+
+
+    }
+
     public void setUserId(String id){
 
 
@@ -59,6 +73,7 @@ public class UserPreferences {
     public  void removeSharedPrefrenceData(){
         try {
 
+            context.deleteDatabase("easylife.db");
 
             SharedPreferences.Editor prefEditor = sharedpreferences.edit();
             prefEditor.remove("data");

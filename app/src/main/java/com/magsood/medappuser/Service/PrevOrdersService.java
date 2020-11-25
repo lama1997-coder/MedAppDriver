@@ -3,8 +3,9 @@ package com.magsood.medappuser.Service;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -20,24 +21,35 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.magsood.medappuser.Activity.Login;
-import com.magsood.medappuser.Activity.MainActivity;
+import com.magsood.medappuser.Adapter.AdapterMyOrder;
+import com.magsood.medappuser.Adapter.AdapterSearchResult;
 import com.magsood.medappuser.Constants;
+import com.magsood.medappuser.Model.ModelMyOrder;
+import com.magsood.medappuser.Model.ModelSearch;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Logout {
+public class PrevOrdersService {
+
+
+
     UserPreferences userPreferences;
     String TAG = "RESPONSE";
     String message;
+    RecyclerView recycler;
+    ArrayList<ModelMyOrder> modelPreArrayList;
+    AdapterMyOrder adapterMyOrder;
 
-    public void logOut(Activity activity) {
+    public void pre_orders(Activity activity) {
 
 
 
@@ -51,28 +63,71 @@ public class Logout {
         final KProgressHUD progressDialog;// Validation
         progressDialog = KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("جاري تسجيل الخروج")
+                .setLabel("جاري جلب البيانات السابقة")
                 .setCancellable(false)
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f)
                 .show();
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                Constants.LOGOUT_URL+"?token="+userPreferences.getToken(), null,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                Constants.PREV_ORDERS+"?token="+userPreferences.getToken(), null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
                         Log.d(TAG, response.toString());
-                        userPreferences.removeSharedPrefrenceData();
                         Log.e("response", String.valueOf(response));
 
                         try {
                             if(response.getString("success").equals("true")){
+                                try {
+                                    Log.e("response",response.get("data").toString());
+                                    JSONArray jsonArray = response.getJSONArray("data");
 
-                                Toast.makeText(activity,response.getString("message"),Toast.LENGTH_SHORT).show();
+                                    Log.e("response",jsonArray.toString());
+                                    recycler = activity.findViewById(R.id.recycler);
 
+                                    modelPreArrayList = new ArrayList<>();
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject data = jsonArray.getJSONObject(i);
+                                        ModelMyOrder modelMyOrder = new ModelMyOrder();
+                                        JSONArray medcine = data.getJSONArray("medicine");
+
+                                        for (int j = 0 ; j<medcine.length();j++){
+
+                                            JSONObject dataMed = medcine.getJSONObject(j);
+                                            modelMyOrder.setTradeName(dataMed.getString("tradeName"));
+                                            modelMyOrder.setPublicName(dataMed.getString("publicName"));
+                                            modelMyOrder.setPrice(dataMed.getString("price"));
+                                            modelMyOrder.setStatus(data.getString("statu"));
+
+
+                                        }
+
+
+                                      //  modelMyOrder.setId(data.getString("id"));
+//                                        modelMyOrder.setPharmacyID(data.getString("pharmacyID"));
+//                                        modelMyOrder.setMedicineID(data.getString("medicineID"));
+
+
+//                                        modelMyOrder.setPharmacyName(data.getString("name"));
+//                                        modelMyOrder.setDescription(data.getString("description"));
+//                                        modelMyOrder.setCompnayName(data.getString("compnayName"));
+//                                        modelMyOrder.setPhoneNumber(data.getString("phoneNumber"));
+//                                        modelMyOrder.setLocation(data.getString("location"));
+//                                        modelMyOrder.setLng(data.getString("lng"));
+//                                        modelMyOrder.setLat(data.getString("lat"));
+//                                        modelMyOrder.setState(data.getString("state"));
+
+
+                                        modelPreArrayList.add(modelMyOrder);
+                                    }
+                                    adapterMyOrder = new AdapterMyOrder(activity,modelPreArrayList);
+                                    recycler.setAdapter(adapterMyOrder);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
 
                             }
@@ -86,8 +141,6 @@ public class Logout {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Intent intent  = new Intent(activity, Login.class);
-                        activity.startActivity(intent);
 
                     }
                 }, new Response.ErrorListener() {
@@ -115,6 +168,8 @@ public class Logout {
                 }
                 if (error instanceof NetworkError) {
                     message="الرجاء التاكد من الانترنت";
+                } else if (error instanceof ServerError) {
+                    message = "الخادم غير موجود";
                 } else if (error instanceof AuthFailureError) {
                     message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ParseError) {
@@ -148,5 +203,4 @@ public class Logout {
     }
 
 
-    
 }

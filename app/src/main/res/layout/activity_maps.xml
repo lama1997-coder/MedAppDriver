@@ -70,13 +70,13 @@
         android:layout_height="match_parent"
         tools:context=".Activity.MapsActivity" />
     <androidx.appcompat.widget.AppCompatButton
-        android:visibility="invisible"
+        android:visibility="gone"
         android:id="@+id/btn"
         android:layout_margin="@dimen/margin_large_size"
         android:textColor="@android:color/white"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:text="شراء"
+        android:text="الاتجاهات"
         android:textSize="@dimen/txt_large_size"
         android:background="@drawable/btn_bg_10_radius"
         android:layout_centerHorizontal="true"

@@ -171,12 +171,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/g1">
         <ImageView
-            android:visibility="gone"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_large_size"
-            android:src="@drawable/ic_google"/>
+            android:src="@drawable/icon_app"/>
         <LinearLayout
             android:gravity="center"
             android:layout_margin="10dp"

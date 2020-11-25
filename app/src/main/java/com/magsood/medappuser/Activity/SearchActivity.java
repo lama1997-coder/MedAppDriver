@@ -43,6 +43,15 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         init();
 
 
+
+        if(getIntent().getExtras()!=null){
+        Bundle bundle = getIntent().getExtras();
+        String title = bundle.getString("searchStr");
+
+            searchService = new SearchService();
+            searchService.search(this,title);}
+
+
         ( (LinearLayout)(findViewById(R.id.back))).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.magsood.medappuser.Activity.Login;
 import com.magsood.medappuser.Activity.MainActivity;
+import com.magsood.medappuser.Activity.PinCode;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
@@ -104,16 +105,36 @@ if (phoneNumber.length() != 10) {
 
                         Log.d(TAG, response.toString());
 
+
                         try {
-                            JSONObject userInfo = response.getJSONObject("userInfo");
-                            userPreferences.setUserId(userInfo.getString("userID"));
-                            userPreferences.setToken(response.getString("token"));
-                            userPreferences.setUserName(userInfo.getString("fullName"));
-                            Toast.makeText(activity,"Login Success",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(activity, MainActivity.class);
-                            activity.startActivity(intent);
+                            if(response.toString().contains("error")){
+                                try {
+                                    Toast.makeText(activity,response.getString("error"),Toast.LENGTH_SHORT).show();
+                                    if(response.getString("error").equals("الرجاء تأكيد الحساب")){
+                                        Intent intent = new Intent(activity, PinCode.class);
+                                        userPreferences.setPhoneNumber(phoneNumber);
+                                        VerificationNumber verificationNumber = new VerificationNumber();
+                                        verificationNumber.verificationNumber(activity);
+                                        activity.startActivity(intent);
 
 
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else {
+                                JSONObject userInfo = response.getJSONObject("data");
+                                userPreferences.setUserId(userInfo.getString("userID"));
+                                userPreferences.setToken(response.getString("token"));
+                                userPreferences.setUserName(userInfo.getString("fullName"));
+                                userPreferences.setPhoneNumber(phoneNumber);
+
+                                Toast.makeText(activity, "تم تسجيل الدخول بنجاح", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                activity.startActivity(intent);
+
+                            }
 
 
                         } catch (JSONException e) {
@@ -148,10 +169,32 @@ if (phoneNumber.length() != 10) {
                 }
                 if (error instanceof NetworkError) {
                     message="الرجاء التاكد من الانترنت";
-                } else if (error instanceof ServerError) {
-                    message = "المستخدم غير موجود";
                 } else if (error instanceof AuthFailureError) {
-                    message = "رقم الهاتف او كلمة السر غير صحيحين";
+                    NetworkResponse responseFailr = error.networkResponse;
+                    String res = null;
+                    try {
+                        res = new String(responseFailr.data,
+                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        JSONObject obj = new JSONObject(res);
+                        Log.e("responseError",obj.toString());
+                        message = obj.getString("error");
+
+                        if(obj.getString("error").equals("الرجاء تأكيد الحساب")){
+                            Intent intent = new Intent(activity, PinCode.class);
+                            userPreferences.setPhoneNumber(phoneNumber);
+                            VerificationNumber verificationNumber = new VerificationNumber();
+                            verificationNumber.verificationNumber(activity);
+                            activity.startActivity(intent);
+
+
+                        }
+
+
+
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                    // Now you can use any deserializer to make sense of data
                 } else if (error instanceof ParseError) {
                     message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof NoConnectionError) {

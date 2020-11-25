@@ -29,6 +29,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import es.dmoral.toasty.Toasty;
+
 public class RequestService {
 
 
@@ -38,7 +40,7 @@ public class RequestService {
     String TAG = "RESPONSE";
     String message;
 
-    public void sendRequest(Activity activity,String medicineID,String amount ,String lang ,String lat) {
+    public void sendRequest(Activity activity,JSONObject jsonObject) {
 
 
 
@@ -48,11 +50,11 @@ public class RequestService {
 
 
 
-        Map<String, String> params = new HashMap<>();
-        params.put("amount", amount);
-        params.put("medicineID", medicineID);
-        params.put("dropLng", lang);
-        params.put("dropLat", lat);
+//        Map<String, String> params = new HashMap<>();
+//        params.put("amount", amount);
+//        params.put("medicineID", medicineID);
+//        params.put("dropLng", lang);
+//        params.put("dropLat", lat);
         final KProgressHUD progressDialog;// Validation
         progressDialog = KProgressHUD.create(activity)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -63,12 +65,30 @@ public class RequestService {
                 .show();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                Constants.SEND_REQUEST_URL+"?token="+userPreferences.getToken(), new JSONObject(params),
+                Constants.SEND_REQUEST_URL+"?token="+userPreferences.getToken(),jsonObject,
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         progressDialog.dismiss();
+                        try {
+                            if(response.getString("success").equals("true")){
+
+                                Toast.makeText(activity,response.getString("message"),Toast.LENGTH_SHORT).show();
+
+
+
+                            }
+                            else if(response.getString("success").equals("false")){
+
+                                Toast.makeText(activity,response.getString("error"),Toast.LENGTH_SHORT).show();
+
+
+
+                            }
+                        } catch (JSONException e) {
+                           e.printStackTrace();
+                        }
                         Log.d(TAG, response.toString());
                        // userPreferences.removeSharedPrefrenceData();
                         Log.e("response", String.valueOf(response));

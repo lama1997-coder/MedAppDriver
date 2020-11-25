@@ -49,6 +49,11 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.ViewHold
 //
 
 
+        holder.name.setText(item.getPublicName());
+        holder.price.setText(item.getPrice());
+        holder.status.setText(item.getStatus());
+
+
 //        holder.layDeliev.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -79,6 +84,7 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.ViewHold
         LinearLayout container,layDeliev;
         AppCompatButton buttonSubscription;
         TextView txtDetails,textView_type,textView_release_type,textView_release_time;
+        TextView name ,price ,status;
         ImageView imageView;
 
 
@@ -91,9 +97,9 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.ViewHold
 //            buttonSubscription = itemView.findViewById(R.id.btn_sub);
 //            layDeliev = itemView.findViewById(R.id.layDeliev);
 
-//            textView_type = itemView.findViewById(R.id.news_item_type);
-//            textView_release_type = itemView.findViewById(R.id.news_item_release_type);
-//            textView_release_time = itemView.findViewById(R.id.news_item_release_time);
+            name = itemView.findViewById(R.id.name);
+            price = itemView.findViewById(R.id.price);
+            status = itemView.findViewById(R.id.status);
 
             itemView.setOnClickListener(this);
         }
