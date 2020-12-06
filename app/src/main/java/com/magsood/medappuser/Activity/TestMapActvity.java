@@ -71,6 +71,7 @@ public class TestMapActvity extends FragmentActivity implements OnMapReadyCallba
     String url,lat,lon,nameofpharmacyi;
     LatLng latLng;
     DownloadTask downloadTask;
+    Boolean isCameraSet =false;
     LinearLayout back;
     final Bundle bundle = new Bundle();
     double longitudeCurrentLocation;
@@ -192,8 +193,8 @@ public class TestMapActvity extends FragmentActivity implements OnMapReadyCallba
 
             GMapV2Direction md = new GMapV2Direction();
             ArrayList<LatLng> directionPoint = md.getDirection(result);
-            PolylineOptions rectLine = new PolylineOptions().width(3).color(
-                    Color.RED);
+            PolylineOptions rectLine = new PolylineOptions().width(15).color(
+                    Color.rgb(0,179,253));
 
             for (int i = 0; i < directionPoint.size(); i++) {
                 rectLine.add(directionPoint.get(i));
@@ -516,7 +517,9 @@ public class TestMapActvity extends FragmentActivity implements OnMapReadyCallba
         // Toast.makeText(this,latLng+"Location Changed",Toast.LENGTH_SHORT).show();
 
         //zoom to current position:
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,11));
+        if(!isCameraSet){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,17));
+        isCameraSet=true;}
         origin = new MarkerOptions().position(new LatLng(latitudeCurrentLocation, longitudeCurrentLocation)).title("").snippet("origin");
         destination = new MarkerOptions().position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lon))).title("").snippet("destination");
         /////////////////////////////////////////////////////////////

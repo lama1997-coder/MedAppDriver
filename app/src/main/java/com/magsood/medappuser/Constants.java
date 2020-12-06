@@ -3,6 +3,10 @@ package com.magsood.medappuser;
 public class Constants {
 
 
+    public static final String RESET_PASSWORD = "http://api.dawakom.com.sd/api/v1/user/resetPassword";
+    public static final String NEW_PASSWORD = "http://api.dawakom.com.sd/api/v1/user/newPassword";
+
+
     public static  String REGISTRATION_URL ="http://api.dawakom.com.sd/api/v1/user/registerUser";
     public static  String LOGIN_URL ="http://api.dawakom.com.sd/api/v1/user/login";
     public static  String PROFILE_URL ="http://api.dawakom.com.sd/api/v1/user/userProfile";

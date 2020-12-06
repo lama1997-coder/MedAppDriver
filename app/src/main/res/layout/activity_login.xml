@@ -326,6 +326,14 @@
                 </LinearLayout>
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="نسيت كلمة المرور"
+                android:fontFamily="@font/tajawalmedium"
+                android:textStyle="bold"
+                />
 
 
         </LinearLayout>
