@@ -5,10 +5,10 @@
 
 <!--        <group android:checkableBehavior="none"-->
 <!--            android:id="@+id/second_menu_group">-->
-            <item
-                android:id="@+id/nav_menu_my_order"
-                android:title="طلبات سابقة"
-                />
+<!--            <item-->
+<!--                android:id="@+id/nav_menu_my_order"-->
+<!--                android:title="طلبات سابقة"-->
+<!--                />-->
 <!--        </group>-->
         <group android:checkableBehavior="none"
             android:id="@+id/third_menu_group">
@@ -31,11 +31,11 @@
 <!--                android:id="@+id/nav_menu_sc3"-->
 <!--                android:title=" كود التاكيد"-->
 <!--                />-->
-<!--            <item-->
+            <item
 
-<!--                android:id="@+id/nav_menu_sc4"-->
-<!--                android:title=" طلب حالي"-->
-<!--                />-->
+                android:id="@+id/nav_menu_sc4"
+                android:title=" طلب حالي"
+                />
             <item
                 android:id="@+id/nav_menu_sc5"
                 android:title=" السلة"

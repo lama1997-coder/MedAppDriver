@@ -36,7 +36,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.magsood.medappuser.GMapV2Direction;
+import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.R;
+import com.magsood.medappuser.Utils.SqlLiteDataBase;
 
 import org.json.JSONObject;
 import org.w3c.dom.Document;
@@ -559,7 +561,49 @@ public class TestMapActvity extends FragmentActivity implements OnMapReadyCallba
 
     }
 
+    public void addCart(View view) {
 
+
+
+        Log.e("debugApp","1");
+        //   startActivity(new Intent(MapsActivity.this,SendRequest.class));
+        Bundle bundle = getIntent().getExtras();
+        Log.e("debugApp","1");
+        ModelCart modelCart = new ModelCart();
+        Log.e("debugApp","1");
+        modelCart.setId(bundle.getString("id"));
+        Log.e("debugApp","1");
+        modelCart.setName(bundle.getString("tradeName"));
+        Log.e("debugApp","1");
+        modelCart.setPharmacyAddress(bundle.getString("location"));
+        Log.e("debugApp","1");
+        modelCart.setPharmacyName(bundle.getString("pharmacyName"));
+        Log.e("debugApp","1");
+        modelCart.setPharmacyID(bundle.getString("pharmacyID"));
+        Log.e("debugApp","1");
+        modelCart.setMedicineID(bundle.getString("medicineID"));
+        Log.e("debugApp","1");
+        modelCart.setPrice(bundle.getString("price"));
+        Log.e("debugApp","1");
+        modelCart.setPharmacyLat(bundle.getString("dropLat"));
+        Log.e("debugApp","1");
+        modelCart.setPharmacyLong(bundle.getString("dropLng"));
+        Log.e("debugApp","1");
+        //   Toast.makeText(activity,"قـــــريــــبـــا", Toast.LENGTH_SHORT).show();
+
+
+
+
+        //add to cart code
+        if (AddToCart(modelCart)){
+            Toast.makeText(getApplicationContext(), "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private boolean AddToCart(ModelCart modelCart){
+        return new SqlLiteDataBase(this).AddToCart(modelCart);
+    }
 
     ///////////////////////////////////////////////////////
 }

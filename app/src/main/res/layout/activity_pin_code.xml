@@ -161,41 +161,51 @@
                 android:layout_margin="@dimen/margin_normal_size"
                 app:cardCornerRadius="@dimen/margin_normal_size">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/img_send"
-                        android:background="@drawable/shape_circle"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/margin_small_size"
-                        android:src="@drawable/ic_baseline_arrow_left"
-                        android:scaleType="center"/>
+                    android:layout_height="match_parent"
 
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/code"
-                        android:fontFamily="@font/tajawalmedium"
+                        android:layout_width="255dp"
 
-                        android:layout_toRightOf="@+id/img"
-                        android:layout_width="280dp"
+
                         android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:textSize="25sp"
-
-                       android:textColor="#991B1414"
-                        android:layout_marginRight="@dimen/margin_small_size"
                         android:layout_marginLeft="@dimen/margin_small_size"
-                       android:hint="1234"
+                        android:layout_marginRight="@dimen/margin_small_size"
+                        android:background="@android:color/transparent"
 
+
+                        android:fontFamily="@font/tajawalmedium"
+                        android:gravity="center"
+                        android:hint="1234"
                         android:inputType="number"
-                        android:maxLength="4"
-                       android:gravity="center"/>
 
-                </RelativeLayout>
+                        android:maxLength="4"
+                        android:textColor="#991B1414"
+                        android:textSize="25sp"
+                      />
+
+
+
+
+
+
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_send"
+                    android:layout_width="35dp"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="5dp"
+
+
+
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_circle"
+                    android:src="@drawable/ic_baseline_arrow_left"
+                    tools:ignore="RtlHardcoded" />
 
             </androidx.cardview.widget.CardView>
 

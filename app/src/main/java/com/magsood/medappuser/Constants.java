@@ -1,7 +1,7 @@
 package com.magsood.medappuser;
 
 public class Constants {
-
+String domain = "Https://www.maqsood.com.sd/api/v1/user";
 
     public static final String RESET_PASSWORD = "http://api.dawakom.com.sd/api/v1/user/resetPassword";
     public static final String NEW_PASSWORD = "http://api.dawakom.com.sd/api/v1/user/newPassword";

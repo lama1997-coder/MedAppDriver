@@ -76,7 +76,7 @@ public class RequestService {
 
                                 Toast.makeText(activity,response.getString("message"),Toast.LENGTH_SHORT).show();
 
-
+                                activity.deleteDatabase("easylife.db");
 
                             }
                             else if(response.getString("success").equals("false")){

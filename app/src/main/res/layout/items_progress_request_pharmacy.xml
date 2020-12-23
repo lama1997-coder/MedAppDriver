@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="3"
+    android:layoutDirection="rtl"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+            <TextView
+                android:id="@+id/pharmacy_name"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="صيدلية يقين"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/txt_normal_size"/>
+
+
+
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/status"
+                android:layout_marginRight="@dimen/margin_normal_size"
+                android:layout_marginLeft="@dimen/margin_normal_size"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="جاري الطلب"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/txt_normal_size"/>
+
+
+            <ImageView
+                android:visibility="gone"
+
+                android:id="@+id/image_status"
+                android:scaleType="center"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_check"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shape_circle_green"/>
+    <ProgressBar
+        android:id="@+id/progresse"
+        android:scaleType="center"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_check"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+
+</LinearLayout>

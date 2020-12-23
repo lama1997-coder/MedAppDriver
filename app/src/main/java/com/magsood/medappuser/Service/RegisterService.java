@@ -65,12 +65,8 @@ UserPreferences userPreferences;
             return;
         }
 
-        if (TextUtils.isEmpty(email)) {
-            ((EditText) activity.findViewById(R.id.email)).setError("ادخل الايميل");
-            ((EditText) activity.findViewById(R.id.email)).requestFocus();
-            return;
-        }
-        if(!isValidEmail(email))
+
+        if(!isValidEmail(email)&&!TextUtils.isEmpty(email))
         {
 
             ((EditText) activity.findViewById(R.id.email)).setError("ادخل الايميل بصورة صحيحة");
@@ -181,6 +177,7 @@ UserPreferences userPreferences;
                         JSONObject obj = new JSONObject(res);
 
                         Log.e("responseError",obj.toString());
+                        Toast.makeText(activity,obj.getString("رقم الهاتف موجود مسبقا"),Toast.LENGTH_SHORT).show();
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string
                         e1.printStackTrace();
@@ -192,7 +189,21 @@ UserPreferences userPreferences;
                 if (error instanceof NetworkError) {
                     message="الرجاء التاكد من الانترنت";
                 } else if (error instanceof ServerError) {
-                    message = "رقم الهاتف موجود مسبقا";
+                    try {
+                        String res = new String(response.data,
+                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+                        // Now you can use any deserializer to make sense of data
+                        JSONObject obj = new JSONObject(res);
+
+                        Log.e("responseError",obj.toString());
+                        Toast.makeText(activity,"رقم الهاتف موجود مسبقا",Toast.LENGTH_SHORT).show();
+                    } catch (UnsupportedEncodingException e1) {
+                        // Couldn't properly decode data to string
+                        e1.printStackTrace();
+                    } catch (JSONException e2) {
+                        // returned data is not JSONObject?
+                        e2.printStackTrace();
+                    }
                 } else if (error instanceof AuthFailureError) {
                     message = "رقم الهاتف موجود مسبقا ";
                 } else if (error instanceof ParseError) {

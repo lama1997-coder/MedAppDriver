@@ -38,6 +38,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,7 +57,7 @@ import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback , GoogleMap.OnMapClickListener {
     private GoogleMap mMap;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SearchService searchService;
     ImageView recordIcon;
     private static final int REQUEST_CODE = 1234;
+    UserPreferences userPreferences;
 
     CardView cardSearch;
     @Override
@@ -108,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        searchService.search(this,search.getText().toString());
     }
     private void init() {
+        userPreferences = new UserPreferences(this);
         recordIcon= findViewById(R.id.ic_search);
         search = findViewById(R.id.editsearch);
 
@@ -190,12 +194,12 @@ Log.e("logOut",userPreferences.getUserId());
 //                drawerLayout.closeDrawer(GravityCompat.START);
 //                break;
 //            }
-            case R.id.nav_menu_my_order: {
-//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this,MyOrder.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break;
-            }
+//            case R.id.nav_menu_my_order: {
+////                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(MainActivity.this,MyOrder.class));
+//                drawerLayout.closeDrawer(GravityCompat.START);
+//                break;
+//            }
             case R.id.nav_menu_logout:{
 
                 Logout logout = new Logout();
@@ -221,11 +225,11 @@ Log.e("logOut",userPreferences.getUserId());
 //                drawerLayout.closeDrawer(GravityCompat.START);
 //                break;
 //            }
-//            case R.id.nav_menu_sc4: {
-//                startActivity(new Intent(MainActivity.this,OnProgressRequest.class));
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//                break;
-//            }
+            case R.id.nav_menu_sc4: {
+                startActivity(new Intent(MainActivity.this,OnProgressRequest.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            }
             case R.id.nav_menu_sc5: {
                 startActivity(new Intent(MainActivity.this,CartItems.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -247,6 +251,7 @@ Log.e("logOut",userPreferences.getUserId());
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMapClickListener(this);
 
 //        // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
@@ -368,6 +373,13 @@ Log.e("logOut",userPreferences.getUserId());
                 if (location != null) {
                     mylocation = location;
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mylocation.getLatitude(), mylocation.getLongitude()), 14));
+
+                    userPreferences.setlon(String.valueOf(mylocation.getLongitude()));
+                    userPreferences.setlat(String.valueOf(mylocation.getLatitude()));
+
+
+                    Log.e("locationCurrent",String.valueOf(mylocation.getLatitude()) +"_____"+String.valueOf(mylocation.getLatitude()));
+
                 }
             }
         });
@@ -409,12 +421,66 @@ Log.e("logOut",userPreferences.getUserId());
         navigationView = (NavigationView) findViewById(R.id.n_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_menu_setting).setVisible(false);
-        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
+//        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_logout).setVisible(false);
 //        nav_Menu.findItem(R.id.nav_menu_sc4).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_sc5).setVisible(false);
 //        nav_Menu.findItem(R.id.nav_menu_sc7).setVisible(false);
 
     }
+    MarkerOptions options;
+    Marker marker;
+    @Override
+    public void onMapClick(LatLng latLng) {
 
+
+
+
+
+
+        if(marker!=null)
+            marker.remove();
+
+        mMap.clear();
+
+         options=new MarkerOptions().snippet("Location")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher_location))
+                .anchor(0.5f, 0.5f);
+         Log.e("locationPin",String.valueOf(latLng.latitude) +"_____"+String.valueOf(latLng.longitude));
+         userPreferences.setlat(String.valueOf(latLng.latitude));
+         userPreferences.setlon(String.valueOf(latLng.longitude));
+
+        options.position(latLng);
+       marker= mMap.addMarker(options);
+        if(getIntent().getStringExtra("changeLocation")!=null){
+
+           LocationOk(this);
+
+        }
+
+    }
+
+
+    public static void LocationOk(final Activity activity) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
+        final String message = "تاكيد موفع الاستلام";
+//        builder.setIcon(R.drawable.ic_gps);
+
+        builder.setMessage(message)
+                .setPositiveButton("تاكيد",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface d, int id) {
+                            Intent intent = new Intent(activity,CartItems.class);
+                            activity.startActivity(intent);
+                            }
+                        })
+                .setNegativeButton("رجوع",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface d, int id) {
+                                d.cancel();
+                            }
+                        });
+        builder.create().show();
+    }
 }

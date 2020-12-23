@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.magsood.medappuser.R;
+import com.magsood.medappuser.Service.PrevOrdersService;
+import com.magsood.medappuser.Service.ProcessReqService;
 import com.magsood.medappuser.Utils.ToolbarClass;
 
 public class OnProgressRequest extends AppCompatActivity {
@@ -31,6 +33,8 @@ public class OnProgressRequest extends AppCompatActivity {
     }
 
     private void init() {
+        ProcessReqService prevOrdersService = new ProcessReqService();
+        prevOrdersService.progressOrder(this);
 
     }
 

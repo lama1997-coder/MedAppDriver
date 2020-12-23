@@ -67,7 +67,7 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
                 modelCart.setId(item.getId());
                 modelCart.setName(item.getTradeName());
                 modelCart.setPharmacyAddress(item.getLocation());
-                modelCart.setPharmacyName(item.getCompnayName());
+                modelCart.setPharmacyName(item.getPharmacyName());
                 modelCart.setPharmacyID(item.getPharmacyID());
                 modelCart.setMedicineID(item.getMedicineID());
                 modelCart.setPrice(item.getPrice());
@@ -89,8 +89,20 @@ public class  AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResu
             public void onClick(View view) {
                 Intent intent = new Intent(activity, TestMapActvity.class);
 
-                intent.putExtra("amount","1");
                 intent.putExtra("medicineID",item.getMedicineID());
+                intent.putExtra("id",item.getId());
+                intent.putExtra("tradeName",item.getTradeName());
+
+
+                intent.putExtra("location",item.getLocation());
+
+                intent.putExtra("pharmacyName",item.getCompnayName());
+
+                intent.putExtra("pharmacyID",item.getPharmacyID());
+
+                intent.putExtra("price",item.getPrice());
+
+
                 intent.putExtra("dropLng",item.getLng());
                 intent.putExtra("dropLat",item.getLat());
 

@@ -19,6 +19,35 @@ public class UserPreferences {
         sharedpreferences = context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
     }
 
+    public String  getlong(){
+        return sharedpreferences.getString("long","");
+
+
+    }
+
+    public String  getlat(){
+        return sharedpreferences.getString("lat","");
+
+
+    }
+
+
+    public void setlat(String lat){
+
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("lat",lat);
+        editor.apply();
+    }
+
+    public void setlon(String longt){
+
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("long",longt);
+        editor.apply();
+    }
+
     public void setToken(String token){
 
 

@@ -12,8 +12,10 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +26,12 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -35,6 +42,7 @@ import com.google.maps.errors.ApiException;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.TravelMode;
 import com.magsood.medappuser.GMapV2Direction;
+import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Service.RequestService;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,6 +51,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.magsood.medappuser.Utils.SqlLiteDataBase;
 import com.squareup.okhttp.internal.framed.FrameReader;
 
 import org.joda.time.DateTime;
@@ -52,6 +61,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback ,GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -66,8 +77,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private double latitude;
     private static final String TAG = "MapsActivity";
     private FusedLocationProviderClient fusedLocationClient;
-    AppCompatButton btnDir;
+    AppCompatButton btnAddToCart;
     Marker currLocationMarker;
+
 
 
 
@@ -76,12 +88,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        init();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient = getFusedLocationProviderClient(this);
+
 
 
 
@@ -90,7 +102,49 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
+//        ( (AppCompatButton)findViewById(R.id.btnAddToCart)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                showDialog();
+//                Log.e("debugApp","1");
+//                //   startActivity(new Intent(MapsActivity.this,SendRequest.class));
+//                Bundle bundle = getIntent().getExtras();
+//                Log.e("debugApp","1");
+//                ModelCart modelCart = new ModelCart();
+//                Log.e("debugApp","1");
+//                modelCart.setId(bundle.getString("id"));
+//                Log.e("debugApp","1");
+//                modelCart.setName(bundle.getString("tradeName"));
+//                Log.e("debugApp","1");
+//                modelCart.setPharmacyAddress(bundle.getString("location"));
+//                Log.e("debugApp","1");
+//                modelCart.setPharmacyName(bundle.getString("pharmacyName"));
+//                Log.e("debugApp","1");
+//                modelCart.setPharmacyID(bundle.getString("pharmacyID"));
+//                Log.e("debugApp","1");
+//                modelCart.setMedicineID(bundle.getString("medicineID"));
+//                Log.e("debugApp","1");
+//                modelCart.setPrice(bundle.getString("price"));
+//                Log.e("debugApp","1");
+//                modelCart.setPharmacyLat(bundle.getString("dropLat"));
+//                Log.e("debugApp","1");
+//                modelCart.setPharmacyLong(bundle.getString("dropLng"));
+//                Log.e("debugApp","1");
+//                //   Toast.makeText(activity,"قـــــريــــبـــا", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//
+//                //add to cart code
+//                if (AddToCart(modelCart)){
+//                    Toast.makeText(getApplicationContext(), "تم اضافة الدواء الى سلة الادوية", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    Toast.makeText(getApplicationContext(), "الدواء موجود مسبقا في سلة الادوية", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        });
         ((LinearLayout) (findViewById(R.id.ic_back))).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,20 +156,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+
     private void init() {
-        btn = findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                showDialog();
-                //   startActivity(new Intent(MapsActivity.this,SendRequest.class));
-                direction();
 
 
-            }
-        });
 
 
+    }
+
+
+
+    private boolean AddToCart(ModelCart modelCart){
+        return new SqlLiteDataBase(this).AddToCart(modelCart);
     }
 
 //    private void sendReq() {
@@ -148,10 +200,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Pharmacy"));
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 //            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12.0f));
-            getCurrentLocation();
 
 
-        }
+
+            getCurrentLocation();}
+
+
+
 
 //        int zoom = (int)mMap.getCameraPosition().zoom;
 //        CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new
@@ -161,9 +216,30 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
+    private LocationRequest mLocationRequest;
+
+    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+    private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
     @SuppressLint("NewApi")
     private void getCurrentLocation() {
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+        // Create LocationSettingsRequest object using location request
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        LocationSettingsRequest locationSettingsRequest = builder.build();
+
+        // Check whether location settings are satisfied
+        // https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
+        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+
+
+
         mMap.clear();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{
@@ -172,7 +248,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.e(TAG,"i stopp in premission");
             return;
         }
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationClient = getFusedLocationProviderClient(this);
 //        Location location;
 //        location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
@@ -182,6 +258,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 longitude = location.getLongitude();
                 latitude = location.getLatitude();
 
+
                 //moving the map to location
                 moveMap();
             } else {
@@ -190,7 +267,38 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+
+        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        // do work here
+                        onLocationChanged(locationResult.getLastLocation());
+                    }
+                },
+                Looper.myLooper());
+
+
 //
+    }
+
+
+    public void onLocationChanged(Location location) {
+        // New location has now been determined
+        String msg = "Updated Location: " +
+                Double.toString(location.getLatitude()) + "," +
+                Double.toString(location.getLongitude());
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        // You can now create a LatLng Object for use with maps
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+
+
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+
+        //moving the map to location
+        moveMap();
     }
     private void moveMap() {
         /**
@@ -392,6 +500,15 @@ public void direction(){
     private void addPolyline(DirectionsResult results, GoogleMap mMap) { List<LatLng> decodedPath = PolyUtil.decode(results.routes[0].overviewPolyline.getEncodedPath());
         mMap.addPolyline(new PolylineOptions().addAll(decodedPath));
     }
+
+
+
+
+    ///
+
+
+
+
 
 
 }
