@@ -1,0 +1,1248 @@
+Index: app/src/main/java/com/magsood/medappuser/Activity/SendRequest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.magsood.medappuser.Activity;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.AppCompatButton;\r\nimport androidx.cardview.widget.CardView;\r\n\r\nimport android.content.Intent;\r\nimport android.graphics.Color;\r\nimport android.os.Bundle;\r\nimport android.text.Html;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.AdapterView;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Spinner;\r\nimport android.widget.TextView;\r\n\r\nimport com.magsood.medappuser.R;\r\nimport com.magsood.medappuser.Utils.ToolbarClass;\r\n\r\npublic class SendRequest extends ToolbarClass {\r\n\r\n    AppCompatButton btn;\r\n    protected final void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        super.onCreate(R.layout.activity_send_request, \"ارسال طلب\");\r\n\r\n        init();\r\n        initSpinner();\r\n    }\r\n\r\n    private void init() {\r\n        btn = findViewById(R.id.btn);\r\n        btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                startActivity(new Intent(SendRequest.this,PaymentsActivity.class));\r\n            }\r\n        });\r\n    }\r\n\r\n    String[] array_spinner;\r\n    String s_pay_type = \"\";\r\n    ArrayAdapter<String> adapter1;\r\n    Spinner spinner;\r\n    private void initSpinner() {\r\n\r\n        spinner = findViewById(R.id.spinner);\r\n        array_spinner = new String[]{\"اختر طريقة الدفع\", \"دفع عند التسليم\",\"دفع من خلال التطبيق\"};\r\n        adapter1 = new ArrayAdapter<String>(this, R.layout.spinner_item, array_spinner) {\r\n            @Override\r\n            public View getDropDownView(int position, View convertView, ViewGroup parent) {\r\n                View v = null;\r\n                v = super.getDropDownView(position, null, parent);\r\n                // If this is the selected item position\r\n//                if (position == 0) {\r\n//                    v.setBackgroundColor(Color.WHITE);\r\n//                } else {\r\n//                    if (position % 2 == 0) {\r\n//                        v.setBackgroundColor(getResources().getColor(R.color.spinner_bg_design1));\r\n//                    } else {\r\n//                        v.setBackgroundColor(getResources().getColor(R.color.spinner_bg_design2));\r\n//                    }\r\n//\r\n//                }\r\n                return v;\r\n            }\r\n        };\r\n        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);\r\n        spinner.setAdapter(adapter1);\r\n        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {\r\n            @Override\r\n            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {\r\n                if (position == 0) {\r\n                    s_pay_type = \"\";\r\n                } else {\r\n                    s_pay_type = array_spinner[position];\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void onNothingSelected(AdapterView<?> parent) {\r\n            }\r\n        });\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/magsood/medappuser/Activity/SendRequest.java	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/java/com/magsood/medappuser/Activity/SendRequest.java	(date 1603921140473)
+@@ -16,6 +16,7 @@
+ import android.widget.TextView;
+ 
+ import com.magsood.medappuser.R;
++import com.magsood.medappuser.Service.RequestService;
+ import com.magsood.medappuser.Utils.ToolbarClass;
+ 
+ public class SendRequest extends ToolbarClass {
+@@ -35,6 +36,9 @@
+             @Override
+             public void onClick(View view) {
+                 startActivity(new Intent(SendRequest.this,PaymentsActivity.class));
++
++                RequestService requestService = new RequestService();
++
+             }
+         });
+     }
+Index: app/src/main/res/layout/activity_search.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/backgroundColor\"\r\n    android:layoutDirection=\"rtl\"\r\n    android:id=\"@+id/container\">\r\n\r\n    <androidx.cardview.widget.CardView\r\n        android:id=\"@+id/txt_search\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_margin=\"@dimen/margin_small_size\"\r\n        app:cardCornerRadius=\"@dimen/margin_normal_size\">\r\n        <RelativeLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"?attr/actionBarSize\">\r\n            <ImageView\r\n                android:layout_alignParentLeft=\"true\"\r\n                android:id=\"@+id/ic_search\"\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_marginLeft=\"5dp\"\r\n                android:layout_marginRight=\"5dp\"\r\n                android:padding=\"2dp\"\r\n                android:scaleType=\"center\"\r\n                android:src=\"@drawable/ic_mic\"\r\n                android:layout_centerVertical=\"true\"\r\n                tools:ignore=\"RtlHardcoded\" />\r\n\r\n            <ImageView\r\n                android:id=\"@+id/ic_back\"\r\n                android:layout_alignParentRight=\"true\"\r\n                android:layout_width=\"30dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_marginLeft=\"5dp\"\r\n                android:layout_marginRight=\"5dp\"\r\n                android:padding=\"2dp\"\r\n                android:scaleType=\"center\"\r\n                android:src=\"@drawable/ic_back_black\"\r\n                android:layout_centerVertical=\"true\"\r\n                tools:ignore=\"RtlHardcoded\" />\r\n            <EditText\r\n\r\n                android:imeOptions=\"actionSearch\"\r\n                android:inputType=\"text\"\r\n                android:layout_toLeftOf=\"@+id/ic_back\"\r\n                android:padding=\"5dp\"\r\n                android:id=\"@+id/editsearch\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\"\r\n                android:hint=\"اكتب للبحث ...\"\r\n                android:background=\"@android:color/transparent\"\r\n                android:textSize=\"@dimen/txt_normal_size\"\r\n                android:layout_toRightOf=\"@+id/ic_search\"\r\n                />\r\n        </RelativeLayout>\r\n    </androidx.cardview.widget.CardView>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:layout_below=\"@+id/txt_search\"\r\n        android:id=\"@+id/recycler\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n        app:layout_behavior=\"@string/appbar_scrolling_view_behavior\"\r\n        tools:listitem=\"@layout/search_results_item\"\r\n        />\r\n\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_search.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/layout/activity_search.xml	(date 1603893054650)
+@@ -4,15 +4,69 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/backgroundColor"
++    android:background="@color/colorPrimary"
+     android:layoutDirection="rtl"
+     android:id="@+id/container">
+-
++<RelativeLayout
++    android:layout_marginTop="@dimen/margin_normal_size"
++    android:id="@+id/r1"
++    android:layout_width="match_parent"
++    android:layout_height="45dp">
++    <LinearLayout
++        android:background="@drawable/shape_back_circle"
++        android:layout_marginLeft="@dimen/margin_small_size"
++        android:layout_marginRight="@dimen/margin_small_size"
++        android:layout_centerVertical="true"
++        android:layout_alignParentLeft="true"
++        android:layout_width="37dp"
++        android:layout_height="37dp"
++        android:orientation="horizontal"
++        android:gravity="center"
++        >
++        <ImageView
++            android:layout_width="25dp"
++            android:layout_height="25dp"
++            android:src="@drawable/ic_arrow_back"/>
++    </LinearLayout>
++    <LinearLayout
++        android:layout_marginLeft="@dimen/margin_small_size"
++        android:layout_marginRight="@dimen/margin_small_size"
++        android:layout_centerVertical="true"
++        android:layout_alignParentRight="true"
++        android:layout_width="37dp"
++        android:layout_height="37dp"
++        android:orientation="vertical"
++        android:gravity="center"
++        >
++        <View
++            android:layout_width="match_parent"
++            android:layout_height="1dp"
++            android:background="@android:color/white"
++            android:layout_marginRight="@dimen/margin_small_size"
++            android:layout_marginLeft="@dimen/margin_small_size"/>
++        <View
++            android:layout_marginTop="5dp"
++            android:layout_width="match_parent"
++            android:layout_height="1dp"
++            android:background="@android:color/white"
++            android:layout_marginRight="@dimen/margin_small_size"
++            android:layout_marginLeft="@dimen/margin_small_size"/>
++        <View
++            android:layout_gravity="right"
++            android:layout_marginTop="5dp"
++            android:layout_width="15dp"
++            android:layout_height="1dp"
++            android:background="@android:color/white"
++            android:layout_marginRight="@dimen/margin_small_size"
++            android:layout_marginLeft="@dimen/margin_small_size"/>
++    </LinearLayout>
++</RelativeLayout>
+     <androidx.cardview.widget.CardView
++        android:layout_below="@+id/r1"
+         android:id="@+id/txt_search"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+-        android:layout_margin="@dimen/margin_small_size"
++        android:layout_margin="@dimen/margin_large_size"
+         app:cardCornerRadius="@dimen/margin_normal_size">
+         <RelativeLayout
+             android:layout_width="match_parent"
+@@ -31,6 +85,7 @@
+                 tools:ignore="RtlHardcoded" />
+ 
+             <ImageView
++                android:visibility="gone"
+                 android:id="@+id/ic_back"
+                 android:layout_alignParentRight="true"
+                 android:layout_width="30dp"
+Index: app/src/main/res/drawable/ic_place_primary_color.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_place_primary_color.xml	(date 1603893054438)
++++ app/src/main/res/drawable/ic_place_primary_color.xml	(date 1603893054438)
+@@ -0,0 +1,5 @@
++<vector android:height="24dp" android:tint="@color/colorPrimary"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M12,2C8.13,2 5,5.13 5,9c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.87 -3.13,-7 -7,-7zM12,11.5c-1.38,0 -2.5,-1.12 -2.5,-2.5s1.12,-2.5 2.5,-2.5 2.5,1.12 2.5,2.5 -1.12,2.5 -2.5,2.5z"/>
++</vector>
+Index: app/src/main/res/drawable/ic_arrow_right48.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_arrow_right48.xml	(date 1603893054422)
++++ app/src/main/res/drawable/ic_arrow_right48.xml	(date 1603893054422)
+@@ -0,0 +1,5 @@
++<vector android:height="48dp" android:tint="#FFFFFF"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="48dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M16.01,11H4v2h12.01v3L20,12l-3.99,-4z"/>
++</vector>
+Index: app/src/main/res/drawable/shape_circle_rounded.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/shape_circle_rounded.xml	(date 1603893054467)
++++ app/src/main/res/drawable/shape_circle_rounded.xml	(date 1603893054467)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="oval">
++
++    <solid
++        android:color="@android:color/white"/>
++<stroke android:width="1dp" android:color="@color/colorPrimary"/>
++
++    <size
++        android:width="120dp"
++        android:height="120dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"colorPrimary\">#226499</color>\r\n    <color name=\"colorPrimaryDark\">#275578</color>\r\n    <color name=\"colorAccent\">#F3951E</color>\r\n    <color name=\"colorPrimaryLight\">#63a4ff</color>\r\n    <color name=\"backgroundColor\">#F5F5F5</color>\r\n\r\n\r\n    <color name=\"bg_rec_new\">#33808080</color>\r\n    <color name=\"color80\">#808080</color>\r\n    <color name=\"white80\">#D1FFFFFF</color>\r\n    <color name=\"cardColor\">#42D665</color>\r\n    <color name=\"red\">#F44336</color>\r\n\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/colors.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/values/colors.xml	(date 1603893054529)
+@@ -1,12 +1,16 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <color name="colorPrimary">#226499</color>
+-    <color name="colorPrimaryDark">#275578</color>
++    <color name="colorPrimary">#2DBB54</color>
++    <color name="colorPrimaryDark">#2DBB54</color>
+     <color name="colorAccent">#F3951E</color>
+     <color name="colorPrimaryLight">#63a4ff</color>
+     <color name="backgroundColor">#F5F5F5</color>
+ 
+ 
++    <color name="txtSearch">#303030</color>
++
++
++
+     <color name="bg_rec_new">#33808080</color>
+     <color name="color80">#808080</color>
+     <color name="white80">#D1FFFFFF</color>
+Index: app/src/main/res/drawable/btn_bg_rounded_green.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/btn_bg_rounded_green.xml	(date 1603893054407)
++++ app/src/main/res/drawable/btn_bg_rounded_green.xml	(date 1603893054407)
+@@ -0,0 +1,10 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++
++    <stroke android:color="@color/cardColor" android:width="1.5dp"/>
++    <corners android:radius="5dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/bg_search_map_white.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/bg_search_map_white.xml	(date 1603893054403)
++++ app/src/main/res/drawable/bg_search_map_white.xml	(date 1603893054403)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++    <solid
++        android:color="@android:color/white"/>
++
++    <corners  android:topLeftRadius="@dimen/margin_normal_size" android:bottomRightRadius="@dimen/margin_normal_size"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/bg_new_reg_top.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/bg_new_reg_top.xml	(date 1603893054400)
++++ app/src/main/res/drawable/bg_new_reg_top.xml	(date 1603893054400)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++    <solid
++        android:color="#2DBB54"/>
++
++    <corners  android:bottomLeftRadius="200dp" android:bottomRightRadius="200dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/bg_new_reg.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/bg_new_reg.xml	(date 1603893054399)
++++ app/src/main/res/drawable/bg_new_reg.xml	(date 1603893054399)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++    <solid
++        android:color="@color/cardColor"/>
++
++    <corners  android:topLeftRadius="30dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/bg_search_map.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/bg_search_map.xml	(date 1603893054402)
++++ app/src/main/res/drawable/bg_search_map.xml	(date 1603893054402)
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="rectangle">
++
++    <solid
++        android:color="@color/cardColor"/>
++
++    <corners  android:topLeftRadius="5dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_arrow_back.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><vector android:autoMirrored=\"true\" android:height=\"24dp\"\r\n    android:tint=\"#FFFFFF\" android:viewportHeight=\"24\"\r\n    android:viewportWidth=\"24\" android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M11.67,3.87L9.9,2.1 0,12l9.9,9.9 1.77,-1.77L3.54,12z\"/>\r\n</vector>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_arrow_back.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/drawable/ic_arrow_back.xml	(date 1603893054420)
+@@ -1,5 +1,5 @@
+-<vector android:autoMirrored="true" android:height="24dp"
+-    android:tint="#FFFFFF" android:viewportHeight="24"
+-    android:viewportWidth="24" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+-    <path android:fillColor="@android:color/white" android:pathData="M11.67,3.87L9.9,2.1 0,12l9.9,9.9 1.77,-1.77L3.54,12z"/>
++<vector android:height="24dp" android:tint="@color/colorPrimary"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M20,11H7.83l5.59,-5.59L12,4l-8,8 8,8 1.41,-1.41L7.83,13H20v-2z"/>
+ </vector>
+Index: app/src/main/res/drawable/shape_circle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/shape_circle.xml	(date 1603893054464)
++++ app/src/main/res/drawable/shape_circle.xml	(date 1603893054464)
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="oval">
++
++    <solid
++        android:color="@color/colorPrimary"/>
++<stroke android:width="1dp" android:color="@android:color/white"/>
++
++    <size
++        android:width="120dp"
++        android:height="120dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\r\n\r\nandroid {\r\n    compileSdkVersion 29\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    defaultConfig {\r\n        applicationId \"com.example.medappdriver\"\r\n        minSdkVersion 16\r\n        targetSdkVersion 29\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n}\r\n\r\ndependencies {\r\n    implementation fileTree(dir: \"libs\", include: [\"*.jar\"])\r\n    implementation 'androidx.appcompat:appcompat:1.2.0'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'\r\n    implementation 'com.google.android.gms:play-services-maps:17.0.0'\r\n//    implementation files('libs/ion-2. .6.jar')\r\n    testImplementation 'junit:junit:4.12'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.2'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'\r\n    implementation 'com.google.code.gson:gson:2.8.6'\r\n\r\n    implementation 'com.google.android.material:material:1.2.1'\r\n    implementation 'de.hdodenhof:circleimageview:3.1.0'\r\n    implementation 'com.github.GoodieBag:Pinview:v1.4'\r\n    implementation 'com.github.GrenderG:Toasty:1.4.2'\r\n    implementation 'com.android.volley:volley:1.1.1'\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/build.gradle	(date 1603893054920)
+@@ -7,7 +7,7 @@
+         targetCompatibility JavaVersion.VERSION_1_8
+     }
+     defaultConfig {
+-        applicationId "com.example.medappdriver"
++        applicationId "com.magsood.medappuser"
+         minSdkVersion 16
+         targetSdkVersion 29
+         versionCode 1
+Index: app/src/main/res/drawable/shape_back_circle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/shape_back_circle.xml	(date 1603893054461)
++++ app/src/main/res/drawable/shape_back_circle.xml	(date 1603893054461)
+@@ -0,0 +1,13 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:shape="oval">
++
++    <solid
++        android:color="@android:color/white"/>
++
++    <size
++        android:width="120dp"
++        android:height="120dp"/>
++
++</shape>
+\ No newline at end of file
+Index: app/src/main/java/com/magsood/medappuser/Adapter/AdapterMyOrder.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.magsood.medappuser.Adapter;\r\n\r\n\r\nimport android.app.Activity;\r\nimport android.content.Intent;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.TextView;\r\n\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.widget.AppCompatButton;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\n\r\nimport com.magsood.medappuser.Model.ModelMyOrder;\r\nimport com.magsood.medappuser.R;\r\n\r\nimport java.util.ArrayList;\r\n\r\n\r\npublic class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.ViewHolder> {\r\n\r\n    ArrayList<ModelMyOrder> newsPaperArrayList;\r\n    private LayoutInflater mInflater;\r\n    private ItemClickListener mClickListener;\r\n    private Activity activity;\r\n    public AdapterMyOrder(Activity activity, ArrayList<ModelMyOrder> newsPaperArrayList) {\r\n        this.mInflater = LayoutInflater.from(activity);\r\n        this.newsPaperArrayList = newsPaperArrayList;\r\n        this.activity = activity;\r\n    }\r\n\r\n\r\n    @Override\r\n    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {\r\n        View view = mInflater.inflate(R.layout.my_order_item, parent, false);\r\n        return new ViewHolder(view);\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onBindViewHolder(final ViewHolder holder, int position) {\r\n        final ModelMyOrder item = newsPaperArrayList.get(position);\r\n\r\n//\r\n\r\n\r\n//        holder.layDeliev.setOnClickListener(new View.OnClickListener() {\r\n//            @Override\r\n//            public void onClick(View view) {\r\n//                showDialog();\r\n//            }\r\n//        });\r\n\r\n\r\n    }\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return newsPaperArrayList.size();\r\n    }\r\n\r\n    // allows clicks events to be caught\r\n    public void setClickListener(ItemClickListener itemClickListener) {\r\n        this.mClickListener = itemClickListener;\r\n    }\r\n\r\n\r\n    // parent activity will implement this method to respond to click events\r\n    public interface ItemClickListener {\r\n        void onItemClick(View view, int position);\r\n    }\r\n\r\n    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {\r\n        LinearLayout container,layDeliev;\r\n        AppCompatButton buttonSubscription;\r\n        TextView txtDetails,textView_type,textView_release_type,textView_release_time;\r\n        ImageView imageView;\r\n\r\n\r\n        ViewHolder(View itemView) {\r\n            super(itemView);\r\n\r\n\r\n//            imageView = itemView.findViewById(R.id.img);\r\n//            container = itemView.findViewById(R.id.container);\r\n//            buttonSubscription = itemView.findViewById(R.id.btn_sub);\r\n//            layDeliev = itemView.findViewById(R.id.layDeliev);\r\n\r\n//            textView_type = itemView.findViewById(R.id.news_item_type);\r\n//            textView_release_type = itemView.findViewById(R.id.news_item_release_type);\r\n//            textView_release_time = itemView.findViewById(R.id.news_item_release_time);\r\n\r\n            itemView.setOnClickListener(this);\r\n        }\r\n\r\n        @Override\r\n        public void onClick(View view) {\r\n            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());\r\n        }\r\n    }\r\n\r\n    private void showDialog(){\r\n        LayoutInflater factory = LayoutInflater.from(activity);\r\n        final View deleteDialogView = factory.inflate(R.layout.dialog_deliev, null);\r\n        final AlertDialog deleteDialog = new AlertDialog.Builder(activity).create();\r\n        deleteDialog.setView(deleteDialogView);\r\n        deleteDialogView.findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                //your business logic\r\n                deleteDialog.dismiss();\r\n            }\r\n        });\r\n\r\n\r\n        deleteDialog.show();\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/magsood/medappuser/Adapter/AdapterMyOrder.java	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/java/com/magsood/medappuser/Adapter/AdapterMyOrder.java	(date 1603893054397)
+@@ -10,11 +10,11 @@
+ import android.widget.LinearLayout;
+ import android.widget.TextView;
+ 
++
+ import androidx.appcompat.app.AlertDialog;
+ import androidx.appcompat.widget.AppCompatButton;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+-
+ import com.magsood.medappuser.Model.ModelMyOrder;
+ import com.magsood.medappuser.R;
+ 
+@@ -23,6 +23,7 @@
+ 
+ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.ViewHolder> {
+ 
++
+     ArrayList<ModelMyOrder> newsPaperArrayList;
+     private LayoutInflater mInflater;
+     private ItemClickListener mClickListener;
+Index: app/src/main/java/com/magsood/medappuser/Adapter/AdapterCart.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.magsood.medappuser.Adapter;\r\n\r\n\r\nimport android.app.Activity;\r\nimport android.content.Intent;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.ImageView;\r\nimport android.widget.LinearLayout;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.widget.AppCompatButton;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport com.magsood.medappuser.Activity.MapsActivity;\r\nimport com.magsood.medappuser.Model.ModelCart;\r\nimport com.magsood.medappuser.Model.ModelSearch;\r\nimport com.magsood.medappuser.R;\r\nimport com.magsood.medappuser.Utils.SqlLiteDataBase;\r\n\r\nimport java.util.ArrayList;\r\n\r\n\r\npublic class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {\r\n\r\n    ArrayList<ModelCart> arrayList;\r\n    private LayoutInflater mInflater;\r\n    private ItemClickListener mClickListener;\r\n    private Activity activity;\r\n    public AdapterCart(Activity activity, ArrayList<ModelCart> arrayList) {\r\n        this.mInflater = LayoutInflater.from(activity);\r\n        this.arrayList = arrayList;\r\n        this.activity = activity;\r\n    }\r\n\r\n\r\n    @Override\r\n    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {\r\n        View view = mInflater.inflate(R.layout.cart_items, parent, false);\r\n        return new ViewHolder(view);\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onBindViewHolder(final ViewHolder holder, final int position) {\r\n        final ModelCart item = arrayList.get(position);\r\n\r\n        holder.textViewName.setText(item.getName());\r\n        holder.textViewPrice.setText(item.getPrice());\r\n        holder.textViewPhName.setText(item.getPharmacyName());\r\n        holder.textViewAddress.setText(item.getPharmacyAddress());\r\n        holder.textViewDel.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                if (delFromCart(item.getId())){\r\n                    Toast.makeText(activity, \"تم الحذف\", Toast.LENGTH_SHORT).show();\r\n                    arrayList.remove(position);\r\n                    notifyItemRemoved(position);\r\n                    notifyItemRangeChanged(position, arrayList.size());\r\n                }else{\r\n                    Toast.makeText(activity, \"حدث خطأ حاول مرة اخرى\", Toast.LENGTH_SHORT).show();\r\n                }\r\n            }\r\n        });\r\n\r\n\r\n        holder.txtShowMap.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View view) {\r\n                activity.startActivity(new Intent(activity, MapsActivity.class));\r\n            }\r\n        });\r\n\r\n\r\n    }\r\n\r\n\r\n    @Override\r\n    public int getItemCount() {\r\n        return arrayList.size();\r\n    }\r\n\r\n    // allows clicks events to be caught\r\n    public void setClickListener(ItemClickListener itemClickListener) {\r\n        this.mClickListener = itemClickListener;\r\n    }\r\n\r\n\r\n    // parent activity will implement this method to respond to click events\r\n    public interface ItemClickListener {\r\n        void onItemClick(View view, int position);\r\n    }\r\n\r\n    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {\r\n        LinearLayout container,layDeliev;\r\n        AppCompatButton buttonSubscription;\r\n        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel,txtShowMap;\r\n        ImageView imageView;\r\n\r\n\r\n        ViewHolder(View itemView) {\r\n            super(itemView);\r\n\r\n\r\n            textViewName = itemView.findViewById(R.id.med_name);\r\n            textViewPrice = itemView.findViewById(R.id.price);\r\n            textViewPhName = itemView.findViewById(R.id.ph_name);\r\n            textViewAddress = itemView.findViewById(R.id.address);\r\n            textViewDel = itemView.findViewById(R.id.del);\r\n\r\n            txtShowMap = itemView.findViewById(R.id.txtShowMap);\r\n//            textView_release_type = itemView.findViewById(R.id.news_item_release_type);\r\n\r\n\r\n            itemView.setOnClickListener(this);\r\n        }\r\n\r\n        @Override\r\n        public void onClick(View view) {\r\n            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());\r\n        }\r\n    }\r\n\r\n    private void showDialog(){\r\n        LayoutInflater factory = LayoutInflater.from(activity);\r\n        final View deleteDialogView = factory.inflate(R.layout.dialog_deliev, null);\r\n        final AlertDialog deleteDialog = new AlertDialog.Builder(activity).create();\r\n        deleteDialog.setView(deleteDialogView);\r\n        deleteDialogView.findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                //your business logic\r\n                deleteDialog.dismiss();\r\n            }\r\n        });\r\n\r\n\r\n        deleteDialog.show();\r\n    }\r\n\r\n    private boolean delFromCart(String id){\r\n        return new SqlLiteDataBase(activity).deleteRowFromCart(id);\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/magsood/medappuser/Adapter/AdapterCart.java	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/java/com/magsood/medappuser/Adapter/AdapterCart.java	(date 1603893054392)
+@@ -95,9 +95,9 @@
+     }
+ 
+     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+-        LinearLayout container,layDeliev;
++        LinearLayout textViewDel,txtShowMap;
+         AppCompatButton buttonSubscription;
+-        TextView textViewName,textViewPrice,textViewPhName,textViewAddress,textViewDel,txtShowMap;
++        TextView textViewName,textViewPrice,textViewPhName,textViewAddress;
+         ImageView imageView;
+ 
+ 
+@@ -112,8 +112,6 @@
+             textViewDel = itemView.findViewById(R.id.del);
+ 
+             txtShowMap = itemView.findViewById(R.id.txtShowMap);
+-//            textView_release_type = itemView.findViewById(R.id.news_item_release_type);
+-
+ 
+             itemView.setOnClickListener(this);
+         }
+@@ -137,7 +135,6 @@
+             }
+         });
+ 
+-
+         deleteDialog.show();
+     }
+ 
+Index: app/src/main/res/drawable/ic_place_808080.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><vector android:height=\"24dp\" android:tint=\"#808080\"\r\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\r\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M12,2C8.13,2 5,5.13 5,9c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.87 -3.13,-7 -7,-7zM12,11.5c-1.38,0 -2.5,-1.12 -2.5,-2.5s1.12,-2.5 2.5,-2.5 2.5,1.12 2.5,2.5 -1.12,2.5 -2.5,2.5z\"/>\r\n</vector>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_place_808080.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/drawable/ic_place_808080.xml	(date 1603893054436)
+@@ -1,4 +1,4 @@
+-<vector android:height="24dp" android:tint="#808080"
++<vector android:height="24dp" android:tint="#fff"
+     android:viewportHeight="24" android:viewportWidth="24"
+     android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+     <path android:fillColor="@android:color/white" android:pathData="M12,2C8.13,2 5,5.13 5,9c0,5.25 7,13 7,13s7,-7.75 7,-13c0,-3.87 -3.13,-7 -7,-7zM12,11.5c-1.38,0 -2.5,-1.12 -2.5,-2.5s1.12,-2.5 2.5,-2.5 2.5,1.12 2.5,2.5 -1.12,2.5 -2.5,2.5z"/>
+Index: app/src/main/java/com/magsood/medappuser/Service/RequestService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/magsood/medappuser/Service/RequestService.java	(date 1603920920496)
++++ app/src/main/java/com/magsood/medappuser/Service/RequestService.java	(date 1603920920496)
+@@ -0,0 +1,4 @@
++package com.magsood.medappuser.Service;
++
++public class RequestService {
++}
+Index: app/src/main/java/com/magsood/medappuser/Activity/CartItems.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.magsood.medappuser.Activity;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.recyclerview.widget.RecyclerView;\r\n\r\nimport android.os.Bundle;\r\nimport android.widget.Toast;\r\n\r\nimport com.magsood.medappuser.Adapter.AdapterCart;\r\nimport com.magsood.medappuser.Model.ModelCart;\r\nimport com.magsood.medappuser.R;\r\nimport com.magsood.medappuser.Utils.SqlLiteDataBase;\r\nimport com.magsood.medappuser.Utils.ToolbarClass;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class CartItems extends ToolbarClass {\r\n    RecyclerView recyclerView;\r\n    AdapterCart adapterCart;\r\n    ArrayList<ModelCart> arrayList;\r\n\r\n    protected final void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        super.onCreate(R.layout.activity_cart_items, \"سلة طلبيات الادوية\");\r\n        init();\r\n    }\r\n\r\n    private void init() {\r\n        recyclerView = findViewById(R.id.recycler);\r\n        arrayList = new SqlLiteDataBase(this).GetAllCarts();\r\n        if (arrayList.size()>0){\r\n            adapterCart = new AdapterCart(this,arrayList);\r\n            recyclerView.setAdapter(adapterCart);\r\n        }\r\n        else {\r\n            Toast.makeText(this, \"لاتوجد عناصر\", Toast.LENGTH_SHORT).show();\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/magsood/medappuser/Activity/CartItems.java	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/java/com/magsood/medappuser/Activity/CartItems.java	(date 1603893054389)
+@@ -1,11 +1,14 @@
+ package com.magsood.medappuser.Activity;
+ 
++import androidx.annotation.Nullable;
+ import androidx.appcompat.app.AppCompatActivity;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
+ import android.os.Bundle;
++import android.os.PersistableBundle;
+ import android.widget.Toast;
+ 
++import com.google.android.gms.maps.SupportMapFragment;
+ import com.magsood.medappuser.Adapter.AdapterCart;
+ import com.magsood.medappuser.Model.ModelCart;
+ import com.magsood.medappuser.R;
+@@ -14,15 +17,19 @@
+ 
+ import java.util.ArrayList;
+ 
+-public class CartItems extends ToolbarClass {
++public class CartItems extends AppCompatActivity {
+     RecyclerView recyclerView;
+     AdapterCart adapterCart;
+     ArrayList<ModelCart> arrayList;
+ 
+-    protected final void onCreate(Bundle savedInstanceState) {
++
++
++    @Override
++    protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+-        super.onCreate(R.layout.activity_cart_items, "سلة طلبيات الادوية");
++        setContentView(R.layout.activity_cart_items);
+         init();
++
+     }
+ 
+     private void init() {
+Index: app/src/main/res/drawable/ic_close.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><vector android:height=\"24dp\" android:tint=\"#F50F46\"\r\n    android:viewportHeight=\"24\" android:viewportWidth=\"24\"\r\n    android:width=\"24dp\" xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n    <path android:fillColor=\"@android:color/white\" android:pathData=\"M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12z\"/>\r\n</vector>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_close.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/drawable/ic_close.xml	(date 1603893054432)
+@@ -1,4 +1,4 @@
+-<vector android:height="24dp" android:tint="#F50F46"
++<vector android:height="24dp" android:tint="@color/colorPrimary"
+     android:viewportHeight="24" android:viewportWidth="24"
+     android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+     <path android:fillColor="@android:color/white" android:pathData="M19,6.41L17.59,5 12,10.59 6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 12,13.41 17.59,19 19,17.59 13.41,12z"/>
+Index: app/src/main/res/layout/cart_items.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.cardview.widget.CardView xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"200dp\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layoutDirection=\"rtl\"\r\n    android:layout_margin=\"@dimen/margin_small_size\"\r\n    android:padding=\"@dimen/margin_small_size\"\r\n    app:cardCornerRadius=\"@dimen/margin_normal_size\">\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\">\r\n        <LinearLayout\r\n            android:id=\"@+id/btnLay\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"40dp\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            android:weightSum=\"1\"\r\n            android:orientation=\"horizontal\">\r\n            <LinearLayout\r\n                android:gravity=\"center_vertical\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"0.5\"\r\n                android:orientation=\"horizontal\">\r\n                <ImageView\r\n                    android:layout_width=\"20dp\"\r\n                    android:layout_height=\"20dp\"\r\n                    android:src=\"@drawable/ic_place_808080\"/>\r\n                <TextView\r\n                    android:id=\"@+id/txtShowMap\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:textStyle=\"bold\"\r\n                    android:textColor=\"@color/colorAccent\"\r\n                    android:textSize=\"@dimen/txt_small_size\"\r\n                    android:text=\"عرض في الخريطة\"\r\n                    android:gravity=\"center_vertical\"\r\n                    android:layout_marginRight=\"@dimen/margin_normal_size\"\r\n                    android:layout_marginLeft=\"@dimen/margin_normal_size\"/>\r\n\r\n            </LinearLayout>\r\n            <LinearLayout\r\n                android:gravity=\"left\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:layout_weight=\"0.5\"\r\n                android:orientation=\"horizontal\">\r\n                <ImageView\r\n                    android:layout_gravity=\"center_vertical\"\r\n                    android:layout_width=\"20dp\"\r\n                    android:layout_height=\"20dp\"\r\n                    android:src=\"@drawable/ic_delete\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/del\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_gravity=\"center_vertical\"\r\n                    android:layout_marginLeft=\"@dimen/margin_normal_size\"\r\n                    android:layout_marginRight=\"@dimen/margin_normal_size\"\r\n                    android:gravity=\"center_vertical\"\r\n                    android:text=\"حذف\"\r\n                    android:textColor=\"@color/colorAccent\"\r\n                    android:textSize=\"@dimen/txt_small_size\"\r\n                    android:textStyle=\"bold\" />\r\n\r\n            </LinearLayout>\r\n        </LinearLayout>\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            android:orientation=\"vertical\"\r\n            android:layout_above=\"@+id/btnLay\">\r\n            <RelativeLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\">\r\n                <TextView\r\n                    android:id=\"@+id/price\"\r\n                    android:layout_margin=\"@dimen/margin_small_size\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"20 ج س\"\r\n                    android:textStyle=\"bold\"\r\n                    android:textSize=\"@dimen/txt_large_size\"\r\n                    android:textColor=\"@color/colorAccent\"\r\n                    android:layout_alignParentLeft=\"true\"/>\r\n                <TextView\r\n                    android:id=\"@+id/med_name\"\r\n                    android:layout_margin=\"@dimen/margin_small_size\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"اسم الدواء\"\r\n                    android:textStyle=\"bold\"\r\n                    android:textSize=\"@dimen/txt_large_size\"\r\n                    android:textColor=\"@color/colorPrimary\"/>\r\n            </RelativeLayout>\r\n\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"horizontal\">\r\n                <TextView\r\n                    android:layout_margin=\"@dimen/margin_small_size\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"الصيدلية\"\r\n                    android:textStyle=\"bold\"\r\n                    android:textSize=\"@dimen/txt_normal_size\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/ph_name\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_margin=\"@dimen/margin_small_size\"\r\n                    android:text=\"صيدلية المك\"\r\n                    android:textSize=\"@dimen/txt_normal_size\" />\r\n            </LinearLayout>\r\n            <LinearLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"horizontal\">\r\n                <TextView\r\n                    android:layout_margin=\"@dimen/margin_small_size\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"الموقع\"\r\n                    android:textStyle=\"bold\"\r\n                    android:textSize=\"@dimen/txt_normal_size\"/>\r\n\r\n                <TextView\r\n                    android:id=\"@+id/address\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_margin=\"@dimen/margin_small_size\"\r\n                    android:text=\"الخرطوم شارع الستين محطة الفردوس\"\r\n                    android:textSize=\"@dimen/txt_normal_size\" />\r\n            </LinearLayout>\r\n\r\n        </LinearLayout>\r\n    </RelativeLayout>\r\n</androidx.cardview.widget.CardView>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/cart_items.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/layout/cart_items.xml	(date 1603893054503)
+@@ -1,142 +1,164 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
++<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+-    android:layout_height="200dp"
++    android:layout_height="wrap_content"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layoutDirection="rtl"
+     android:layout_margin="@dimen/margin_small_size"
+     android:padding="@dimen/margin_small_size"
+     app:cardCornerRadius="@dimen/margin_normal_size">
++
++
+     <RelativeLayout
++        android:id="@+id/c1"
+         android:layout_width="match_parent"
+-        android:layout_height="match_parent">
+-        <LinearLayout
+-            android:id="@+id/btnLay"
+-            android:layout_width="match_parent"
+-            android:layout_height="40dp"
+-            android:layout_alignParentBottom="true"
+-            android:weightSum="1"
+-            android:orientation="horizontal">
+-            <LinearLayout
+-                android:gravity="center_vertical"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.5"
+-                android:orientation="horizontal">
+-                <ImageView
+-                    android:layout_width="20dp"
+-                    android:layout_height="20dp"
+-                    android:src="@drawable/ic_place_808080"/>
+-                <TextView
+-                    android:id="@+id/txtShowMap"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="match_parent"
+-                    android:textStyle="bold"
+-                    android:textColor="@color/colorAccent"
+-                    android:textSize="@dimen/txt_small_size"
+-                    android:text="عرض في الخريطة"
+-                    android:gravity="center_vertical"
+-                    android:layout_marginRight="@dimen/margin_normal_size"
+-                    android:layout_marginLeft="@dimen/margin_normal_size"/>
++        android:layout_height="130dp">
++        <androidx.cardview.widget.CardView
++            app:cardBackgroundColor="@color/colorPrimary"
++            android:layout_margin="15dp"
++            app:cardCornerRadius="@dimen/margin_normal_size"
++            android:layout_width="match_parent"
++            android:layout_height="match_parent">
++            <RelativeLayout
++                android:layout_below="@+id/c1"
++                android:layout_width="match_parent"
++                android:layout_height="match_parent">
++                <LinearLayout
++                    android:id="@+id/btnLay"
++                    android:layout_width="match_parent"
++                    android:layout_height="30dp"
++                    android:layout_alignParentBottom="true"
++                    android:weightSum="1"
++                    android:orientation="horizontal">
++                    <LinearLayout
++                        android:id="@+id/txtShowMap"
++                        android:layout_margin="1dp"
++                        android:background="@drawable/bg_search_map_white"
++                        android:gravity="center_vertical"
++                        android:layout_width="70dp"
++                        android:layout_height="match_parent"
++                        android:orientation="horizontal">
++                        <ImageView
++                            android:layout_marginRight="@dimen/margin_small_size"
++                            android:layout_marginLeft="@dimen/margin_small_size"
++                            android:layout_width="12dp"
++                            android:layout_height="12dp"
++                            android:src="@drawable/ic_place_primary_color"/>
++                        <TextView
++                            android:id="@+id/txtAddToCart"
++                            android:layout_width="wrap_content"
++                            android:layout_height="match_parent"
++                            android:textColor="@color/colorPrimary"
++                            android:textSize="@dimen/txt_small_size"
++                            android:text="عرض"
++                            android:gravity="center_vertical"
++                            android:layout_marginRight="@dimen/margin_small_size"
++                            android:layout_marginLeft="@dimen/margin_small_size"/>
+ 
+-            </LinearLayout>
+-            <LinearLayout
+-                android:gravity="left"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:layout_weight="0.5"
+-                android:orientation="horizontal">
+-                <ImageView
+-                    android:layout_gravity="center_vertical"
+-                    android:layout_width="20dp"
+-                    android:layout_height="20dp"
+-                    android:src="@drawable/ic_delete"/>
+-
+-                <TextView
+-                    android:id="@+id/del"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="match_parent"
+-                    android:layout_gravity="center_vertical"
+-                    android:layout_marginLeft="@dimen/margin_normal_size"
+-                    android:layout_marginRight="@dimen/margin_normal_size"
+-                    android:gravity="center_vertical"
+-                    android:text="حذف"
+-                    android:textColor="@color/colorAccent"
+-                    android:textSize="@dimen/txt_small_size"
+-                    android:textStyle="bold" />
++                    </LinearLayout>
++                    <LinearLayout
++                        android:layout_width="match_parent"
++                        android:layout_height="match_parent"
++                        android:orientation="horizontal">
++                        <TextView
++                            android:id="@+id/address"
++                            android:layout_gravity="center_vertical"
++                            android:layout_width="wrap_content"
++                            android:layout_height="match_parent"
++                            android:textStyle="bold"
++                            android:textColor="@android:color/white"
++                            android:textSize="@dimen/txt_small_size"
++                            android:text="الخرطوم - شارع الستين - محطة الفردوس"
++                            android:gravity="center_vertical"
++                            android:layout_marginRight="@dimen/margin_normal_size"
++                            android:layout_marginLeft="@dimen/margin_normal_size"
++                            android:maxLines="1"
++                            android:ellipsize="end"
++                            />
+ 
+-            </LinearLayout>
+-        </LinearLayout>
+-        <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="match_parent"
+-            android:orientation="vertical"
+-            android:layout_above="@+id/btnLay">
+-            <RelativeLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content">
+-                <TextView
+-                    android:id="@+id/price"
+-                    android:layout_margin="@dimen/margin_small_size"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="20 ج س"
+-                    android:textStyle="bold"
+-                    android:textSize="@dimen/txt_large_size"
+-                    android:textColor="@color/colorAccent"
+-                    android:layout_alignParentLeft="true"/>
+-                <TextView
+-                    android:id="@+id/med_name"
+-                    android:layout_margin="@dimen/margin_small_size"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="اسم الدواء"
+-                    android:textStyle="bold"
+-                    android:textSize="@dimen/txt_large_size"
+-                    android:textColor="@color/colorPrimary"/>
+-            </RelativeLayout>
++                    </LinearLayout>
++                </LinearLayout>
++                <LinearLayout
++                    android:layout_width="match_parent"
++                    android:layout_height="match_parent"
++                    android:orientation="vertical"
++                    android:layout_above="@+id/btnLay">
++                    <RelativeLayout
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content">
++                        <LinearLayout
++                            android:layout_alignParentLeft="true"
++                            android:layout_margin="1dp"
++                            android:background="@drawable/bg_search_map_white"
++                            android:gravity="center_vertical"
++                            android:layout_width="70dp"
++                            android:layout_height="30dp"
++                            android:orientation="horizontal">
++
++                            <TextView
++                                android:id="@+id/price"
++                                android:layout_width="match_parent"
++                                android:layout_height="match_parent"
++                                android:textColor="@color/colorPrimary"
++                                android:textSize="@dimen/txt_small_size"
++                                android:text="250 ج س"
++                                android:gravity="center"
++                                android:layout_marginRight="@dimen/margin_small_size"
++                                android:layout_marginLeft="@dimen/margin_small_size"/>
++
++                        </LinearLayout>
++
++                        <TextView
++                            android:id="@+id/med_name"
++                            android:layout_marginTop="@dimen/margin_normal_size"
++                            android:layout_marginLeft="20dp"
++                            android:layout_marginRight="20dp"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:text="انسولين"
++                            android:textStyle="bold"
++                            android:textSize="18sp"
++                            android:textColor="@android:color/white"/>
++                    </RelativeLayout>
+ 
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-                <TextView
+-                    android:layout_margin="@dimen/margin_small_size"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="الصيدلية"
+-                    android:textStyle="bold"
+-                    android:textSize="@dimen/txt_normal_size"/>
+-
+-                <TextView
+-                    android:id="@+id/ph_name"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_margin="@dimen/margin_small_size"
+-                    android:text="صيدلية المك"
+-                    android:textSize="@dimen/txt_normal_size" />
+-            </LinearLayout>
+-            <LinearLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="wrap_content"
+-                android:orientation="horizontal">
+-                <TextView
+-                    android:layout_margin="@dimen/margin_small_size"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="الموقع"
+-                    android:textStyle="bold"
+-                    android:textSize="@dimen/txt_normal_size"/>
++                    <LinearLayout
++                        android:layout_marginLeft="15dp"
++                        android:layout_marginRight="15dp"
++                        android:layout_width="match_parent"
++                        android:layout_height="wrap_content"
++                        android:orientation="horizontal">
++                        <TextView
++                            android:id="@+id/ph_name"
++                            android:textColor="@android:color/white"
++                            android:layout_margin="@dimen/margin_small_size"
++                            android:layout_width="wrap_content"
++                            android:layout_height="wrap_content"
++                            android:text="صيدلية يقين"
++                            android:textStyle="bold"
++                            android:textSize="@dimen/txt_normal_size"
++                            android:maxLines="1"
++                            android:ellipsize="end"
++                            />
+ 
+-                <TextView
+-                    android:id="@+id/address"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:layout_margin="@dimen/margin_small_size"
+-                    android:text="الخرطوم شارع الستين محطة الفردوس"
+-                    android:textSize="@dimen/txt_normal_size" />
+-            </LinearLayout>
++                    </LinearLayout>
+ 
+-        </LinearLayout>
++                </LinearLayout>
++            </RelativeLayout>
++        </androidx.cardview.widget.CardView>
+     </RelativeLayout>
+-</androidx.cardview.widget.CardView>
+\ No newline at end of file
++    <LinearLayout
++        android:id="@+id/del"
++        android:layout_alignParentRight="true"
++        android:layout_width="30dp"
++        android:layout_height="30dp"
++        android:gravity="center"
++        android:background="@drawable/shape_circle_rounded">
++        <ImageView
++            android:layout_width="20dp"
++            android:layout_height="20dp"
++            android:src="@drawable/ic_close"
++            />
++    </LinearLayout>
++
++
++</RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/btn_bg_green.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<shape\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:shape=\"rectangle\">\r\n\r\n    <solid\r\n        android:color=\"@color/cardColor\"/>\r\n\r\n\r\n    <corners android:radius=\"25dp\"/>\r\n\r\n</shape>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/btn_bg_green.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/drawable/btn_bg_green.xml	(date 1603893054406)
+@@ -6,7 +6,6 @@
+     <solid
+         android:color="@color/cardColor"/>
+ 
+-
+     <corners android:radius="25dp"/>
+ 
+ </shape>
+\ No newline at end of file
+Index: app/src/main/res/layout/nav_drawer.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<LinearLayout android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layoutDirection=\"rtl\">\r\n\r\n<androidx.drawerlayout.widget.DrawerLayout\r\nandroid:layout_width=\"match_parent\"\r\nandroid:layout_height=\"match_parent\"\r\nxmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\nxmlns:tools=\"http://schemas.android.com/tools\"\r\nandroid:fitsSystemWindows=\"false\"\r\nandroid:id=\"@+id/n_drawer\"\r\ntools:openDrawer=\"start\">\r\n\r\n<include layout=\"@layout/activity_main\"/>\r\n\r\n<com.google.android.material.navigation.NavigationView\r\n    android:background=\"@drawable/nav_bg\"\r\n    android:layout_width=\"wrap_content\"\r\n    android:layout_height=\"match_parent\"\r\n    android:layout_gravity=\"start\"\r\n    android:id=\"@+id/n_view\"\r\n    app:headerLayout=\"@layout/n_header\"\r\n    app:menu=\"@menu/nav_menu\"\r\n    app:itemTextColor=\"@android:color/white\"\r\n    />\r\n\r\n</androidx.drawerlayout.widget.DrawerLayout>\r\n\r\n</LinearLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/nav_drawer.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/layout/nav_drawer.xml	(date 1603893054524)
+@@ -16,14 +16,13 @@
+ <include layout="@layout/activity_main"/>
+ 
+ <com.google.android.material.navigation.NavigationView
+-    android:background="@drawable/nav_bg"
+     android:layout_width="wrap_content"
+     android:layout_height="match_parent"
+     android:layout_gravity="start"
+     android:id="@+id/n_view"
+     app:headerLayout="@layout/n_header"
+     app:menu="@menu/nav_menu"
+-    app:itemTextColor="@android:color/white"
++    app:itemTextColor="@color/colorPrimary"
+     />
+ 
+ </androidx.drawerlayout.widget.DrawerLayout>
+Index: app/src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".Activity.MainActivity\"\r\n    android:layoutDirection=\"rtl\">\r\n\r\n    <androidx.appcompat.widget.Toolbar\r\n        android:id=\"@+id/public_toolbar\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"?attr/actionBarSize\"\r\n        android:background=\"@color/colorPrimary\"\r\n        app:layout_collapseMode=\"pin\"\r\n        app:popupTheme=\"@style/ThemeOverlay.AppCompat.Light\"\r\n        app:theme=\"@style/ThemeOverlay.AppCompat.Dark.ActionBar\"\r\n\r\n        app:title=\"برنامج الكابتن\"\r\n        app:titleTextColor=\"@android:color/white\" />\r\n\r\n\r\n    <RelativeLayout\r\n        android:background=\"@color/backgroundColor\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        android:layout_below=\"@+id/public_toolbar\">\r\n        <fragment\r\n            android:id=\"@+id/map\"\r\n            android:name=\"com.google.android.gms.maps.SupportMapFragment\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"match_parent\"\r\n            tools:context=\".Activity.MapsActivity\" />\r\n        <androidx.cardview.widget.CardView\r\n            android:id=\"@+id/cardSearch\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            app:cardCornerRadius=\"5dp\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"50dp\"\r\n            android:layout_margin=\"@dimen/margin_large_size\">\r\n            <RelativeLayout\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"match_parent\">\r\n                <ImageView\r\n                    android:src=\"@drawable/ic_search\"\r\n                    android:id=\"@+id/ic_search\"\r\n                    android:layout_centerVertical=\"true\"\r\n                    android:layout_width=\"25dp\"\r\n                    android:layout_height=\"25dp\"\r\n                    android:layout_alignParentLeft=\"true\"\r\n                    android:layout_margin=\"@dimen/margin_small_size\"/>\r\n                <TextView\r\n                    android:clickable=\"false\"\r\n                    android:gravity=\"center_vertical\"\r\n                    android:layout_width=\"match_parent\"\r\n                    android:layout_height=\"match_parent\"\r\n                    android:layout_toRightOf=\"@+id/ic_search\"\r\n                    android:text=\"ابحث عن دواء\"\r\n                    android:background=\"@android:color/transparent\"\r\n                    android:paddingRight=\"@dimen/margin_small_size\"\r\n                    android:paddingLeft=\"@dimen/margin_small_size\"\r\n                    />\r\n            </RelativeLayout>\r\n        </androidx.cardview.widget.CardView>\r\n\r\n    </RelativeLayout>\r\n\r\n\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_main.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/layout/activity_main.xml	(date 1603893054499)
+@@ -25,44 +25,88 @@
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_below="@+id/public_toolbar">
++        
++
++        
+         <fragment
+             android:id="@+id/map"
+             android:name="com.google.android.gms.maps.SupportMapFragment"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".Activity.MapsActivity" />
+-        <androidx.cardview.widget.CardView
+-            android:id="@+id/cardSearch"
+-            android:layout_alignParentBottom="true"
+-            app:cardCornerRadius="5dp"
+-            android:layout_width="match_parent"
+-            android:layout_height="50dp"
+-            android:layout_margin="@dimen/margin_large_size">
+-            <RelativeLayout
+-                android:layout_width="match_parent"
+-                android:layout_height="match_parent">
+-                <ImageView
+-                    android:src="@drawable/ic_search"
+-                    android:id="@+id/ic_search"
+-                    android:layout_centerVertical="true"
+-                    android:layout_width="25dp"
+-                    android:layout_height="25dp"
+-                    android:layout_alignParentLeft="true"
+-                    android:layout_margin="@dimen/margin_small_size"/>
+-                <TextView
+-                    android:clickable="false"
+-                    android:gravity="center_vertical"
+-                    android:layout_width="match_parent"
+-                    android:layout_height="match_parent"
+-                    android:layout_toRightOf="@+id/ic_search"
+-                    android:text="ابحث عن دواء"
+-                    android:background="@android:color/transparent"
+-                    android:paddingRight="@dimen/margin_small_size"
+-                    android:paddingLeft="@dimen/margin_small_size"
+-                    />
+-            </RelativeLayout>
+-        </androidx.cardview.widget.CardView>
++
++
++
++        <RelativeLayout
++            android:layout_width="match_parent"
++            android:layout_height="250dp"
++            android:background="@drawable/bg_new_reg_top">
++            <LinearLayout
++                android:layout_margin="@dimen/margin_large_size"
++                android:layout_width="match_parent"
++                android:layout_height="match_parent"
++                android:orientation="vertical">
++            <LinearLayout
++                android:layout_margin="@dimen/margin_normal_size"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:orientation="horizontal">
++                <TextView
++                    android:textColor="#FFFFFF"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="صباح الخير ،"
++                    android:textSize="15sp"/>
++                <TextView
++                    android:textColor="#FFFFFF"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="محمد"
++                    android:textSize="15sp"
++                    android:textStyle="bold"/>
++            </LinearLayout>
++                <TextView
++                    android:layout_marginLeft="@dimen/margin_normal_size"
++                    android:layout_marginRight="@dimen/margin_normal_size"
++                    android:textColor="#FFFFFF"
++                    android:layout_width="wrap_content"
++                    android:layout_height="wrap_content"
++                    android:text="يمكنك البحث عن دوائك الان!"
++                    android:textSize="28sp"
++                    android:textStyle="bold"/>
++                <androidx.cardview.widget.CardView
++                    android:id="@+id/cardSearch"
++                    app:cardCornerRadius="7dp"
++                    android:layout_width="match_parent"
++                    android:layout_height="44dp"
++                    android:layout_margin="@dimen/margin_normal_size">
++                    <RelativeLayout
++                        android:layout_width="match_parent"
++                        android:layout_height="match_parent">
++                        <ImageView
++                            android:src="@drawable/ic_search"
++                            android:id="@+id/ic_search"
++                            android:layout_centerVertical="true"
++                            android:layout_width="25dp"
++                            android:layout_height="25dp"
++                            android:layout_alignParentLeft="true"
++                            android:layout_margin="@dimen/margin_small_size"/>
++                        <TextView
++                            android:clickable="false"
++                            android:gravity="center_vertical"
++                            android:layout_width="match_parent"
++                            android:layout_height="match_parent"
++                            android:layout_toRightOf="@+id/ic_search"
++                            android:text="ابحث عن دواء"
++                            android:background="@android:color/transparent"
++                            android:paddingRight="@dimen/margin_small_size"
++                            android:paddingLeft="@dimen/margin_small_size"
++                            />
++                    </RelativeLayout>
++                </androidx.cardview.widget.CardView>
+ 
++            </LinearLayout>
++        </RelativeLayout>
+     </RelativeLayout>
+ 
+ 
+Index: app/src/main/res/layout/activity_cart_items.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"@color/backgroundColor\"\r\n    android:layoutDirection=\"rtl\"\r\n    android:id=\"@+id/container\">\r\n\r\n    <include layout=\"@layout/public_toolbar\"\r\n        android:id=\"@+id/toolbar\"/>\r\n\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:layout_below=\"@+id/toolbar\"\r\n        android:id=\"@+id/recycler\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layoutManager=\"androidx.recyclerview.widget.GridLayoutManager\"\r\n        app:layout_behavior=\"@string/appbar_scrolling_view_behavior\"\r\n        tools:listitem=\"@layout/cart_items\"\r\n        android:layout_above=\"@+id/btn\"\r\n        />\r\n\r\n\r\n    <androidx.appcompat.widget.AppCompatButton\r\n        android:id=\"@+id/btn\"\r\n        android:layout_marginTop=\"@dimen/margin_normal_size\"\r\n        android:textColor=\"@android:color/white\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"50dp\"\r\n        android:text=\"ارسال الطلب\"\r\n        android:textSize=\"@dimen/txt_large_size\"\r\n        android:background=\"@drawable/btn_bg_blue_2radius\"\r\n        android:layout_centerHorizontal=\"true\"\r\n        android:layout_alignParentBottom=\"true\"/>\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_cart_items.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/layout/activity_cart_items.xml	(date 1603893054480)
+@@ -4,15 +4,95 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@color/backgroundColor"
+     android:layoutDirection="rtl"
+     android:id="@+id/container">
+ 
+-    <include layout="@layout/public_toolbar"
+-        android:id="@+id/toolbar"/>
++
++    <RelativeLayout
++        android:background="@color/colorPrimary"
++        android:id="@+id/r1"
++        android:layout_width="match_parent"
++        android:layout_height="45dp">
++        <LinearLayout
++            android:background="@drawable/shape_back_circle"
++            android:layout_marginLeft="@dimen/margin_small_size"
++            android:layout_marginRight="@dimen/margin_small_size"
++            android:layout_centerVertical="true"
++            android:layout_alignParentLeft="true"
++            android:layout_width="37dp"
++            android:layout_height="37dp"
++            android:orientation="horizontal"
++            android:gravity="center"
++            >
++            <ImageView
++                android:layout_width="25dp"
++                android:layout_height="25dp"
++                android:src="@drawable/ic_arrow_back"/>
++        </LinearLayout>
++        <LinearLayout
++            android:layout_marginLeft="@dimen/margin_small_size"
++            android:layout_marginRight="@dimen/margin_small_size"
++            android:layout_centerVertical="true"
++            android:layout_alignParentRight="true"
++            android:layout_width="37dp"
++            android:layout_height="37dp"
++            android:orientation="vertical"
++            android:gravity="center"
++            >
++            <View
++                android:layout_width="match_parent"
++                android:layout_height="1dp"
++                android:background="@android:color/white"
++                android:layout_marginRight="@dimen/margin_small_size"
++                android:layout_marginLeft="@dimen/margin_small_size"/>
++            <View
++                android:layout_marginTop="5dp"
++                android:layout_width="match_parent"
++                android:layout_height="1dp"
++                android:background="@android:color/white"
++                android:layout_marginRight="@dimen/margin_small_size"
++                android:layout_marginLeft="@dimen/margin_small_size"/>
++            <View
++                android:layout_gravity="right"
++                android:layout_marginTop="5dp"
++                android:layout_width="15dp"
++                android:layout_height="1dp"
++                android:background="@android:color/white"
++                android:layout_marginRight="@dimen/margin_small_size"
++                android:layout_marginLeft="@dimen/margin_small_size"/>
++        </LinearLayout>
++    </RelativeLayout>
++
++    <RelativeLayout
++        android:layout_width="match_parent"
++        android:layout_height="200dp"
++        android:id="@+id/r2"
++        android:layout_below="@+id/r1"
++        android:background="@drawable/bg_new_reg_top">
++        <LinearLayout
++            android:layout_centerVertical="true"
++            android:layout_centerHorizontal="true"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:orientation="vertical">
++            <TextView
++                android:textColor="@android:color/white"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="ســلة"
++                android:textSize="41sp"
++                android:textStyle="bold"/>
++            <TextView
++                android:textColor="@android:color/white"
++                android:layout_width="wrap_content"
++                android:layout_height="wrap_content"
++                android:text="طلبات الادوية"
++                android:textSize="40sp"/>
++        </LinearLayout>
++    </RelativeLayout>
+ 
+     <androidx.recyclerview.widget.RecyclerView
+-        android:layout_below="@+id/toolbar"
++        android:layout_below="@+id/r2"
+         android:id="@+id/recycler"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+@@ -24,6 +104,7 @@
+ 
+ 
+     <androidx.appcompat.widget.AppCompatButton
++        android:visibility="gone"
+         android:id="@+id/btn"
+         android:layout_marginTop="@dimen/margin_normal_size"
+         android:textColor="@android:color/white"
+Index: app/src/main/res/layout/n_header.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<RelativeLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    >\r\n\r\n    <LinearLayout\r\n        android:layout_marginTop=\"@dimen/margin_normal_size\"\r\n        android:id=\"@+id/n_header_con1\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:gravity=\"center\"\r\n        android:orientation=\"vertical\"\r\n        >\r\n        <LinearLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"150dp\"\r\n            android:orientation=\"vertical\"\r\n            android:gravity=\"center\">\r\n            <de.hdodenhof.circleimageview.CircleImageView\r\n                xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n                android:id=\"@+id/profile_image\"\r\n                android:layout_width=\"65dp\"\r\n                android:layout_height=\"65dp\"\r\n                app:civ_border_width=\"0dp\"\r\n                app:civ_border_color=\"#FF000000\"\r\n                android:scaleType=\"centerCrop\"\r\n                android:src=\"@drawable/ic_user\"/>\r\n\r\n            <TextView\r\n                android:layout_marginTop=\"@dimen/margin_normal_size\"\r\n                android:textSize=\"@dimen/txt_normal_size\"\r\n                android:id=\"@+id/name\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"اسم المستخدم\"\r\n                android:textColor=\"@android:color/white\"\r\n                />\r\n            <View\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"0.1dp\"\r\n                android:layout_marginTop=\"@dimen/margin_normal_size\"\r\n                android:background=\"#fff\"/>\r\n        </LinearLayout>\r\n\r\n        <LinearLayout\r\n            android:visibility=\"gone\"\r\n            android:weightSum=\"1\"\r\n            android:layout_marginTop=\"@dimen/margin_small_size\"\r\n            android:gravity=\"center\"\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"75dp\"\r\n            android:orientation=\"horizontal\"\r\n            android:background=\"@color/colorPrimaryDark\">\r\n            <LinearLayout\r\n                android:layout_weight=\"0.5\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:orientation=\"vertical\"\r\n                android:gravity=\"center\">\r\n                <TextView\r\n                    android:textSize=\"@dimen/txt_normal_size\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"الرصيد\"\r\n                    android:textColor=\"@android:color/white\"\r\n                    />\r\n                <TextView\r\n                    android:textSize=\"20sp\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"300 ج س\"\r\n                    android:textColor=\"#808080\"\r\n                    />\r\n            </LinearLayout>\r\n            <LinearLayout\r\n                android:layout_weight=\"0.5\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"match_parent\"\r\n                android:orientation=\"vertical\"\r\n                android:gravity=\"center\">\r\n                <TextView\r\n                    android:textSize=\"@dimen/txt_normal_size\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"رحلات اليوم\"\r\n                    android:textColor=\"@android:color/white\"\r\n                    />\r\n                <TextView\r\n                    android:textSize=\"20sp\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"7 رحلات\"\r\n                    android:textColor=\"@color/color80\"\r\n                    />\r\n            </LinearLayout>\r\n\r\n        </LinearLayout>\r\n    </LinearLayout>\r\n</RelativeLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/n_header.xml	(revision c0d0b90f35daac68ecc15f26024d5674b59d4ae7)
++++ app/src/main/res/layout/n_header.xml	(date 1603893054516)
+@@ -2,21 +2,25 @@
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
++    android:background="@color/colorPrimary"
+     >
+ 
+-    <LinearLayout
++    <RelativeLayout
+         android:layout_marginTop="@dimen/margin_normal_size"
+         android:id="@+id/n_header_con1"
+         android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:gravity="center"
++        android:layout_height="200dp"
+         android:orientation="vertical"
+         >
+         <LinearLayout
+-            android:layout_width="match_parent"
+-            android:layout_height="150dp"
++            android:layoutDirection="rtl"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
+             android:orientation="vertical"
+-            android:gravity="center">
++            android:layout_alignParentBottom="true"
++            android:layout_alignParentRight="true"
++            android:layout_margin="@dimen/margin_large_size"
++            >
+             <de.hdodenhof.circleimageview.CircleImageView
+                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                 android:id="@+id/profile_image"
+@@ -35,66 +39,9 @@
+                 android:layout_height="wrap_content"
+                 android:text="اسم المستخدم"
+                 android:textColor="@android:color/white"
++                android:textStyle="bold"
+                 />
+-            <View
+-                android:layout_width="match_parent"
+-                android:layout_height="0.1dp"
+-                android:layout_marginTop="@dimen/margin_normal_size"
+-                android:background="#fff"/>
+         </LinearLayout>
+ 
+-        <LinearLayout
+-            android:visibility="gone"
+-            android:weightSum="1"
+-            android:layout_marginTop="@dimen/margin_small_size"
+-            android:gravity="center"
+-            android:layout_width="match_parent"
+-            android:layout_height="75dp"
+-            android:orientation="horizontal"
+-            android:background="@color/colorPrimaryDark">
+-            <LinearLayout
+-                android:layout_weight="0.5"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:orientation="vertical"
+-                android:gravity="center">
+-                <TextView
+-                    android:textSize="@dimen/txt_normal_size"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="الرصيد"
+-                    android:textColor="@android:color/white"
+-                    />
+-                <TextView
+-                    android:textSize="20sp"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="300 ج س"
+-                    android:textColor="#808080"
+-                    />
+-            </LinearLayout>
+-            <LinearLayout
+-                android:layout_weight="0.5"
+-                android:layout_width="0dp"
+-                android:layout_height="match_parent"
+-                android:orientation="vertical"
+-                android:gravity="center">
+-                <TextView
+-                    android:textSize="@dimen/txt_normal_size"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="رحلات اليوم"
+-                    android:textColor="@android:color/white"
+-                    />
+-                <TextView
+-                    android:textSize="20sp"
+-                    android:layout_width="wrap_content"
+-                    android:layout_height="wrap_content"
+-                    android:text="7 رحلات"
+-                    android:textColor="@color/color80"
+-                    />
+-            </LinearLayout>
+-
+-        </LinearLayout>
+-    </LinearLayout>
++    </RelativeLayout>
+ </RelativeLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_add_48.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/ic_add_48.xml	(date 1603893054409)
++++ app/src/main/res/drawable/ic_add_48.xml	(date 1603893054409)
+@@ -0,0 +1,5 @@
++<vector android:height="48dp" android:tint="#FFFFFF"
++    android:viewportHeight="24" android:viewportWidth="24"
++    android:width="48dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
++</vector>
