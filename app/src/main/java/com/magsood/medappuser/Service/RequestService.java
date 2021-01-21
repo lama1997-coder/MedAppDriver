@@ -1,6 +1,7 @@
 package com.magsood.medappuser.Service;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.magsood.medappuser.Activity.CartItems;
 import com.magsood.medappuser.Activity.MainActivity;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
@@ -40,7 +42,7 @@ public class RequestService {
     String TAG = "RESPONSE";
     String message;
 
-    public void sendRequest(Activity activity,JSONObject jsonObject) {
+    public void sendRequest(Activity activity, JSONObject jsonObject, Dialog dialog) {
 
 
 
@@ -77,6 +79,10 @@ public class RequestService {
                                 Toast.makeText(activity,response.getString("message"),Toast.LENGTH_SHORT).show();
 
                                 activity.deleteDatabase("easylife.db");
+
+                               dialog.dismiss();
+                                Intent intent = new Intent(activity, CartItems.class);
+                                activity.startActivity(intent);
 
                             }
                             else if(response.getString("success").equals("false")){

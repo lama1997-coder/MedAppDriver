@@ -472,6 +472,7 @@ Log.e("logOut",userPreferences.getUserId());
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface d, int id) {
                             Intent intent = new Intent(activity,CartItems.class);
+                            intent.putExtra("changeLocation","change");
                             activity.startActivity(intent);
                             }
                         })

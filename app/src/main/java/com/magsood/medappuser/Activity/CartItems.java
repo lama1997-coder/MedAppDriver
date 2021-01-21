@@ -45,6 +45,7 @@ public class CartItems extends AppCompatActivity {
     ArrayList<ModelCart> arrayList;
     AppCompatButton sendOrder;
     Context context = this;
+    Dialog dialog ;
 
     UserPreferences userPreferences;
 
@@ -70,37 +71,43 @@ public class CartItems extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                final AlertDialog.Builder builder = new AlertDialog.Builder(CartItems.this);
-                final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
-                final String message = "المتابعه بالموقع الحالي؟";
+                if (getIntent().getStringExtra("changeLocation") == null) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(CartItems.this);
+                    final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
+                    final String message = "المتابعه بالموقع الحالي؟";
 //        builder.setIcon(R.drawable.ic_gps);
 
-                builder.setMessage(message)
-                        .setPositiveButton("متابعة",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface d, int id) {
+                    builder.setMessage(message)
+                            .setPositiveButton("متابعة",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface d, int id) {
 
 
-                                      lastDialog();
-                                    }
-                                })
-                        .setNegativeButton("تحديد على الخريطة",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface d, int id) {
+                                            lastDialog();
+                                        }
+                                    })
+                            .setNegativeButton("تحديد على الخريطة",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface d, int id) {
 
-                                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                        intent.putExtra("changeLocation","change");
-                                        startActivity(intent);
-
-
-                                    }
-                                });
-                builder.create().show();
+                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                            intent.putExtra("changeLocation", "change");
+                                            startActivity(intent);
 
 
+                                        }
+                                    });
+                    builder.create().show();
+
+
+                }
+                else {
+                    lastDialog();
+                }
             }
+
         });
+
 
     }
 
@@ -131,7 +138,12 @@ public void send(){
         Log.e("response",finalobject.toString());
 
         RequestService requestService = new RequestService();
-        requestService.sendRequest((Activity) context, finalobject);
+        requestService.sendRequest((Activity) context, finalobject,dialog);
+
+
+
+        Intent intent = new Intent(getApplicationContext(),CartItems.class);
+        startActivity(intent);
     } catch (JSONException e) {
         e.printStackTrace();
     }
@@ -139,7 +151,7 @@ public void send(){
     public void lastDialog(){
 
 
-        Dialog dialog = new Dialog(context);
+         dialog = new Dialog(context);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(R.layout.dialog_last);
