@@ -22,7 +22,7 @@
                 android:minHeight="61dp">
                 <TextView
                     android:id="@+id/order_num"
-                    android:layout_marginTop="@dimen/margin_normal_size"
+
                     android:background="@drawable/btn_bg_blue"
                     android:paddingRight="@dimen/margin_normal_size"
                     android:paddingLeft="@dimen/margin_normal_size"
@@ -30,7 +30,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="123456"
-                    android:layout_marginRight="@dimen/margin_normal_size"
                     android:layout_marginLeft="@dimen/margin_normal_size"
                     android:textColor="@android:color/white"/>
                 <TextView

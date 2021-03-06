@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.magsood.medappuser.Activity.CartItems;
 import com.magsood.medappuser.Activity.MainActivity;
+import com.magsood.medappuser.Activity.OnProgressRequest;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.SharedPrefrense.UserPreferences;
 
@@ -81,7 +83,7 @@ public class RequestService {
                                 activity.deleteDatabase("easylife.db");
 
                                dialog.dismiss();
-                                Intent intent = new Intent(activity, CartItems.class);
+                                Intent intent = new Intent(activity, OnProgressRequest.class);
                                 activity.startActivity(intent);
 
                             }
@@ -154,6 +156,11 @@ public class RequestService {
 
 
         };
+
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //
         VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
 

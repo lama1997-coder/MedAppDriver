@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.magsood.medappuser.Activity.CartItems;
 import com.magsood.medappuser.Activity.MapsActivity;
+import com.magsood.medappuser.Activity.TestMapActvity;
 import com.magsood.medappuser.Model.ModelCart;
 import com.magsood.medappuser.Model.ModelSearch;
 import com.magsood.medappuser.R;
@@ -72,13 +73,36 @@ public class AdapterCart extends RecyclerView.Adapter<AdapterCart.ViewHolder> {
         holder.txtShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, MapsActivity.class);
-                Log.e("responseAmount", String.valueOf(item.getAmount()));
+                Intent intent = new Intent(activity, TestMapActvity.class);
+//                Log.e("responseAmount", String.valueOf(item.getAmount()));
+//
+//                intent.putExtra("amount",item.getAmount());
+//                intent.putExtra("medicineID",item.getId());
+//                intent.putExtra("dropLng",item.getPharmacyLat());
+//                intent.putExtra("dropLat",item.getPharmacyLong());
 
-                intent.putExtra("amount",item.getAmount());
-                intent.putExtra("medicineID",item.getId());
-                intent.putExtra("dropLng",item.getPharmacyLat());
-                intent.putExtra("dropLat",item.getPharmacyLong());
+
+
+
+
+
+
+                intent.putExtra("medicineID",item.getMedicineID());
+                intent.putExtra("id",item.getId());
+                intent.putExtra("tradeName",item.getName());
+
+
+                intent.putExtra("location",item.getPharmacyAddress());
+
+                intent.putExtra("pharmacyName",item.getName());
+
+                intent.putExtra("pharmacyID",item.getPharmacyID());
+
+                intent.putExtra("price",item.getPrice());
+
+
+                intent.putExtra("dropLng",item.getPharmacyLong());
+                intent.putExtra("dropLat",item.getPharmacyLat());
 
                 activity.startActivity(intent);
             }

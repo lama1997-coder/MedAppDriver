@@ -13,6 +13,7 @@ import com.magsood.medappuser.Adapter.AdapterMyOrder;
 import com.magsood.medappuser.Model.ModelMyOrder;
 import com.magsood.medappuser.R;
 import com.magsood.medappuser.Service.PrevOrdersService;
+import com.magsood.medappuser.Service.ProcessReqService;
 import com.magsood.medappuser.Utils.ToolbarClass;
 
 import java.util.ArrayList;
@@ -49,8 +50,12 @@ public class MyOrder extends AppCompatActivity {
 //            arrayList.add(item);
 //        }
 
-        PrevOrdersService prevOrdersService = new PrevOrdersService();
-        prevOrdersService.pre_orders(this);
+//        PrevOrdersService prevOrdersService = new PrevOrdersService();
+//        prevOrdersService.pre_orders(this);
+
+
+        ProcessReqService prevOrdersService = new ProcessReqService();
+        prevOrdersService.progressOrder(this,"prev");
 //        adapterMyOrder = new AdapterMyOrder(this,arrayList);
 //        recycler.setAdapter(adapterMyOrder);
     }

@@ -45,8 +45,8 @@ public class AdapterProgressRequests  extends RecyclerView.Adapter<AdapterProgre
 
 //
 
-
-        holder.nameCaptin.setText(item.getName_of_captin());
+if(item.getName_of_captin()!=null){
+        holder.nameCaptin.setText(item.getName_of_captin());}
         holder.price.setText(item.getPrice());
         holder.order_number.setText(String.valueOf(item.getOrder_number()));
 

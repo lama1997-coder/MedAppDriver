@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
@@ -155,16 +156,13 @@ if (phoneNumber.length() != 10) {
                         String res = new String(response.data,
                                 HttpHeaderParser.parseCharset(response.headers, "utf-8"));
                         // Now you can use any deserializer to make sense of data
-                        JSONObject obj = new JSONObject(res);
-                        Log.e("responseError",obj.toString());
+//                        JSONObject obj = new JSONObject(res);
+//                        Log.e("responseError",obj.toString());
                         message = "كلمة السر او رقم الهاتف غير صحيحين";
                        // Toast.makeText(activity,"Phone number or password wrong",Toast.LENGTH_SHORT).show();
                     } catch (UnsupportedEncodingException e1) {
                         // Couldn't properly decode data to string
                         e1.printStackTrace();
-                    } catch (JSONException e2) {
-                        // returned data is not JSONObject?
-                        e2.printStackTrace();
                     }
                 }
                 if (error instanceof NetworkError) {
@@ -204,8 +202,11 @@ if (phoneNumber.length() != 10) {
                 }
                 Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
             }
-        }) {
 
+
+
+
+        }) {
 
 
 
@@ -219,6 +220,11 @@ if (phoneNumber.length() != 10) {
 
 
         };
+
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                60000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 //
         VolleySingleton.getInstance(activity).addToRequestQueue(jsonObjReq);
 

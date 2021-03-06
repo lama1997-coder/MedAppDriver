@@ -34,7 +34,7 @@ public class OnProgressRequest extends AppCompatActivity {
 
     private void init() {
         ProcessReqService prevOrdersService = new ProcessReqService();
-        prevOrdersService.progressOrder(this);
+        prevOrdersService.progressOrder(this,"process");
 
     }
 

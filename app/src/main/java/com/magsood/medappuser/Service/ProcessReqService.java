@@ -1,7 +1,6 @@
 package com.magsood.medappuser.Service;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,9 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.magsood.medappuser.Activity.Login;
 import com.magsood.medappuser.Adapter.AdapterProgressRequests;
-import com.magsood.medappuser.Adapter.AdapterSearchResult;
 import com.magsood.medappuser.Constants;
 import com.magsood.medappuser.Model.ModelProcessOrder;
 import com.magsood.medappuser.R;
@@ -51,7 +48,16 @@ public class ProcessReqService {
 
 
 
-    public void progressOrder(Activity activity) {
+    public void progressOrder(Activity activity, String key) {
+
+        String url = "";
+        if(key.equals("process")) {
+
+             url =Constants.PROCESS_ORDERS;
+        }
+        else if (key.equals("prev")){
+            url = Constants.PREV_ORDER;
+        }
 
 
 
@@ -60,7 +66,7 @@ public class ProcessReqService {
         recyclerView = activity.findViewById(R.id.progress_order);
 
 
-
+Log.d("url_send",url);
 
         final KProgressHUD progressDialog;// Validation
         progressDialog = KProgressHUD.create(activity)
@@ -72,7 +78,7 @@ public class ProcessReqService {
                 .show();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Constants.PREV_ORDERS+"?token="+userPreferences.getToken(), null,
+                url+"?token="+userPreferences.getToken(), null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -104,9 +110,13 @@ public class ProcessReqService {
 
                                     ModelProcessOrder modelProcess = new ModelProcessOrder();
                                     modelProcess.setId(data.getString("orderCollectionID"));
-
+                                    if(data.getString("captainName")!="null"){
                                     modelProcess.setName_of_captin(data.getString("captainName"));
-                                    modelProcess.setPhoneNumber(data.getString("captainPhone"));
+                                    modelProcess.setPhoneNumber(data.getString("captainPhone"));}
+
+
+                                    else
+                                        modelProcess.setName_of_captin("لم يتم قبول طلبك ");
                                     modelProcess.setOrder_number(key);
                                     modelProcess.setPrice(data.getString("medicineTotalPrice"));
 
@@ -220,6 +230,7 @@ public class ProcessReqService {
                 Map<String,String> params = new HashMap<String, String>();
                 // Removed this line if you dont need it or Use application/json
                 params.put("Content-Type", "application/json");
+                params.put("Authorization", "Bearer " + userPreferences.getToken());
                 return params;
             }
 

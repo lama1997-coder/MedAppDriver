@@ -194,12 +194,12 @@ Log.e("logOut",userPreferences.getUserId());
 //                drawerLayout.closeDrawer(GravityCompat.START);
 //                break;
 //            }
-//            case R.id.nav_menu_my_order: {
-////                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
-//                startActivity(new Intent(MainActivity.this,MyOrder.class));
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//                break;
-//            }
+            case R.id.nav_menu_my_order: {
+//                Toast.makeText(this, "محتاجه تحليل", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,MyOrder.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            }
             case R.id.nav_menu_logout:{
 
                 Logout logout = new Logout();
@@ -421,7 +421,7 @@ Log.e("logOut",userPreferences.getUserId());
         navigationView = (NavigationView) findViewById(R.id.n_view);
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_menu_setting).setVisible(false);
-//        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
+        nav_Menu.findItem(R.id.nav_menu_my_order).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_logout).setVisible(false);
 //        nav_Menu.findItem(R.id.nav_menu_sc4).setVisible(false);
         nav_Menu.findItem(R.id.nav_menu_sc5).setVisible(false);
